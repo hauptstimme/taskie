@@ -2,20 +2,33 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', github: 'rails/rails'
+gem 'devise'
+
+group :test do
+  gem 'capybara'
+  gem 'factory_girl_rails', require: false
+end
 
 group :test, :development do
+  gem 'rspec-rails'
   gem 'sqlite3'
+end
+
+group :development do
+  gem 'letter_opener'
 end
 
 group :production do
   gem 'pg'
 end
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 gem 'jquery-rails'
+gem 'haml-rails'
 gem 'turbolinks'
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 1.2'
