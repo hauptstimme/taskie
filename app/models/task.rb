@@ -3,4 +3,8 @@ class Task < ActiveRecord::Base
 
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }
+
+  def name_with_id
+    [ "##{id}", name ].compact.join(" ")
+  end
 end
