@@ -30,8 +30,23 @@
             %span.icon-bar
         .navbar-collapse.collapse#navbar-main
           %ul.nav.navbar-nav.navbar-right
-            %li= link_to "Login"
+            - if signed_in?
+              %li
+                = link_to tasks_path do
+                  %i.icon-suitcase
+                  Tasks
+              %li
+                = link_to destroy_user_session_path do
+                  %i.icon-signout
+                  Logout
+            - else
+              %li
+                = link_to new_user_session_path do
+                  %i.icon-signin
+                  Login
 
     .container#main-content
       = bootstrap_flash
       = yield
+
+    %footer

@@ -3,3 +3,12 @@
   =require cosmo.css
   =require twitter-bootstrap-static/fontawesome
 */
+
+#gravatar {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+textarea {
+  resize: vertical;
+}

@@ -29,6 +29,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'turbolinks'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'controller_scaffolder', github: 'lacrosse/controller_scaffolder'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 1.2'

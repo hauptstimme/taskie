@@ -1,6 +1,13 @@
 GIT
+  remote: git://github.com/lacrosse/controller_scaffolder.git
+  revision: 1b7e014852a8b7687ce8a74fd0253321308ccbac
+  specs:
+    controller_scaffolder (0.1.1)
+      rails (>= 4.0.0)
+
+GIT
   remote: git://github.com/rails/rails.git
-  revision: 78fcc5fd1aa5d32fcdf2336d7096249f19931341
+  revision: 7768c2a7f3142b422c90dfea451f74643994be52
   specs:
     actionmailer (4.1.0.beta)
       actionpack (= 4.1.0.beta)
@@ -32,6 +39,7 @@ GIT
       actionmailer (= 4.1.0.beta)
       actionpack (= 4.1.0.beta)
       actionview (= 4.1.0.beta)
+      activemodel (= 4.1.0.beta)
       activerecord (= 4.1.0.beta)
       activesupport (= 4.1.0.beta)
       bundler (>= 1.3.0, < 2.0)
@@ -75,7 +83,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    devise (3.1.0)
+    devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -177,6 +185,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   coffee-rails
+  controller_scaffolder!
   devise
   factory_girl_rails
   haml-rails
