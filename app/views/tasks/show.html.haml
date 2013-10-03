@@ -1,6 +1,9 @@
 %h2
   = @task.name_with_id
-  %small= @task.created_at.to_s(:long)
+  %small
+    = @task.created_at.to_s(:long)
+
+%p= status_label_for @task
 
 %p
   Assigned to:

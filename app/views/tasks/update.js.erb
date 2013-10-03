@@ -1,0 +1,5 @@
+$("#loader").css({"display": "none"});
+
+var row = $('form#edit_task_<%= @task.id %>').parents('tr');
+
+row.replaceWith('<%= escape_javascript render(partial: "task", locals: { task: @task }) %>')

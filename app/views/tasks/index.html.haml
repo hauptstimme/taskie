@@ -16,5 +16,6 @@
 
 :coffeescript
   $(document).ready ->
-    $("form").on "change", ->
+    $("table").on "change", "form", ->
+      $("#loader").show()
       $(this).submit()

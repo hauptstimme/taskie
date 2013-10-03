@@ -1,10 +1,9 @@
 %tr
   %td
-    = form_for task, html: { class: "form-inline" } do |f|
+    = form_for task, remote: true, html: { class: "form-inline" } do |f|
       .checkbox
-        = f.label :status do
-          = f.check_box :status
-          = status_label_for task
+        = f.check_box :status
+        = status_label_for task
   %td= link_to task.name_with_id, task
   %td
     - if task.assignee.present?
