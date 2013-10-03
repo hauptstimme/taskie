@@ -13,6 +13,6 @@ class Task < ActiveRecord::Base
   private
 
   def notify_assignee
-    TaskMailer.new_task(task).deliver
+    TaskMailer.new_task(self).deliver
   end
 end
