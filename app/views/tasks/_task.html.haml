@@ -1,4 +1,4 @@
-%tr
+= content_tag :tr, class: ("active" if current_user.id == task.assignee_id) do
   %td
     = form_for task, remote: true, html: { class: "form-inline" } do |f|
       .checkbox
