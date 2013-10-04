@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }
 
-  after_create :notify_assignee, if: ->{ assignee.present? }
+  after_save :notify_assignee, if: ->{ assignee_changed? }
 
   def name_with_id
     [ "##{id}", name ].compact.join(" ")
@@ -13,6 +13,6 @@ class Task < ActiveRecord::Base
   private
 
   def notify_assignee
-    TaskMailer.new_task(self).deliver
+    TaskMailer.task_assigned(self).deliver
   end
 end
