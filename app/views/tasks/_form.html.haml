@@ -1,4 +1,4 @@
-.col-sm-6
+.col-sm-5
   = form_for @task do |f|
     - unless @task.new_record?
       .form-group.checkbox
@@ -8,5 +8,5 @@
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
     .form-group
       = f.label :assignee_id, "Assign to"
-      = f.select :assignee_id, options_for_select(@users, @task.assignee_id), include_blank: true
-    .form-group= f.submit class: "btn btn-primary"
+      = f.select :assignee_id, options_for_select(@users, @task.assignee_id), {include_blank: true}, {class: "form-control"}
+    .form-group= f.submit class: "btn btn-primary btn-block"
