@@ -4,7 +4,7 @@ class Task < ActiveRecord::Base
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }
 
-  after_save :notify_assignee, if: ->{ assignee_id_changed? }
+  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
 
   def name_with_id
     [ "##{id}", name ].compact.join(" ")
