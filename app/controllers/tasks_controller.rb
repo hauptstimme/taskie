@@ -28,7 +28,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.referrer == tasks_url
+    case request.referrer
+    when tasks_url, task_url
+      @referrer = request.referrer
       @success = @task.update(task_params)
     else
       if @task.update(task_params)

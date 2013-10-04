@@ -12,3 +12,16 @@
 textarea {
   resize: vertical;
 }
+
+
+.status-toggle {
+  .checkbox {
+    input[type=checkbox] {
+      vertical-align: middle;
+      margin: 0;
+    }
+    .label {
+      margin-left: 3px;
+    }
+  }
+}

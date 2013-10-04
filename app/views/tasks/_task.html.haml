@@ -1,10 +1,6 @@
 = content_tag :tr, class: ("active" if current_user.id == task.assignee_id) do
-  %td
-    = form_for task, remote: true, html: { class: "form-inline" } do |f|
-      .checkbox
-        = f.check_box :status
-        = status_label_for task
-  %td= link_to task.name_with_id, task
+  %td= check_box_with_status_for task
+  %td= link_to task.name, task
   %td
     - if task.assignee.present?
       = gravatar_for(task.assignee) + task.assignee.email
