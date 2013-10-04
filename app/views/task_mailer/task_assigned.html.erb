@@ -1,0 +1,7 @@
+<p>Hi, <%= @task.assignee.email %>,</p>
+
+<p>This is to notify you that a task <%= link_to @task.name_with_id, task_url(@task) %> has been assigned to you.
+
+<p>Sincerely,</p>
+
+<p>Your Taskie</p>
