@@ -1,7 +1,9 @@
 Taskie::Application.routes.draw do
   devise_for :users
 
-  resources :tasks
+  resources :tasks do
+    resources :comments, only: [ :create ]
+  end
 
   get "/tasks" => "tasks#index", as: :user_root
 

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003062410) do
+ActiveRecord::Schema.define(version: 20131005045211) do
+
+  create_table "comments", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "task_dependencies", force: true do |t|
+    t.integer "dependent_id"
+    t.integer "dependency_id"
+  end
 
   create_table "tasks", force: true do |t|
     t.integer  "assignee_id"

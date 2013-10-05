@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
   belongs_to :assignee, class_name: "User"
+  has_many :comments, dependent: :destroy
 
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }

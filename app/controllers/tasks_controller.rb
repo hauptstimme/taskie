@@ -8,8 +8,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
-    @task.details = markdown.render(@task.details).html_safe
   end
 
   def new
