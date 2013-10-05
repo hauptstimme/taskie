@@ -4,15 +4,19 @@
  */
 
 footer {
-  border-top: 1px solid #ccc;
-  margin: 60px 0;
+  margin-top: 50px;
+  color: gray;
   .container {
     margin: 20px auto;
-  }
-  #links {
-    a {
-      color: black;
-      text-decoration: none;
+    vertical-align: middle;
+    #links {
+      a {
+        color: gray;
+        text-decoration: none;
+        &:hover {
+          color: black;
+        }
+      }
     }
   }
 }
