@@ -1,0 +1,42 @@
+<div class="pull-right">
+  <%= link_to "Edit", edit_task_path(@task), class: "btn btn-primary" %>
+  <%= link_to "Delete", task_path(@task), class: "btn btn-danger", data: { method: :delete, confirm: "Have you been taking your medication lately?" } %>
+</div>
+
+<h2><%= @task.name %> <small><%= @task.created_at.to_s(:long) %></small></h2>
+
+<p><%= check_box_with_status_for @task %></p>
+
+<p>Assigned to: <% if @task.assignee.present? %><%= gravatar_for(@task.assignee) %><%= @task.assignee.email %><% else %>nobody<% end %></p>
+
+<% if @task.details.present? %>
+  <div class="well">
+    <%= render_markdown(@task.details) %>
+  </div>
+<% end %>
+
+<hr/>
+
+<div class="col-sm-7">
+  <h3>Comments</h3>
+  <% if @task.comments.any? %>
+    <% @task.comments.each do |comment| %>
+      <blockquote class="comment">
+        <small>
+          <%= link_to "#", "#comment#{comment.id}", name: "comment#{comment.id}" %> <%= gravatar_for(comment.user) %><%= comment.user.email %> wrote <%= time_distance_with_tooltip comment.created_at %> ago
+          <% if comment.updated_at > comment.created_at %><em>(last edited <%= time_distance_with_tooltip(comment.updated_at) %> ago)</em><% end %>
+        </small>
+        <div><%= render_markdown(comment.text) %></div>
+      </blockquote>
+    <% end %>
+  <% end %>
+  <blockquote class="comment">
+    <%= form_for :comment, url: task_comments_path(@task) do |f| %>
+      <small><%= gravatar_for(current_user) %><%= current_user.email %></small>
+      <div class="form-group"><%= f.text_area :text, placeholder: "Comment", rows: 5, class: "form-control" %></div>
+      <div class="form-group"><%= f.submit "Post", class: "btn btn-primary" %></div>
+    <% end %>
+  </blockquote>
+</div>
+
+<%= javascript_include_tag "taskie.async.checkbox" %>
