@@ -1,6 +1,9 @@
 = content_tag :tr, class: ("active" if current_user.id == task.assignee_id) do
   %td= check_box_with_status_for task
-  %td= link_to task.name, task
+  %td
+    = link_to task.name, task
+    - if task.comments.size > 0
+      %span.badge= task.comments.size
   %td
     - if task.assignee.present?
       = gravatar_for(task.assignee) + task.assignee.email
