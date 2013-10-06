@@ -6,9 +6,9 @@ class CommentsController < ApplicationController
     @comment = @task.comments.new(comment_params.merge(user: current_user))
 
     if @comment.save
-      redirect_to @task, notice: 'Comment was successfully posted.'
+      redirect_to project_task_path(id: @task), notice: 'Comment was successfully posted.'
     else
-      redirect_to @task, alert: "Don't submit empty comments!"
+      redirect_to project_task_path(id: @task), alert: "Don't submit empty comments!"
     end
   end
 

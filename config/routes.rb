@@ -1,13 +1,13 @@
 Taskie::Application.routes.draw do
-  devise_for :users
-
-  resources :tasks do
+  concern :commentable do
     resources :comments, only: [ :create ]
   end
 
-  get "/tasks" => "tasks#index", as: :user_root
-
-  controller :static do
-    root to: :root
+  devise_for :users
+  resources :projects do
+    resources :tasks, concerns: :commentable
   end
+  get "/projects" => "projects#index", as: :user_root
+  get "/tasks" => redirect("/projects") # legacy
+  root to: "static#root"
 end

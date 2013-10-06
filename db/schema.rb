@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131005045211) do
+ActiveRecord::Schema.define(version: 20131006045537) do
 
   create_table "comments", force: true do |t|
     t.integer  "task_id"
     t.integer  "user_id"
     t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,6 +40,7 @@ ActiveRecord::Schema.define(version: 20131005045211) do
     t.boolean  "status",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
 
   create_table "users", force: true do |t|

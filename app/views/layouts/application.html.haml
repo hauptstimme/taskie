@@ -32,9 +32,9 @@
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               %li
-                = link_to tasks_path do
+                = link_to projects_path do
                   %i.icon-suitcase
-                  Tasks
+                  Projects
               %li
                 = link_to destroy_user_session_path do
                   %i.icon-signout

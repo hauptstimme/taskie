@@ -1,0 +1,22 @@
+%h2 Projects
+
+- if @projects.any?
+  - @projects.each do |project|
+    .col-sm-4
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title
+            = project.name
+            :erb
+              (<%= project.tasks.active.size %>/<%= project.tasks.size %>)
+        - if project.details.present?
+          .panel-body
+            = render_markdown(project.details)
+        .panel-footer
+          = link_to "Edit", edit_project_path(project)
+          |
+          = link_to "Go to tasklist", project_tasks_path(project)
+          / |
+          / = link_to "Delete", project_path(project), data: { method: :delete, confirm: t("confirm.prompt") }
+
+.col-sm-4= link_to "New project", new_project_path, class: "btn btn-primary"

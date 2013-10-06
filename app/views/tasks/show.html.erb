@@ -1,9 +1,9 @@
 <div class="pull-right">
-  <%= link_to "Edit", edit_task_path(@task), class: "btn btn-primary" %>
-  <%= link_to "Delete", task_path(@task), class: "btn btn-danger", data: { method: :delete, confirm: "Have you been taking your medication lately?" } %>
+  <%= link_to "Edit", edit_project_task_path(id: @task), class: "btn btn-primary" %>
+  <%= link_to "Delete", project_task_path(id: @task), class: "btn btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } %>
 </div>
 
-<h2><%= @task.name %> <small><%= @task.created_at.to_s(:long) %></small></h2>
+<h2><small><%= link_to @project.name, project_tasks_path(@project) %></small> <%= @task.name %> <small><%= @task.created_at.to_s(:long) %></small></h2>
 
 <p><%= check_box_with_status_for @task %></p>
 
@@ -31,7 +31,7 @@
     <% end %>
   <% end %>
   <blockquote class="comment">
-    <%= form_for :comment, url: task_comments_path(@task) do |f| %>
+    <%= form_for :comment, url: project_task_comments_path(task_id: @task) do |f| %>
       <small><%= gravatar_for(current_user) %><%= current_user.email %></small>
       <div class="form-group"><%= f.text_area :text, placeholder: "Comment", rows: 5, class: "form-control" %></div>
       <div class="form-group"><%= f.submit "Post", class: "btn btn-primary" %></div>
