@@ -23,7 +23,7 @@
         .navbar-header
           = link_to "/", class: "navbar-brand" do
             Taskie
-            %i.icon-spinner.icon-spin#loader{style: "display:none"}
+            %span#loader= image_tag "ajax-loader.gif"
           %button.navbar-toggle{type: "button", data: {toggle: "collapse", target: "#navbar-main"}}
             %span.icon-bar
             %span.icon-bar

@@ -3,6 +3,10 @@
  *= require_tree .
  */
 
+#loader {
+  display: none;
+}
+
 blockquote.comment {
   small {
     margin-bottom: 15px;
