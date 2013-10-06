@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Hauptstimme';
+  src:url('/fonts/Hauptstimme.eot');
+  src:url('/fonts/Hauptstimme.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Hauptstimme.woff') format('woff'),
+    url('/fonts/Hauptstimme.ttf') format('truetype'),
+    url('/fonts/Hauptstimme.svg#Hauptstimme') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*[data-icon]:before {
+  font-family: 'Hauptstimme';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}*/
+
+.hauptstimme-icon-main {
+  font-family: 'Hauptstimme';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hauptstimme-icon-main:before {
+  content: "\48";
+}
+
+.hauptstimme-large {
+  font-size: 1.38em;
+  margin-top: -4px;
+  padding-top: 3px;
+  margin-bottom: -4px;
+  padding-bottom: 3px;
+  vertical-align: middle;
+}

@@ -1,6 +1,7 @@
 /*
  *= require_self
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require font-hauptstimme
  */
 
 #loader {
@@ -24,6 +25,7 @@ footer {
     a {
       color: gray;
       text-decoration: none;
+      margin-left: 7px;
       &:hover { color: black; }
     }
   }
