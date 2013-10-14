@@ -3,14 +3,16 @@ class Task < ActiveRecord::Base
   belongs_to :project
   has_many :comments, dependent: :destroy
 
+  validates :name, presence: true
+
+  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
+
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }
   scope :without_project, -> { where "project_id = ?", nil }
 
-  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
-
   def name_with_id
-    [ "##{id}", name ].compact.join(" ")
+    [ "##{id}", name ].join(" ")
   end
 
   private

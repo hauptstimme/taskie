@@ -6,6 +6,13 @@ describe Task do
 
   it { should be_valid }
 
+  describe "validations" do
+    describe "without name" do
+      let(:task) { FactoryGirl.build(:task, name: "") }
+      it { should_not be_valid }
+    end
+  end
+
   describe "scopes" do
     subject { Task }
 

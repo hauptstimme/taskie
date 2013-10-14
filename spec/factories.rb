@@ -6,8 +6,13 @@ FactoryGirl.define do
 
   factory :task do
     association :assignee
+    association :project
     status false
     name "Do something"
     details "You better do something immediately or I will get unstable and want to drink again"
+  end
+
+  factory :project do
+    name "Project factory"
   end
 end

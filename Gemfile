@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.0' #github: 'rails/rails'
 gem 'devise'
 gem 'redcarpet'
+gem 'figaro'
 
 group :test do
   gem 'capybara'
