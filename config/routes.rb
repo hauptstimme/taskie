@@ -7,6 +7,7 @@ Taskie::Application.routes.draw do
   resources :projects do
     resources :tasks, concerns: :commentable
   end
+
   get "/projects" => "projects#index", as: :user_root
   get "/tasks" => redirect("/projects") # legacy
   root to: "static#root"

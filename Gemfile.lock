@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/lacrosse/controller_scaffolder.git
-  revision: 1b7e014852a8b7687ce8a74fd0253321308ccbac
-  specs:
-    controller_scaffolder (0.1.1)
-      rails (>= 4.0.0)
-
-GIT
   remote: git://github.com/rails/rails.git
   revision: 7768c2a7f3142b422c90dfea451f74643994be52
   specs:
@@ -186,7 +179,6 @@ PLATFORMS
 DEPENDENCIES
   capybara
   coffee-rails
-  controller_scaffolder!
   devise
   factory_girl_rails
   haml-rails
