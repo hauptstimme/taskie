@@ -9,6 +9,8 @@ class TasksController < ApplicationController
   end
 
   def show
+    @comments = @task.comments.includes(:user)
+    @comment = @comments.new
   end
 
   def new

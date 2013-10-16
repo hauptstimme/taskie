@@ -15,4 +15,10 @@ FactoryGirl.define do
   factory :project do
     name "Project factory"
   end
+
+  factory :comment do
+    association :task
+    association :user
+    text "This is my comment"
+  end
 end

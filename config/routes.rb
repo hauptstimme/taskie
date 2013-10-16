@@ -1,6 +1,6 @@
 Taskie::Application.routes.draw do
   concern :commentable do
-    resources :comments, only: [ :create ]
+    resources :comments, only: [ :show, :create, :edit, :update, :destroy ]
   end
 
   devise_for :users

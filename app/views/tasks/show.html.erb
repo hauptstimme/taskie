@@ -17,26 +17,13 @@
 
 <hr/>
 
-<div class="col-sm-7">
-  <h3>Comments</h3>
-  <% if @task.comments.any? %>
-    <% @task.comments.each do |comment| %>
-      <blockquote class="comment">
-        <small>
-          <%= link_to "#", "#comment#{comment.id}", name: "comment#{comment.id}" %> <%= gravatar_for(comment.user) %><%= comment.user.email %> wrote <%= time_distance_with_tooltip comment.created_at %> ago
-          <% if comment.updated_at > comment.created_at %><em>(last edited <%= time_distance_with_tooltip(comment.updated_at) %> ago)</em><% end %>
-        </small>
-        <div><%= render_markdown(comment.text) %></div>
-      </blockquote>
-    <% end %>
-  <% end %>
-  <blockquote class="comment">
-    <%= form_for :comment, url: project_task_comments_path(task_id: @task) do |f| %>
-      <small><%= gravatar_for(current_user) %><%= current_user.email %></small>
-      <div class="form-group"><%= f.text_area :text, placeholder: "Comment", rows: 5, class: "form-control" %></div>
-      <div class="form-group"><%= f.submit "Post", class: "btn btn-primary" %></div>
-    <% end %>
-  </blockquote>
-</div>
+<h3>Comments</h3>
+<% if @comments.any? %>
+  <%= render @comments %>
+<% end %>
+
+<hr/>
+
+<%= render "comments/form" %>
 
 <%= javascript_include_tag "taskie.async.checkbox" %>

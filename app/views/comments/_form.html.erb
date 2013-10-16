@@ -1,0 +1,7 @@
+<blockquote class="comment">
+  <%= form_for [@project, @task, @comment], remote: (@comment.new_record? ? false : true) do |f| %>
+    <small><%= gravatar_for(current_user) %><%= current_user.email %><% unless @comment.new_record? %> is editing his comment (<%= link_to "cancel", project_task_comment_path(@project, @task, @comment), remote: true %>)<% end %></small>
+    <div class="form-group"><%= f.text_area :text, placeholder: "Comment", rows: 5, class: "form-control" %></div>
+    <div class="form-group"><%= f.submit "Post", class: "btn btn-primary" %></div>
+  <% end %>
+</blockquote>
