@@ -30,3 +30,8 @@ footer {
     }
   }
 }
+
+.link-danger {
+  color: #ff0039;
+  &:hover { color: #d60030; }
+}

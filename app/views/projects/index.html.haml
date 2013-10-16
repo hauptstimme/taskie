@@ -13,8 +13,11 @@
           .panel-body
             = render_markdown(project.details)
         .panel-footer
-          = link_to "Edit", edit_project_path(project)
-          |
           = link_to "Go to tasklist", project_tasks_path(project)
+          |
+          = link_to "Edit", edit_project_path(project)
+          - unless project.tasks.any?
+            |
+            = link_to "Delete", project_path(project), data: { method: :delete, confirm: t("confirm.prompt") }, class: "link-danger"
 
 .col-sm-4= link_to "New project", new_project_path, class: "btn btn-primary"

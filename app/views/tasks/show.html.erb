@@ -18,9 +18,7 @@
 <hr/>
 
 <h3>Comments</h3>
-<% if @comments.any? %>
-  <%= render @comments %>
-<% end %>
+<%= render @comments if @comments.any? %>
 
 <hr/>
 
