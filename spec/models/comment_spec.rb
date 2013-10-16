@@ -14,7 +14,7 @@ describe Comment do
       it "doesn't change the comment" do
         expect {
           comment.update(text: "Updated text")
-        }.not_to change(comment.reload, :text)
+        }.not_to change{ Comment.find(comment.id).text }
       end
     end
 
@@ -23,7 +23,7 @@ describe Comment do
       it "changes the comment" do
         expect {
           comment.update(text: "Updated text")
-        }.to change(comment.reload, :text).to("Updated text")
+        }.to change{ Comment.find(comment.id).text }.to("Updated text")
       end
     end
   end
