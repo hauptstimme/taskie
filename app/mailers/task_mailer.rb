@@ -1,5 +1,5 @@
 class TaskMailer < ActionMailer::Base
-  default from: ENV["MAIL_USER"]
+  default from: ENV["MAIL_USER"] || "taskie@hauptstimme.tk"
 
   def task_assigned task
     raise if task.assignee_id.blank?

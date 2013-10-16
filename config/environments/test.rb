@@ -37,6 +37,4 @@ Taskie::Application.configure do
   config.action_mailer.default_url_options = {
     host: "test.host"
   }
-
-  ActionMailer::Base.default from: "taskie@hauptstimme.tk"
 end
