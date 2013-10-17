@@ -5,6 +5,7 @@ gem 'rails', '4.0.0' #github: 'rails/rails'
 gem 'devise'
 gem 'redcarpet'
 gem 'figaro'
+gem 'coveralls', require: false
 
 group :test do
   gem 'capybara'
