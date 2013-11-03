@@ -1,0 +1,8 @@
+.col-sm-offset-3.col-sm-6
+  %h3= t "devise.invitations.edit.header"
+  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put} do |f|
+    = devise_error_messages!
+    = f.hidden_field :invitation_token
+    .form-group= f.password_field :password, placeholder: "Password", class: "form-control"
+    .form-group= f.password_field :password_confirmation, placeholder: "Password confirmation", class: "form-control"
+    .form-group= f.submit t("devise.invitations.edit.submit_button"), class: "btn btn-primary btn-block"

@@ -1,0 +1,7 @@
+.col-sm-offset-3.col-sm-6
+  %h3= t "devise.invitations.new.header"
+  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+    = devise_error_messages!
+    - resource.class.invite_key_fields.each do |field|
+      .form-group= f.text_field field, placeholder: field.to_s.humanize, class: "form-control"
+    .form-group= f.submit t("devise.invitations.new.submit_button"), class: "btn btn-primary btn-block"
