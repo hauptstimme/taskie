@@ -6,7 +6,7 @@
       %span.badge= task.comments.size
   %td
     - if task.assignee.present?
-      = gravatar_for(task.assignee) + task.assignee.email
+      = render task.assignee
     - else
       nobody
   %td= task.created_at.to_s(:long)
