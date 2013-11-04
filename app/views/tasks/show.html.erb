@@ -7,7 +7,7 @@
 
 <p><%= check_box_with_status_for @task %></p>
 
-<p>Assigned to: <% if @task.assignee.present? %><%= gravatar_for(@task.assignee) %><%= @task.assignee.email %><% else %>nobody<% end %></p>
+<p>Assigned to: <% if @task.assignee.present? %><%= user_with_gravatar @task.assignee %><% else %>nobody<% end %></p>
 
 <% if @task.details.present? %>
   <div class="well">

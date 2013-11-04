@@ -8,4 +8,8 @@ module ApplicationHelper
       link_to image, "http://gravatar.com", target: "_blank"
     end
   end
+
+  def user_with_gravatar user
+    gravatar_for(user) + user.email
+  end
 end
