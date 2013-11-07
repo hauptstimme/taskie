@@ -32,6 +32,10 @@
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               %li
+                = link_to new_user_invitation_path do
+                  %i.icon-plus
+                  Invite
+              %li
                 = link_to projects_path do
                   %i.icon-suitcase
                   Projects
