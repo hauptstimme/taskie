@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
   private
 
   def set_users
-    @users = User.where("id != ?", current_user.id)
+    @users = User.where("id != ?", @project.owner_id)
   end
 
   def set_project
