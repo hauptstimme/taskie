@@ -2,7 +2,9 @@
   = form_for @project do |f|
     .form-group= f.text_field :name, class: "form-control", placeholder: "Name"
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
+    .form_group= f.label "Owner"
+    .form-group= user_with_gravatar @project.owner
     .form-group= f.label "Participants"
     = collection_check_boxes(:project, :user_ids, @users, :id, :email) do |b|
-      .form-group= b.check_box + render(b.object)
+      .form-group= b.check_box + user_with_gravatar(b.object)
     .form-group= f.submit class: "btn btn-primary btn-block"

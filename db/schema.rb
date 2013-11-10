@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103232533) do
+ActiveRecord::Schema.define(version: 20131110044918) do
 
   create_table "comments", force: true do |t|
     t.integer  "task_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20131103232533) do
     t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
   end
 
   create_table "projects_users", id: false, force: true do |t|

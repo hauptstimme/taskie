@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
 
   has_many :comments
   has_and_belongs_to_many :projects
+  has_many :owned_projects, class_name: "Project", foreign_key: :owner_id
 end

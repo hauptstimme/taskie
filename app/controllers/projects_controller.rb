@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_users, only: [:new, :edit]
 
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def show
@@ -12,14 +12,14 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = current_user.owned_projects.new
   end
 
   def edit
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.owned_projects.new(project_params)
 
     if @project.save
       redirect_to projects_path, notice: 'Project was successfully created.'
@@ -44,11 +44,11 @@ class ProjectsController < ApplicationController
   private
 
   def set_users
-    @users = User.all
+    @users = User.where("id != ?", current_user.id)
   end
 
   def set_project
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
   end
 
   def project_params

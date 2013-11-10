@@ -1,4 +1,6 @@
-%h2= @project.name
+%h2
+  = @project.name
+  %small= link_to "Edit", edit_project_path(@project)
 
 - if @tasks.any?
   %table.table

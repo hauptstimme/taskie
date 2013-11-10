@@ -10,9 +10,10 @@
             :erb
               (<%= project.tasks.active.size %>/<%= project.tasks.size %>)
         - if project.details.present?
-          .panel-body
-            = render_markdown(project.details)
+          .panel-body= render_markdown(project.details)
         .panel-footer
+          = user_with_gravatar(project.owner)
+          |
           = link_to "Go to tasklist", project_tasks_path(project)
           |
           = link_to "Edit", edit_project_path(project)
