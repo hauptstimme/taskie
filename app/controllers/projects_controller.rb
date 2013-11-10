@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: [:edit, :update, :destroy]
+  before_action :set_new_project, only: :new
   before_action :set_users, only: [:new, :edit]
 
   def index
@@ -12,7 +13,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = current_user.owned_projects.new
   end
 
   def edit
@@ -42,6 +42,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_new_project
+    @project = current_user.owned_projects.new
+  end
 
   def set_users
     @users = User.where("id != ?", @project.owner_id)
