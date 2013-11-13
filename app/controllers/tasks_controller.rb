@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_users, only: [ :new, :edit ]
-  before_action :set_task, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_users, only: [:new, :edit]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = @project.tasks
@@ -52,18 +52,18 @@ class TasksController < ApplicationController
   private
 
   def set_project
-    @project ||= Project.find(params[:project_id])
+    @project ||= current_user.projects.find(params[:project_id])
   end
 
   def set_task
     @task = @project.tasks.find(params[:id])
   end
 
-  def task_params
-    params.require(:task).permit([:assignee_id, :name, :details, :status])
+  def set_users
+    @users ||= @project.users.map{ |n| [n.email, n.id] }
   end
 
-  def set_users
-    @users ||= User.all.map{ |n| [ n.email, n.id ] }
+  def task_params
+    params.require(:task).permit(:assignee_id, :name, :details, :status)
   end
 end
