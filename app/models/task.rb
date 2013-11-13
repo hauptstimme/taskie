@@ -12,7 +12,7 @@ class Task < ActiveRecord::Base
   scope :without_project, -> { where "project_id = ?", nil }
 
   def name_with_id
-    [ "##{id}", name ].join(" ")
+    "##{id} #{name}"
   end
 
   private
