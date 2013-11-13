@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   before_action :set_users, only: [:new, :edit]
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.order(:created_at)
   end
 
   def show

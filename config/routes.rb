@@ -11,5 +11,5 @@ Taskie::Application.routes.draw do
 
   get "/projects" => "projects#index", as: :user_root
   get "/tasks" => redirect("/projects") # legacy
-  root to: "static#root"
+  root to: redirect("/projects")
 end
