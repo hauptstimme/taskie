@@ -7,6 +7,7 @@ gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro'
 gem 'coveralls', require: false
+gem 'kaminari'
 
 group :test do
   gem 'capybara'

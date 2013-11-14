@@ -3,3 +3,7 @@ en:
     prompt: Have you been taking your medication lately?
   access:
     denied: "I'm sorry, Dave. I'm afraid I can't do that."
+  views:
+    pagination:
+      previous: "&lt;"
+      next: "&gt;"

@@ -10,7 +10,9 @@
         %th Name
         %th Assigned to
         %th{style: "width: 200px;"} Created
-    %tbody= render @tasks.order("status ASC, created_at DESC")
+    %tbody= render @tasks
+
+= paginate @tasks
 
 %hr
 
