@@ -32,7 +32,6 @@ class TasksController < ApplicationController
 
   def update
     if request.patch?
-      @referrer = request.referrer
       @success = @task.update(task_params)
     else
       if @task.update(task_params)

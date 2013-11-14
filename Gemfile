@@ -12,6 +12,7 @@ gem 'kaminari'
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails', require: false
+  gem 'timecop'
 end
 
 group :test, :development do

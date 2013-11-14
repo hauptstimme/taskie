@@ -82,6 +82,19 @@ describe TasksController do
     end
   end
 
+  describe "PATCH update" do
+    it "updates the task" do
+      Task.any_instance.should_receive(:update).with({ "name" => "Test Task" })
+      patch :update, project_id: project.id, id: task.id, task: { "name" => "Test Task" }, format: :js
+    end
+
+    before(:each) { patch :update, project_id: project.id, id: task.id, task: { status: true }, format: :js }
+
+    it "assigns the referrer as @referrer" do
+      assigns(:success).should be_true
+    end
+  end
+
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested task" do

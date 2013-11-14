@@ -92,15 +92,32 @@ describe CommentsController do
   describe "DELETE destroy" do
     before(:each) { comment.save }
 
-    it "destroys the comment" do
-      expect {
+    describe "valid time" do
+      it "destroys the comment" do
+        expect {
+          delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
+        }.to change{ Comment.count }.by(-1)
+      end
+
+      it "redirects to the task" do
         delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-      }.to change{ Comment.count }.by(-1)
+        response.should redirect_to(project_task_path(project, task))
+      end
     end
 
-    it "redirects to the task" do
-      delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-      response.should redirect_to(project_task_path(project, task))
+    describe "invalid time" do
+      before { Timecop.travel(25.hours.from_now) }
+
+      it "doesn't destroy the comment" do
+        expect {
+          delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
+        }.not_to change{ Comment.count }
+      end
+
+      it "redirects to the task" do
+        delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
+        response.should redirect_to(project_task_path(project, task))
+      end
     end
   end
 end
