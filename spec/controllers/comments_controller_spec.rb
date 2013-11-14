@@ -1,88 +1,106 @@
 require 'spec_helper'
 
 describe CommentsController do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:project) { FactoryGirl.create(:project) }
+  let(:task) { FactoryGirl.create(:task, project: project) }
+  let(:comment) { FactoryGirl.create(:comment, task: task, user: user)}
+  let(:valid_attributes) { FactoryGirl.attributes_for(:comment) }
+  let(:valid_session) { {} }
 
-  # let(:valid_attributes) { {  } }
-  # let(:valid_session) { {} }
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in user
+  end
 
-  # describe "POST create" do
-  #   describe "with valid params" do
-  #     it "creates a new Comment" do
-  #       expect {
-  #         post :create, {:comment => valid_attributes}, valid_session
-  #       }.to change(Comment, :count).by(1)
-  #     end
+  describe "GET edit" do
+    it "renders the template" do
+      get :edit, project_id: project.id, task_id: task.id, id: comment.id, format: :js
+      response.should render_template("edit")
+    end
+  end
 
-  #     it "assigns a newly created comment as @comment" do
-  #       post :create, {:comment => valid_attributes}, valid_session
-  #       assigns(:comment).should be_a(Comment)
-  #       assigns(:comment).should be_persisted
-  #     end
-  #     it "redirects to the created comment" do
-  #       post :create, {:comment => valid_attributes}, valid_session
-  #       response.should redirect_to(Comment.last)
-  #     end
-  #   end
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new Comment" do
+        expect {
+          post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
+        }.to change(Comment, :count).by(1)
+      end
 
-  #   describe "with invalid params" do
-  #     it "assigns a newly created but unsaved comment as @comment" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Comment.any_instance.stub(:save).and_return(false)
-  #       post :create, {:comment => {  }}, valid_session
-  #       assigns(:comment).should be_a_new(Comment)
-  #     end
+      it "assigns a newly created comment as @comment" do
+        post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
+        assigns(:comment).should be_a(Comment)
+        assigns(:comment).should be_persisted
+      end
 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Comment.any_instance.stub(:save).and_return(false)
-  #       post :create, {:comment => {  }}, valid_session
-  #       response.should render_template("new")
-  #     end
-  #   end
-  # end
+      it "redirects to the task" do
+        post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
+        response.should redirect_to(project_task_path(project, task))
+      end
+    end
 
-  # describe "PUT update" do
-  #   describe "with valid params" do
-  #     it "updates the requested comment" do
-  #       comment = Comment.create! valid_attributes
-  #       # Assuming there are no other comments in the database, this
-  #       # specifies that the Comment created on the previous line
-  #       # receives the :update_attributes message with whatever params are
-  #       # submitted in the request.
-  #       Comment.any_instance.should_receive(:update).with({ "these" => "params" })
-  #       put :update, {:id => comment.to_param, :comment => { "these" => "params" }}, valid_session
-  #     end
+    describe "with invalid params" do
+      it "assigns a newly created but unsaved comment as @comment" do
+        Comment.any_instance.stub(:save).and_return(false)
+        post :create, comment: { text: "" }, project_id: project.id, task_id: task.id
+        assigns(:comment).should be_a_new(Comment)
+      end
 
-  #     it "assigns the requested comment as @comment" do
-  #       comment = Comment.create! valid_attributes
-  #       put :update, {:id => comment.to_param, :comment => valid_attributes}, valid_session
-  #       assigns(:comment).should eq(comment)
-  #     end
+      it "redirects to the task" do
+        Comment.any_instance.stub(:save).and_return(false)
+        post :create, comment: { text: "" }, project_id: project.id, task_id: task.id
+        response.should redirect_to(project_task_path(project, task))
+      end
+    end
+  end
 
-  #     it "redirects to the comment" do
-  #       comment = Comment.create! valid_attributes
-  #       put :update, {:id => comment.to_param, :comment => valid_attributes}, valid_session
-  #       response.should redirect_to(comment)
-  #     end
-  #   end
+  describe "PUT update" do
+    describe "with valid params" do
+      it "updates the requested comment" do
+        Comment.any_instance.should_receive(:update).with({ "text" => "updated text" })
+        put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
+      end
 
-  #   describe "with invalid params" do
-  #     it "assigns the comment as @comment" do
-  #       comment = Comment.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Comment.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => comment.to_param, :comment => {  }}, valid_session
-  #       assigns(:comment).should eq(comment)
-  #     end
+      before(:each) { put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js }
 
-  #     it "re-renders the 'edit' template" do
-  #       comment = Comment.create! valid_attributes
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Comment.any_instance.stub(:save).and_return(false)
-  #       put :update, {:id => comment.to_param, :comment => {  }}, valid_session
-  #       response.should render_template("edit")
-  #     end
-  #   end
-  # end
+      it "assigns the requested comment as @comment" do
+        assigns(:comment).should eq(comment)
+      end
 
+      it "is successful" do
+        response.should be_success
+      end
+    end
+
+    describe "with invalid params" do
+      before :each do
+        Comment.any_instance.stub(:save).and_return(false)
+        put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "" }, format: :js
+      end
+
+      it "assigns the comment as @comment" do
+        assigns(:comment).should eq(comment)
+      end
+
+      it "redirects to the task" do
+        response.should be_success
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    before(:each) { comment.save }
+
+    it "destroys the comment" do
+      expect {
+        delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
+      }.to change{ Comment.count }.by(-1)
+    end
+
+    it "redirects to the task" do
+      delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
+      response.should redirect_to(project_task_path(project, task))
+    end
+  end
 end

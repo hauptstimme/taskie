@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
   before_action :set_task
-  before_action :set_comment, only: [ :edit, :update, :destroy ]
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = @task.comments.new(comment_params.merge(user_id: current_user.id))
@@ -20,9 +20,7 @@ class CommentsController < ApplicationController
 
   def update
     @success = @comment.update(comment_params)
-    respond_to do |format|
-      format.js
-    end
+    respond_to { |format| format.js }
   end
 
   def destroy
