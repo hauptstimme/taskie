@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = @project.tasks.page(params[:page]).order("status ASC, created_at DESC").per(20)
+    @tasks = @project.tasks.includes(:comments).sorted.page(params[:page])
   end
 
   def show
@@ -31,8 +31,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    case request.referrer
-    when project_tasks_url, project_task_url
+    if request.patch?
       @referrer = request.referrer
       @success = @task.update(task_params)
     else

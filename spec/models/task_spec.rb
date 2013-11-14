@@ -23,6 +23,7 @@ describe Task do
   describe "scopes" do
     subject { Task }
 
+    it { should respond_to(:sorted) }
     it { should respond_to(:active) }
     it { should respond_to(:completed) }
     it { should respond_to(:without_project) }
