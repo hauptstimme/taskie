@@ -93,6 +93,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.3.0)
       addressable (~> 2.3)
     letter_opener (1.1.2)
@@ -198,6 +201,7 @@ DEPENDENCIES
   figaro
   haml-rails
   jquery-rails
+  kaminari
   letter_opener
   pg
   rails (= 4.0.1)
