@@ -1,5 +1,5 @@
 .col-sm-5
-  = form_for [@project, @task], method: :put do |f|
+  = form_for [@project, @task] do |f|
     - unless @task.new_record?
       .form-group.checkbox
         = f.label :status, "Completed?"

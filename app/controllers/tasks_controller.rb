@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.patch?
+    if request.patch? and request.referrer != edit_project_task_url
       @success = @task.update(task_params)
     else
       if @task.update(task_params)
