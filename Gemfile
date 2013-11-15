@@ -7,10 +7,10 @@ gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro'
 gem 'coveralls', require: false
-gem 'kaminari'
+gem 'active_model_serializers'
 
 group :test do
-  gem 'capybara'
+  # gem 'capybara'
   gem 'factory_girl_rails', require: false
   gem 'timecop'
 end
@@ -34,6 +34,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'turbolinks'
+gem 'kaminari'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
