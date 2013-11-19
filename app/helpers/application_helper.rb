@@ -10,6 +10,6 @@ module ApplicationHelper
   end
 
   def user_with_gravatar user
-    gravatar_for(user) + user.email
+    gravatar_for(user) + user.username
   end
 end

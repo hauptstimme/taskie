@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def set_users
-    @users ||= @project.users.map{ |n| [n.email, n.id] }
+    @users ||= @project.users.map{ |n| [n.username, n.id] }
   end
 
   def task_params
