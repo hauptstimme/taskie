@@ -10,9 +10,8 @@
 <p>Assigned to: <% if @task.assignee.present? %><%= user_with_gravatar @task.assignee %><% else %>nobody<% end %></p>
 
 <% if @task.details.present? %>
-  <div class="well">
-    <%= render_markdown(@task.details) %>
-  </div>
+  <hr/>
+  <%= render_markdown(@task.details) %>
 <% end %>
 
 <hr/>
