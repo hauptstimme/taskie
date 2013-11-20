@@ -1,9 +1,11 @@
 class Task < ActiveRecord::Base
   belongs_to :assignee, class_name: "User"
   belongs_to :project
+  belongs_to :creator, class_name: "User"
   has_many :comments, dependent: :destroy
 
   validates :name, presence: true
+  validates :creator, presence: true
 
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
 

@@ -18,6 +18,18 @@ describe Task do
       let(:task) { FactoryGirl.build(:task, name: "") }
       it { should_not be_valid }
     end
+
+    describe "creator" do
+      describe "without creator" do
+        let(:task) { FactoryGirl.build(:task, creator: nil) }
+        it { should_not be_valid }
+      end
+
+      describe "with creator" do
+        let(:task) { FactoryGirl.build(:task, creator: FactoryGirl.create(:user)) }
+        it { should be_valid }
+      end
+    end
   end
 
   describe "scopes" do

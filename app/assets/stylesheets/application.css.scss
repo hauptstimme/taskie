@@ -8,7 +8,7 @@
   display: none;
 }
 
-blockquote.comment {
+blockquote.comment, blockquote.task-details {
   small {
     margin-bottom: 15px;
   }

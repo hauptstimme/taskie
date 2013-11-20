@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_and_belongs_to_many :projects
   has_many :owned_projects, class_name: "Project", foreign_key: :owner_id
+  has_many :created_tasks, class_name: "Task", foreign_key: :creator_id
 
   validates :username,
     presence: true,
@@ -15,7 +16,6 @@ class User < ActiveRecord::Base
     uniqueness: {
       case_sensitive: false
     }
-
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
 
   class << self

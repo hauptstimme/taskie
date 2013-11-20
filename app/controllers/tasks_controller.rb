@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @project.tasks.new(task_params)
+    @task = @project.tasks.new(task_params.merge(creator: current_user))
 
     if @task.save
       redirect_to project_task_path(id: @task), notice: 'Task was successfully created.'

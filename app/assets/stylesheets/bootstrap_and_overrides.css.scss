@@ -48,3 +48,17 @@ table {
     color: white;
   }
 }
+
+.task-info {
+  .panel-heading {
+    h4 {
+      margin: 0;
+    }
+  }
+}
+
+blockquote {
+  &.blockquote-primary {
+    border-color: #007fff;
+  }
+}

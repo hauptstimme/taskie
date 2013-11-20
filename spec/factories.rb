@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user, aliases: [:assignee, :owner] do
+  factory :user, aliases: [:assignee, :owner, :creator] do
     sequence(:email) { |n| "user#{n}@maldoror.tk" }
     sequence(:username) { |n| "user#{n}" }
     password "password"
@@ -8,6 +8,7 @@ FactoryGirl.define do
   factory :task do
     association :assignee
     association :project
+    association :creator
     status false
     name "Do something"
     details "You better do something immediately or I will get unstable and want to drink again"
