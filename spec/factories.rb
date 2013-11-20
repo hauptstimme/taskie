@@ -23,4 +23,8 @@ FactoryGirl.define do
     association :user
     text "This is my comment"
   end
+
+  factory :settings do
+    time_zone "Novosibirsk"
+  end
 end

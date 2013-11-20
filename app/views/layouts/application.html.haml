@@ -30,17 +30,29 @@
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               %li
-                = link_to new_user_invitation_path do
-                  %i.icon-plus
-                  Invite
-              %li
                 = link_to projects_path do
                   %i.icon-suitcase
                   Projects
-              %li
-                = link_to destroy_user_session_path do
-                  %i.icon-signout
-                  Logout
+              %li.dropdown
+                = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
+                  %i.icon-user
+                  Account
+                  %i.icon-caret-down
+                %ul.dropdown-menu
+                  %li.dropdown-header= user_with_gravatar current_user
+                  %li.divider
+                  %li
+                    = link_to new_user_invitation_path do
+                      %i.icon-plus
+                      Invite
+                  %li
+                    = link_to settings_path do
+                      %i.icon-cog
+                      Settings
+                  %li
+                    = link_to destroy_user_session_path do
+                      %i.icon-signout
+                      Logout
             - else
               %li
                 = link_to new_user_session_path do

@@ -1,0 +1,11 @@
+%h2 Settings
+
+= form_for current_user, url: settings_path do |f|
+  %table.table.table-autowidth.table-vmiddle
+    %tbody
+      %tr
+        %th Time zone
+        %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
+
+      %tr
+        %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"

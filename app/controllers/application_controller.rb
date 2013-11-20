@@ -4,11 +4,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  around_filter :user_timezone, if: ->{ signed_in? && current_user.time_zone.present? }
 
   private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:accept_invitation) { |u| u.permit(:username, :password, :password_confirmation, :invitation_token) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :password, :remember_me) }
+  end
+
+  def user_timezone(&block)
+    Time.use_zone current_user.time_zone, &block
   end
 end

@@ -4,8 +4,8 @@
   =require twitter-bootstrap-static/fontawesome
 */
 
-#gravatar {
-  margin: 0 5px;
+.gravatar img {
+  margin-right: 5px;
   vertical-align: middle;
 }
 
@@ -23,5 +23,28 @@ input[type=checkbox] {
     .label {
       margin-left: 3px;
     }
+  }
+}
+
+.comment > small > .links {
+  margin-right: 5px;
+}
+
+table {
+  &.table {
+    &.table-vmiddle {
+      td, th {
+        vertical-align: middle;
+      }
+    }
+    &.table-autowidth {
+      width: auto;
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li .gravatar {
+    color: white;
   }
 }

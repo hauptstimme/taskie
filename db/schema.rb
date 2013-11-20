@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119113042) do
+ActiveRecord::Schema.define(version: 20131120190519) do
 
   create_table "comments", force: true do |t|
     t.integer  "task_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20131119113042) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "username"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

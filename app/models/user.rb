@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
       case_sensitive: false
     }
 
+  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
+
   class << self
     def find_first_by_auth_conditions(warden_conditions)
       conditions = warden_conditions.dup
