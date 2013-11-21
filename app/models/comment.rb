@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
+
   belongs_to :task
   belongs_to :user
 
