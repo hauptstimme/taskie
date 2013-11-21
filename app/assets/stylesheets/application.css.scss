@@ -14,6 +14,17 @@ blockquote.comment, blockquote.task-details {
   }
 }
 
+.comment {
+  > small > .links {
+    display: none;
+  }
+  &:hover {
+    > small > .links {
+      display: inline;
+    }
+  }
+}
+
 footer {
   color: gray;
   border-top: 1px solid #ccc;
@@ -34,4 +45,11 @@ footer {
 .link-danger {
   color: #ff0039;
   &:hover { color: #d60030; }
+}
+
+.diff-explain {
+  p { font-size: inherit !important; }
+  display: none;
+  margin-top: 15px;
+  margin-bottom: 0 !important;
 }

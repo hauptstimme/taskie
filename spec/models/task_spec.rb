@@ -35,8 +35,10 @@ describe Task do
   describe "scopes" do
     subject { Task }
 
+    it { should respond_to(:by_updated_at) }
+    it { should respond_to(:by_priority) }
+    it { should respond_to(:by_status) }
     it { should respond_to(:sorted) }
-    it { should respond_to(:sorted_by_priority) }
     it { should respond_to(:active) }
     it { should respond_to(:completed) }
     it { should respond_to(:without_project) }
