@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.referrer != edit_project_task_url
+    if request.patch? && request.referrer != edit_project_task_url
       if @task.update(task_params)
         @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
       end
