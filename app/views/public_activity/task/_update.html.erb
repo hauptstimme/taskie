@@ -1,13 +1,13 @@
 <blockquote class="blockquote-orange">
   <small>
-    <% if activity.owner %><%= user_with_gravatar activity.owner %><% else %>someone<% end %>
+    <%= user_with_gravatar activity.owner, alt: "someone" %>
     <% case activity.parameters[:type] %>
     <% when "full" %>
-    <%= activity_details_with_tooltip "updated", activity.parameters %> this task
+      updated this task
     <% when "status" %>
-    changed status to <%= status_to_label activity.parameters[:changes] %>
+      changed status to <%= status_to_label activity.parameters[:changes] %>
     <% else %>
-    somehow updated this task
+      somehow updated this task
     <% end %>
     <%= time_distance_with_tooltip activity.created_at %> ago
   </small>

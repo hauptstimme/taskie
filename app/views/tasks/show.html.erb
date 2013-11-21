@@ -14,7 +14,7 @@
         <div><%= check_box_with_status_for @task %></div>
       </div>
       <div class="pull-right">
-        <div>Assigned to: <% if @task.assignee.present? %><%= user_with_gravatar @task.assignee %><% else %>nobody<% end %></div>
+        <div>Assigned to: <%= user_with_gravatar @task.assignee %></div>
       </div>
     </div>
   </div>
