@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  include PublicActivity::Common
+
   PRIORITIES = { 1 => "low", 2 => "normal", 3 => "high", 4 => "critical" }
 
   belongs_to :assignee, class_name: "User"

@@ -2,7 +2,10 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
   before_action :set_task
-  before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+
+  def show
+  end
 
   def create
     @comment = @task.comments.new(comment_params.merge(user_id: current_user.id))

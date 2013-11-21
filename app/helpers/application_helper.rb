@@ -9,9 +9,14 @@ module ApplicationHelper
     end
   end
 
-  def user_with_gravatar user
-    content_tag :span, class: "gravatar" do
-      gravatar_for(user, size: 16) + user.username
+  def user_with_gravatar user, options = {}
+    if user.present?
+      content_tag :span, class: "gravatar" do
+        gravatar_for(user, size: 16) + user.username
+      end
+    else
+      options.reverse_merge!(alt: "nobody")
+      options[:alt]
     end
   end
 end

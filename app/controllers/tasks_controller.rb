@@ -31,10 +31,13 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.patch? and request.referrer != edit_project_task_url
-      @success = @task.update(task_params)
+    if request.patch? && request.referrer != edit_project_task_url
+      if @task.update(task_params)
+        @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
+      end
     else
       if @task.update(task_params)
+        @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject{ |k| k == "updated_at" } }
         redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
       else
         render action: 'edit'

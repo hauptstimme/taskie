@@ -26,10 +26,6 @@ input[type=checkbox] {
   }
 }
 
-.comment > small > .links {
-  margin-right: 5px;
-}
-
 table {
   &.table {
     &.table-vmiddle {
@@ -60,5 +56,17 @@ table {
 blockquote {
   &.blockquote-primary {
     border-color: #007fff;
+  }
+
+  &.blockquote-orange {
+    border-color: #ff7518;
+  }
+
+  &.blockquote-white {
+    border-color: white;
+  }
+
+  small {
+    color: #666;
   }
 }

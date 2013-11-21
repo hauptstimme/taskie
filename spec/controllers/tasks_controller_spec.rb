@@ -84,14 +84,14 @@ describe TasksController do
 
   describe "PATCH update" do
     it "updates the task" do
-      Task.any_instance.should_receive(:update).with({ "name" => "Test Task" })
-      patch :update, project_id: project.id, id: task.id, task: { "name" => "Test Task" }, format: :js
+      Task.any_instance.should_receive(:update).with({ "status" => true })
+      patch :update, project_id: project.id, id: task.id, task: { "status" => true }, format: :js
     end
 
-    before(:each) { patch :update, project_id: project.id, id: task.id, task: { status: true }, format: :js }
-
-    it "assigns the referrer as @referrer" do
-      assigns(:success).should be_true
+    it "creates task activity" do
+      expect {
+        patch :update, project_id: project.id, id: task.id, task: { "status" => true }, format: :js
+      }.to change{ task.activities.count }.by(1)
     end
   end
 

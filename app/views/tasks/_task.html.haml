@@ -5,8 +5,4 @@
     - if (@comments_size = task.comments.size) > 0
       %span.badge= @comments_size
   %td= Task::PRIORITIES[task.priority]
-  %td
-    - if task.assignee.present?
-      = user_with_gravatar task.assignee
-    - else
-      nobody
+  %td= user_with_gravatar task.assignee

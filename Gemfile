@@ -8,6 +8,14 @@ gem 'redcarpet'
 gem 'figaro'
 gem 'coveralls', require: false
 gem 'kaminari'
+gem 'public_activity'
+gem 'sass-rails'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'haml-rails'
+gem 'turbolinks'
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 group :test do
   # gem 'capybara'
@@ -28,18 +36,6 @@ group :production do
   gem 'pg'
 end
 
-gem 'sass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails'
-gem 'jquery-rails'
-gem 'haml-rails'
-gem 'turbolinks'
-gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 1.2'
-
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
