@@ -57,4 +57,16 @@ blockquote {
   &.blockquote-primary {
     border-color: #007fff;
   }
+
+  &.blockquote-orange {
+    border-color: #ff7518;
+  }
+
+  &.blockquote-white {
+    border-color: white;
+  }
+
+  small {
+    color: #666;
+  }
 }
