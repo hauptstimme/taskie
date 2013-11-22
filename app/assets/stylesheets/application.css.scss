@@ -53,3 +53,14 @@ footer {
   margin-top: 15px;
   margin-bottom: 0 !important;
 }
+
+#api-key {
+  display: none;
+}
+
+#api-key-toggle {
+  width: 21px;
+  .icon-unlock {
+    display: none;
+  }
+}

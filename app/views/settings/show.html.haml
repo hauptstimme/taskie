@@ -6,6 +6,18 @@
       %tr
         %th Time zone
         %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
-
+      %tr
+        %th API Secret Key
+        %td
+          %span#api-key-toggle.btn.btn-xs.btn-primary
+            %i.icon-unlock
+            %i.icon-lock
+          %code#api-key= current_user.api_key
       %tr
         %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"
+
+:coffeescript
+  $(document).ready ->
+    $("#api-key-toggle").click ->
+      $(this).find(".icon-unlock, .icon-lock").toggle()
+      $("#api-key").toggle()

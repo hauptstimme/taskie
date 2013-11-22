@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  # available: :token_authenticatable, :confirmable, :lockable, :timeoutable, :omniauthable, :registerable
+  # available: :confirmable, :lockable, :timeoutable, :omniauthable, :registerable
   devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
 
   attr_accessor :login
@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
     }
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
 
+  before_create :set_api_key
+
   class << self
     def find_first_by_auth_conditions(warden_conditions)
       conditions = warden_conditions.dup
@@ -27,5 +29,18 @@ class User < ActiveRecord::Base
         where(conditions).first
       end
     end
+  end
+
+  def reset_api_key
+    set_api_key
+    save
+  end
+
+  private
+
+  def set_api_key
+    begin
+      self.api_key = SecureRandom.hex(16)
+    end while User.exists?(api_key: self.api_key)
   end
 end

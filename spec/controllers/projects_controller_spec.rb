@@ -5,7 +5,7 @@ describe ProjectsController do
   let(:project) { FactoryGirl.create(:project, owner: user) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:project) }
 
-  before :each do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
   end

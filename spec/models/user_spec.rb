@@ -77,4 +77,21 @@ describe User do
       end
     end
   end
+
+  describe "hooks" do
+    describe "#set_api_key" do
+      subject { user.api_key }
+      before { user.save }
+      it { should be_present }
+      it { should =~ /\A[[:xdigit:]]{32}\z/ }
+    end
+  end
+
+  describe "#reset_api_key" do
+    it "renews API key" do
+      expect {
+        user.reset_api_key
+      }.to change{ user.api_key }
+    end
+  end
 end

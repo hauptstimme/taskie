@@ -7,6 +7,7 @@ gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro'
 gem 'coveralls', require: false
+gem 'active_model_serializers'
 gem 'kaminari'
 gem 'public_activity'
 gem 'sass-rails'
