@@ -1,11 +1,14 @@
 .col-sm-5
-  = form_for [@project, @task], method: :put do |f|
+  = form_for [@project, @task] do |f|
     - unless @task.new_record?
       .form-group.checkbox
         = f.label :status, "Completed?"
         = f.check_box :status
     .form-group= f.text_field :name, class: "form-control", placeholder: "Name"
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
+    .form-group
+      = f.label :priority, "Priority"
+      = f.select :priority, options_for_select(Task::PRIORITIES.map{ |k,v| [v, k.to_s] }, :selected => Task::PRIORITIES.key("normal")), {include_blank: false}, {class: "form-control"}
     .form-group
       = f.label :assignee_id, "Assign to"
       = f.select :assignee_id, options_for_select(@users, @task.assignee_id), {include_blank: true}, {class: "form-control"}

@@ -4,9 +4,5 @@
     = link_to task.name, project_task_path(id: task)
     - if (@comments_size = task.comments.size) > 0
       %span.badge= @comments_size
-  %td
-    - if task.assignee.present?
-      = user_with_gravatar task.assignee
-    - else
-      nobody
-  %td= task.created_at.to_s(:long)
+  %td= Task::PRIORITIES[task.priority]
+  %td= user_with_gravatar task.assignee

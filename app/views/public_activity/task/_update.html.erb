@@ -1,0 +1,36 @@
+<blockquote class="blockquote-orange activity">
+  <small>
+    <%= user_with_gravatar activity.owner, alt: "someone" %>
+    <% case activity.parameters[:type] %>
+    <% when "full" %>
+      updated this task
+    <% when "status" %>
+      changed status to <%= status_to_label activity.parameters[:changes] %>
+    <% else %>
+      somehow updated this task
+    <% end %>
+    <%= time_distance_with_tooltip activity.created_at %> ago <% if activity.parameters[:type] == "full" %><span id="diff-explain-toggle">&darr;</span><% end %>
+  </small>
+  <% if activity.parameters[:type] == "full" %>
+    <div class="diff-explain list-group clearfix">
+      <div class="list-group-item">
+        <% if activity.parameters[:changes].present? %>
+          <h4 class="list-group-item-heading text-muted">Before</h4>
+          <% activity.parameters[:changes].each do |k,v| %>
+            <% case k %>
+            <% when "details" %>
+              <p class="list-group-item-text"><%= k.humanize %>:</p>
+              <%= render_markdown v[0] %>
+            <% when "priority" %>
+              <p class="list-group-item-text"><%= k.humanize %>: <%= Task::PRIORITIES[v[0]] %></p>
+            <% else %>
+              <p class="list-group-item-text"><%= k.humanize %>: <%= v[0] %></p>
+            <% end %>
+          <% end %>
+        <% else %>
+          <h4 class="list-group-item-heading">No details</h4>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</blockquote>

@@ -9,7 +9,8 @@ Taskie::Application.routes.draw do
     resources :tasks, concerns: :commentable
   end
 
+  resource :settings, only: [:show, :update]
+
   get "/projects" => "projects#index", as: :user_root
-  get "/tasks" => redirect("/projects") # legacy
   root to: redirect("/projects")
 end

@@ -1,27 +1,45 @@
-<div class="pull-right">
-  <%= link_to "Edit", edit_project_task_path(id: @task), class: "btn btn-primary" %>
-  <%= link_to "Delete", project_task_path(id: @task), class: "btn btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } %>
+<div class="row">
+  <div class="panel panel-default task-info">
+    <div class="panel-heading clearfix">
+      <div class="pull-right btn-group">
+        <%= link_to "Edit", edit_project_task_path(id: @task), class: "btn btn-xs btn-primary" %> <%= link_to "Delete", project_task_path(id: @task), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } %>
+      </div>
+      <div>
+        <h4><%= @task.name %></h4>
+      </div>
+    </div>
+    <div class="panel-body clearfix">
+      <div class="pull-left">
+        <div><i class="icon-suitcase"></i> <%= link_to @project.name, @project %></div>
+        <div><%= check_box_with_status_for @task %></div>
+      </div>
+      <div class="pull-right">
+        <div>Assigned to: <%= user_with_gravatar @task.assignee %></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<h2><small><%= link_to @project.name, project_tasks_path(@project) %></small> <%= @task.name %> <small><%= @task.created_at.to_s(:long) %></small></h2>
-
-<p><%= check_box_with_status_for @task %></p>
-
-<p>Assigned to: <% if @task.assignee.present? %><%= user_with_gravatar @task.assignee %><% else %>nobody<% end %></p>
-
-<% if @task.details.present? %>
-  <div class="well">
-    <%= render_markdown(@task.details) %>
+<blockquote class="blockquote-primary task-details">
+  <small><%= user_with_gravatar @task.creator %> created <%= time_distance_with_tooltip @task.created_at %> ago</small>
+  <div>
+    <% if @task.details.present? %>
+      <%= render_markdown(@task.details) %>
+    <% else %>
+      <p class="text-muted">No details</p>
+    <% end %>
   </div>
+</blockquote>
+
+<% (@comments + @task.activities.includes(:owner)).sort{ |x,y| x[:created_at] <=> y[:created_at] }.each do |activity| %>
+  <% case activity %>
+  <% when Comment %>
+    <%= render activity %>
+  <% else %>
+    <%= render_activity activity %>
+  <% end %>
 <% end %>
-
-<hr/>
-
-<h3>Comments</h3>
-<%= render @comments if @comments.any? %>
-
-<hr/>
 
 <%= render "comments/form" %>
 
-<%= javascript_include_tag "taskie.async.checkbox" %>
+<%= javascript_include_tag "taskie.async.checkbox", "taskie.diff-explain.toggle" %>

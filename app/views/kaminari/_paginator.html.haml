@@ -1,5 +1,5 @@
 = paginator.render do
-  .pagination
+  %div{style: "text-align: center;"}
     %ul.pagination
       = prev_page_tag unless current_page.first?
       - each_page do |page|

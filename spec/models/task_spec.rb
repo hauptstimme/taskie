@@ -18,11 +18,26 @@ describe Task do
       let(:task) { FactoryGirl.build(:task, name: "") }
       it { should_not be_valid }
     end
+
+    describe "creator" do
+      describe "without creator" do
+        let(:task) { FactoryGirl.build(:task, creator: nil) }
+        it { should_not be_valid }
+      end
+
+      describe "with creator" do
+        let(:task) { FactoryGirl.build(:task, creator: FactoryGirl.create(:user)) }
+        it { should be_valid }
+      end
+    end
   end
 
   describe "scopes" do
     subject { Task }
 
+    it { should respond_to(:by_updated_at) }
+    it { should respond_to(:by_priority) }
+    it { should respond_to(:by_status) }
     it { should respond_to(:sorted) }
     it { should respond_to(:active) }
     it { should respond_to(:completed) }

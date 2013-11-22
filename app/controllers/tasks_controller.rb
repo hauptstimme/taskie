@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @project.tasks.new(task_params)
+    @task = @project.tasks.new(task_params.merge(creator: current_user))
 
     if @task.save
       redirect_to project_task_path(id: @task), notice: 'Task was successfully created.'
@@ -31,10 +31,13 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.patch?
-      @success = @task.update(task_params)
+    if request.patch? && request.referrer != edit_project_task_url
+      if @task.update(task_params)
+        @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
+      end
     else
       if @task.update(task_params)
+        @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject{ |k| k == "updated_at" } }
         redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
       else
         render action: 'edit'
@@ -58,10 +61,10 @@ class TasksController < ApplicationController
   end
 
   def set_users
-    @users ||= @project.users.map{ |n| [n.email, n.id] }
+    @users ||= @project.users.map{ |n| [n.username, n.id] }
   end
 
   def task_params
-    params.require(:task).permit(:assignee_id, :name, :details, :status)
+    params.require(:task).permit(:assignee_id, :name, :details, :status, :priority)
   end
 end

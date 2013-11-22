@@ -8,9 +8,20 @@
   display: none;
 }
 
-blockquote.comment {
+blockquote.comment, blockquote.task-details {
   small {
     margin-bottom: 15px;
+  }
+}
+
+.comment {
+  > small > .links {
+    display: none;
+  }
+  &:hover {
+    > small > .links {
+      display: inline;
+    }
   }
 }
 
@@ -34,4 +45,11 @@ footer {
 .link-danger {
   color: #ff0039;
   &:hover { color: #d60030; }
+}
+
+.diff-explain {
+  p { font-size: inherit !important; }
+  display: none;
+  margin-top: 15px;
+  margin-bottom: 0 !important;
 }

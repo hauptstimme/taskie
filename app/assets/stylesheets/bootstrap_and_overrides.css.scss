@@ -4,8 +4,8 @@
   =require twitter-bootstrap-static/fontawesome
 */
 
-#gravatar {
-  margin: 0 5px;
+.gravatar img {
+  margin-right: 5px;
   vertical-align: middle;
 }
 
@@ -23,5 +23,54 @@ input[type=checkbox] {
     .label {
       margin-left: 3px;
     }
+  }
+}
+
+table {
+  &.table {
+    &.table-vmiddle {
+      td, th {
+        vertical-align: middle;
+      }
+    }
+    &.table-autowidth {
+      width: auto;
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li .gravatar {
+    color: white;
+  }
+}
+
+.task-info {
+  .panel-heading {
+    h4 {
+      margin: 0;
+    }
+  }
+}
+
+blockquote {
+  &.blockquote-primary {
+    border-color: #007fff;
+  }
+
+  &.blockquote-orange {
+    border-color: #ff7518;
+  }
+
+  &.blockquote-white {
+    border-color: white;
+  }
+
+  small {
+    color: #666;
+  }
+
+  #diff-explain-toggle {
+    cursor: pointer;
   }
 }

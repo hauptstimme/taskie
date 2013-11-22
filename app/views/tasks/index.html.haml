@@ -1,6 +1,9 @@
 %h2
   = @project.name
-  %small= link_to "Edit", edit_project_path(@project)
+  %small
+    = link_to "Edit", edit_project_path(@project)
+    |
+    = link_to "New task", new_project_task_path
 
 - if @tasks.any?
   %table.table
@@ -8,14 +11,10 @@
       %tr
         %th{style: "width: 120px;"} Status
         %th Name
-        %th Assigned to
-        %th{style: "width: 200px;"} Created
+        %th{style: "width: 120px;"} Priority
+        %th{style: "width: 200px;"} Assigned to
     %tbody= render @tasks
 
 = paginate @tasks
-
-%hr
-
-= link_to "New task", new_project_task_path, class: "btn btn-primary"
 
 = javascript_include_tag "taskie.async.checkbox"
