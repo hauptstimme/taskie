@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SettingsController do
   let(:user) { FactoryGirl.create(:user) }
 
-  before :each do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
   end

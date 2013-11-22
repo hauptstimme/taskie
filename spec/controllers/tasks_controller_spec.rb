@@ -6,7 +6,7 @@ describe TasksController do
   let(:task) { FactoryGirl.create(:task, project: project) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:task) }
 
-  before :each do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
   end

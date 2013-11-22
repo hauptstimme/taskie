@@ -3,6 +3,12 @@ Taskie::Application.routes.draw do
     resources :comments, only: [:show, :create, :edit, :update, :destroy]
   end
 
+  namespace :api, defaults: { format: :json } do
+    resources :projects, only: [:index, :show] do
+      resources :tasks, only: [:index, :show]
+    end
+  end
+
   devise_for :users
 
   resources :projects do

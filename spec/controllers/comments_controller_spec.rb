@@ -8,7 +8,7 @@ describe CommentsController do
   let(:valid_attributes) { FactoryGirl.attributes_for(:comment) }
   let(:valid_session) { {} }
 
-  before :each do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
   end
