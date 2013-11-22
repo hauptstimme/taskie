@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121120626) do
+ActiveRecord::Schema.define(version: 20131122153202) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -90,8 +90,10 @@ ActiveRecord::Schema.define(version: 20131121120626) do
     t.string   "invited_by_type"
     t.string   "username"
     t.string   "time_zone"
+    t.string   "api_key"
   end
 
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
