@@ -13,7 +13,7 @@ describe TasksController do
 
   describe "GET index" do
     before do
-      tasks = Array.new(21) do |n|
+      tasks = Array.new(11) do |n|
         FactoryGirl.create(:task, project: project, name: "Test Task #{n}")
       end
     end
@@ -21,7 +21,7 @@ describe TasksController do
     before(:each) { get :index, project_id: project.id }
 
     it "assigns paginated tasks as @tasks" do
-      assigns(:tasks).size.should == 20
+      assigns(:tasks).size.should == 10
     end
   end
 

@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
     @project = current_user.owned_projects.new(project_params)
 
     if @project.save
-      redirect_to projects_path, notice: 'Project was successfully created.'
+      redirect_to @project, notice: 'Project was successfully created.'
     else
       render action: 'new'
     end
@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path, notice: 'Project was successfully updated.'
+      redirect_to @project, notice: 'Project was successfully updated.'
     else
       render action: 'edit'
     end

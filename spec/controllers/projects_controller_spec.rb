@@ -55,7 +55,7 @@ describe ProjectsController do
       end
 
       it "redirects to the created project" do
-        response.should redirect_to(projects_path)
+        response.should redirect_to(project_path(Project.last))
       end
     end
 
@@ -89,7 +89,7 @@ describe ProjectsController do
       end
 
       it "redirects to projects" do
-        response.should redirect_to(projects_path)
+        response.should redirect_to(project_path(project))
       end
     end
 

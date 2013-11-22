@@ -5,8 +5,14 @@
 */
 
 .gravatar img {
-  margin-right: 5px;
+  margin-right: 3px;
   vertical-align: middle;
+}
+
+@media(max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li .gravatar {
+    color: white;
+  }
 }
 
 textarea {
@@ -36,12 +42,6 @@ table {
     &.table-autowidth {
       width: auto;
     }
-  }
-}
-
-@media(max-width: 767px) {
-  .navbar-inverse .navbar-nav .open .dropdown-menu > li .gravatar {
-    color: white;
   }
 }
 

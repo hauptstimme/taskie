@@ -1,8 +1,12 @@
-= content_tag :tr, class: ("active" if current_user.id == task.assignee_id) do
-  %td= check_box_with_status_for task
-  %td
+= content_tag :li, class: "list-group-item clearfix task-details" do
+  %span.badge= Task::PRIORITIES[task.priority]
+  %h4.list-group-item-heading
     = link_to task.name, project_task_path(id: task)
     - if (@comments_size = task.comments.size) > 0
-      %span.badge= @comments_size
-  %td= Task::PRIORITIES[task.priority]
-  %td= user_with_gravatar task.assignee
+      %small
+        %i.icon-comments
+        = pluralize @comments_size, "comment"
+  .pull-left= check_box_with_status_for task
+  .pull-right
+    :erb
+      created by <%= user_with_gravatar task.creator %>, assigned to <%= user_with_gravatar task.assignee %>
