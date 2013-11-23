@@ -4,9 +4,12 @@
   =require twitter-bootstrap-static/fontawesome
 */
 
-.gravatar img {
-  margin-right: 3px;
-  vertical-align: middle;
+.gravatar {
+  font-weight: normal;
+  img {
+    margin-right: 3px;
+    vertical-align: middle;
+  }
 }
 
 @media(max-width: 767px) {
@@ -25,10 +28,9 @@ input[type=checkbox] {
 }
 
 .status-toggle {
-  .checkbox {
-    .label {
-      margin-left: 3px;
-    }
+  display: block;
+  .label {
+    margin-left: 4px;
   }
 }
 
@@ -73,4 +75,8 @@ blockquote {
   #diff-explain-toggle {
     cursor: pointer;
   }
+}
+
+.col-md-3.project-details {
+  margin-bottom: 21px;
 }

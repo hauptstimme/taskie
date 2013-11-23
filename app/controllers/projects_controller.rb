@@ -1,12 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project, only: [:edit, :update, :destroy]
   before_action :set_new_project, only: :new
   before_action :set_users, only: [:new, :edit]
-
-  def index
-    @projects = current_user.projects.order(:created_at)
-  end
 
   def show
     redirect_to project_tasks_path(params[:id])

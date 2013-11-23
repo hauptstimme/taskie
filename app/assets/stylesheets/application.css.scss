@@ -14,6 +14,12 @@ blockquote.comment, blockquote.task-details {
   }
 }
 
+.list-group-item.task-details {
+  small {
+    display: inline-block;
+  }
+}
+
 .comment {
   > small > .links {
     display: none;
@@ -28,7 +34,7 @@ blockquote.comment, blockquote.task-details {
 footer {
   color: gray;
   border-top: 1px solid #ccc;
-  margin-top: 60px;
+  margin-top: 35px;
   .container {
     margin: 20px auto;
   }

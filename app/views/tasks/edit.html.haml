@@ -1,3 +1,7 @@
-%h2 Editing task
+- title "Edit task"
+
+%h2
+  Edit task
+  %small= @task.project.name
 
 = render "form"

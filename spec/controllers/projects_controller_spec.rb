@@ -10,14 +10,6 @@ describe ProjectsController do
     sign_in user
   end
 
-  describe "GET index" do
-    before(:each) { get :index }
-
-    it "assigns projects as @projects" do
-      assigns(:projects).should eq([project])
-    end
-  end
-
   describe "GET show" do
     it "redirects to project tasks" do
       get :show, id: project.id

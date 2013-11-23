@@ -18,6 +18,8 @@
           <h4 class="list-group-item-heading text-muted">Before</h4>
           <% activity.parameters[:changes].each do |k,v| %>
             <% case k %>
+            <% when "assignee_id" %>
+              <p class="list-group-item-text"><%= k.humanize %>: <%= user_with_gravatar v[0] %></p>
             <% when "details" %>
               <p class="list-group-item-text"><%= k.humanize %>:</p>
               <%= render_markdown v[0] %>

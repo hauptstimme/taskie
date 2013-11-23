@@ -11,6 +11,8 @@ describe User do
     it { should respond_to(:comments) }
     it { should respond_to(:projects) }
     it { should respond_to(:owned_projects) }
+    it { should respond_to(:created_tasks) }
+    it { should respond_to(:assigned_tasks) }
   end
 
   describe "validations" do

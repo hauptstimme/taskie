@@ -1,7 +1,7 @@
 = content_tag :li, class: "list-group-item clearfix task-details" do
   %span.badge= Task::PRIORITIES[task.priority]
   %h4.list-group-item-heading
-    = link_to task.name, project_task_path(id: task)
+    = link_to task.name, project_task_path(project_id: task.project_id, id: task)
     - if (@comments_size = task.comments.size) > 0
       %small
         %i.icon-comments
@@ -9,4 +9,4 @@
   .pull-left= check_box_with_status_for task
   .pull-right
     :erb
-      created by <%= user_with_gravatar task.creator %>, assigned to <%= user_with_gravatar task.assignee %>
+      created <%= time_distance_with_tooltip task.created_at %> ago by <%= user_with_gravatar task.creator %><% unless hide_assignee ||= false %>, assigned to <%= user_with_gravatar task.assignee %><% end %>

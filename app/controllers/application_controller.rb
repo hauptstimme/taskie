@@ -3,8 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  around_filter :user_timezone, if: ->{ signed_in? && current_user.time_zone.present? }
+  before_action :authenticate_user!, unless: :api_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  around_action :user_timezone, if: ->{ signed_in? && current_user.time_zone.present? }
 
   private
 
@@ -15,5 +16,9 @@ class ApplicationController < ActionController::Base
 
   def user_timezone(&block)
     Time.use_zone current_user.time_zone, &block
+  end
+
+  def api_controller?
+    false
   end
 end

@@ -8,15 +8,25 @@ describe Api::TasksController do
   end
 
   describe "GET index" do
+    before(:each) { get :index, project_id: task.project.to_param }
+
+    it "renders successfully" do
+      response.should be_success
+    end
+
     it "assigns all tasks as @tasks" do
-      get :index, project_id: task.project.to_param
       assigns(:tasks).should eq([task])
     end
   end
 
   describe "GET show" do
+    before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
+
+    it "renders successfully" do
+      response.should be_success
+    end
+
     it "assigns the requested task as @task" do
-      get :show, project_id: task.project.to_param, id: task.to_param
       assigns(:task).should eq(task)
     end
   end

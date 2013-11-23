@@ -3,6 +3,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require bootstrap
+//= require taskie.async.checkbox
 
 $(document).ready(function(){
   document.addEventListener("page:fetch", function(){

@@ -29,10 +29,24 @@
         .navbar-collapse.collapse#navbar-main
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
-              %li
-                = link_to projects_path do
+              %li.dropdown
+                = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
                   %i.icon-suitcase
                   Projects
+                  %i.icon-caret-down
+                %ul.dropdown-menu
+                  - cache("current_user_projects/#{current_user.id}/#{current_user.projects.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+                    - if current_user.projects.any?
+                      - current_user.projects.each do |p|
+                        %li
+                          = link_to p do
+                            %i.icon-folder-close
+                            = p.name
+                      %li.divider
+                  %li
+                    = link_to new_project_path do
+                      %i.icon-plus
+                      New project
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
                   %i.icon-user

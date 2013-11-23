@@ -8,16 +8,25 @@ describe Api::ProjectsController do
   end
 
   describe "GET index" do
-    it "assigns all projects as @projects" do
-      get :index
+    before(:each) { get :index }
+
+    it "renders successfully" do
       response.should be_success
+    end
+
+    it "assigns all projects as @projects" do
       assigns(:projects).should eq([project])
     end
   end
 
   describe "GET show" do
+    before(:each) { get :show, id: project.to_param }
+
+    it "renders successfully" do
+      response.should be_success
+    end
+
     it "assigns the requested project as @project" do
-      get :show, id: project.to_param
       assigns(:project).should eq(project)
     end
   end

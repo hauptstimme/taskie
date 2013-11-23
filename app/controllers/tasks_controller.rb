@@ -1,11 +1,10 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_project
   before_action :set_users, only: [:new, :edit]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = @project.tasks.includes(:comments).sorted.page(params[:page])
+    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page])
   end
 
   def show

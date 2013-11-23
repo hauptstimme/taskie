@@ -8,4 +8,8 @@ class Api::BaseController < ApplicationController
       sign_in User.find_by_api_key!(token), store: false
     end
   end
+
+  def api_controller?
+    true
+  end
 end

@@ -1,0 +1,14 @@
+- title "Dashboard"
+
+.row
+  - if @active_tasks_by_projects.any?
+    .col-md-3
+      %h3 Active tasks
+    .col-md-9
+      %ul.list-group
+        - @active_tasks_by_projects.each do |project, tasks|
+          %li.active.list-group-item
+            %h4= project.name
+          = render tasks, hide_assignee: true
+  - else
+    %h3 Nothing to do. Yay!

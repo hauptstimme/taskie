@@ -1,4 +1,31 @@
 module ApplicationHelper
+  def content_for_title text
+    content_for :title, text
+  end
+
+  def title text, options = {}
+    options.reverse_merge!(action: :prepend)
+
+    result = text
+    if options[:add].present?
+      add = options[:add].to_a.reject{ |k, v| v.nil? }
+      if add.present?
+        add = add.map{ |k, v| "#{k} #{v}" }.join(", ")
+        result = "#{result} (#{add})"
+      end
+    end
+    result = case options[:action]
+      when :prepend
+        content_for_title "#{result} • Taskie"
+      when :clear
+        content_for_title result
+      else
+        raise ArgumentError, ":action doesn't accept #{options[:action].inspect}"
+      end
+
+    result
+  end
+
   def gravatar_for user, options = {}
     size = options[:size] || 20
     image = image_tag("https://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{size}", style: "width: #{size}px", alt: "G")
@@ -9,7 +36,8 @@ module ApplicationHelper
     end
   end
 
-  def user_with_gravatar user, options = {}
+  def user_with_gravatar user_or_id, options = {}
+    user = user_or_id.is_a?(Integer) ? User.find(user_or_id) : user_or_id
     if user.present?
       content_tag :span, class: "gravatar" do
         gravatar_for(user, size: 16) + user.username
