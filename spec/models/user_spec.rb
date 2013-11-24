@@ -15,6 +15,11 @@ describe User do
     it { should respond_to(:assigned_tasks) }
   end
 
+  describe "scopes" do
+    subject { User }
+    it { should respond_to(:active) }
+  end
+
   describe "validations" do
     describe "name" do
       describe "invalid" do
