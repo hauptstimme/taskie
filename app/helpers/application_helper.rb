@@ -16,14 +16,14 @@ module ApplicationHelper
     end
     result = case options[:action]
       when :prepend
-        content_for_title "#{result} • Taskie"
+        "#{result} • Taskie"
       when :clear
-        content_for_title result
+        result
       else
         raise ArgumentError, ":action doesn't accept #{options[:action].inspect}"
       end
 
-    result
+    content_for_title result
   end
 
   def gravatar_for user, options = {}
