@@ -14,4 +14,19 @@ describe TaskMailer do
       mail.from.should eq(["taskie@hauptstimme.tk"])
     end
   end
+
+  describe "#new_comment" do
+    let(:creator) { FactoryGirl.create(:user, email: "testing-mailer-creator@maldoror.tk") }
+    let(:task) { FactoryGirl.create(:task, name: "Testing mailer", creator: creator) }
+    let(:comment) { FactoryGirl.create(:comment, task: task) }
+    let(:mail) { TaskMailer.new_comment(comment, creator) }
+
+    before { mail.deliver }
+
+    it "renders the headers" do
+      mail.subject.should eq("New comment in task Testing mailer")
+      mail.to.should eq(["testing-mailer-creator@maldoror.tk"])
+      mail.from.should eq(["taskie@hauptstimme.tk"])
+    end
+  end
 end
