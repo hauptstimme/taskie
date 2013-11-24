@@ -1,0 +1,7 @@
+<p>Hi, <%= @task.creator.email %>,</p>
+
+<p>This is to notify you that <%= @comment.user.username %> wrote a comment to your task <%= link_to @task.name_with_id, project_task_url(project_id: @project, id: @task) %> in the project <%= link_to @project.name, project_url(@project) %>.
+
+<p>Sincerely,</p>
+
+<p>Your Taskie</p>
