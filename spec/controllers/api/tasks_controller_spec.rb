@@ -3,31 +3,51 @@ require 'spec_helper'
 describe Api::TasksController do
   let(:task) { FactoryGirl.create(:task) }
 
-  before do
-    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(task.project.owner.api_key)
+  context "authorized" do
+    before do
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(task.project.owner.api_key)
+    end
+
+    describe "GET index" do
+      before(:each) { get :index, project_id: task.project.to_param }
+
+      it "renders successfully" do
+        response.should be_success
+      end
+
+      it "assigns all tasks as @tasks" do
+        assigns(:tasks).should eq([task])
+      end
+    end
+
+    describe "GET show" do
+      before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
+
+      it "renders successfully" do
+        response.should be_success
+      end
+
+      it "assigns the requested task as @task" do
+        assigns(:task).should eq(task)
+      end
+    end
   end
 
-  describe "GET index" do
-    before(:each) { get :index, project_id: task.project.to_param }
+  context "unauthorized" do
+    describe "GET index" do
+      before(:each) { get :index, project_id: task.project.to_param }
 
-    it "renders successfully" do
-      response.should be_success
+      it "doesn't render" do
+        response.should_not be_success
+      end
     end
 
-    it "assigns all tasks as @tasks" do
-      assigns(:tasks).should eq([task])
-    end
-  end
+    describe "GET show" do
+      before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
 
-  describe "GET show" do
-    before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
-
-    it "renders successfully" do
-      response.should be_success
-    end
-
-    it "assigns the requested task as @task" do
-      assigns(:task).should eq(task)
+      it "doesn't render" do
+        response.should_not be_success
+      end
     end
   end
 

@@ -3,31 +3,51 @@ require 'spec_helper'
 describe Api::ProjectsController do
   let(:project) { FactoryGirl.create(:project) }
 
-  before do
-    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(project.owner.api_key)
+  context "authorized" do
+    before do
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(project.owner.api_key)
+    end
+
+    describe "GET index" do
+      before(:each) { get :index }
+
+      it "renders successfully" do
+        response.should be_success
+      end
+
+      it "assigns all projects as @projects" do
+        assigns(:projects).should eq([project])
+      end
+    end
+
+    describe "GET show" do
+      before(:each) { get :show, id: project.to_param }
+
+      it "renders successfully" do
+        response.should be_success
+      end
+
+      it "assigns the requested project as @project" do
+        assigns(:project).should eq(project)
+      end
+    end
   end
 
-  describe "GET index" do
-    before(:each) { get :index }
+  context "unauthorized" do
+    describe "GET index" do
+      before(:each) { get :index }
 
-    it "renders successfully" do
-      response.should be_success
+      it "doesn't render" do
+        response.should_not be_success
+      end
     end
 
-    it "assigns all projects as @projects" do
-      assigns(:projects).should eq([project])
-    end
-  end
+    describe "GET show" do
+      before(:each) { get :show, id: project.to_param }
 
-  describe "GET show" do
-    before(:each) { get :show, id: project.to_param }
-
-    it "renders successfully" do
-      response.should be_success
-    end
-
-    it "assigns the requested project as @project" do
-      assigns(:project).should eq(project)
+      it "doesn't render" do
+        response.should_not be_success
+      end
     end
   end
 
