@@ -21,4 +21,16 @@ module TasksHelper
     @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
     @markdown.render(text).html_safe
   end
+
+  def tasks_filter_select
+    content_tag :div, class: "btn-group" do
+      task_scopes_for_filter.map do |scope|
+        link_to scope.titleize, project_tasks_path(filter: scope, page: params[:page]), class: "btn btn-sm btn-default"
+      end.join.html_safe
+    end
+  end
+
+  def task_scopes_for_filter
+    ["all", "active", "completed"]
+  end
 end
