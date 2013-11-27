@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe ProjectsController do
+  let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
   let(:valid_attributes) { FactoryGirl.attributes_for(:project) }
 
-  context "authorized" do
+  context "authorized (common)" do
     before do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      sign_in project.owner
+      sign_in user
     end
 
     describe "GET show" do
@@ -21,13 +22,6 @@ describe ProjectsController do
       it "assigns a new project as @project" do
         get :new
         assigns(:project).should be_a_new(Project)
-      end
-    end
-
-    describe "GET edit" do
-      it "assigns the requested project as @project" do
-        get :edit, id: project.id
-        assigns(:project).should eq(project)
       end
     end
 
@@ -64,6 +58,20 @@ describe ProjectsController do
         it "re-renders the 'new' template" do
           response.should render_template("new")
         end
+      end
+    end
+  end
+
+  context "authorized as project owner" do
+    before do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in project.owner
+    end
+
+    describe "GET edit" do
+      it "assigns the requested project as @project" do
+        get :edit, id: project.id
+        assigns(:project).should eq(project)
       end
     end
 
@@ -113,6 +121,38 @@ describe ProjectsController do
       it "redirects to the projects list" do
         delete :destroy, project_id: project.id, id: project.id
         response.should redirect_to(projects_path)
+      end
+    end
+  end
+
+  context "authorized as project participant" do
+    before do
+      project.users << user
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in user
+    end
+
+    describe "GET edit" do
+      it "raises an exception" do
+        expect {
+          get :edit, id: project.id
+        }.to raise_exception
+      end
+    end
+
+    describe "PUT update" do
+      it "raises an exception" do
+        expect {
+          put :update, project_id: project.id, id: project.id, project: { "name" => "Test Project" }
+        }.to raise_exception
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "raises an exception" do
+        expect {
+          delete :destroy, project_id: project.id, id: project.id
+        }.to raise_exception
       end
     end
   end
