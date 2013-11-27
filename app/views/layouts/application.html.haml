@@ -14,6 +14,8 @@
 
     = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag "application"
+    = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2-bootstrap.css", "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css"
+    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js"
 
   %body
     .navbar.navbar-inverse
@@ -35,7 +37,7 @@
                   Projects
                   %i.icon-caret-down
                 %ul.dropdown-menu
-                  - cache("current_user_projects/#{current_user.id}/#{current_user.projects.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+                  - cache("current_user_projects/#{current_user.projects.pluck(:name).sort.inspect}") do
                     - if current_user.projects.any?
                       - current_user.projects.each do |p|
                         %li

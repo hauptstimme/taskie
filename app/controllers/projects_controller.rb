@@ -43,11 +43,11 @@ class ProjectsController < ApplicationController
   end
 
   def set_users
-    @users = User.active.where("id != ?", @project.owner_id)
+    @users = User.active.where("id != ?", @project.owner_id).pluck(:username, :id)
   end
 
   def set_project
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.owned_projects.find(params[:id])
   end
 
   def project_params

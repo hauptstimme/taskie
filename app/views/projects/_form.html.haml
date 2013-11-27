@@ -4,7 +4,9 @@
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
     .form_group= f.label "Owner"
     .form-group= user_with_gravatar @project.owner
-    .form-group= f.label "Participants"
-    = collection_check_boxes(:project, :user_ids, @users, :id, :email) do |b|
-      .form-group= b.check_box + user_with_gravatar(b.object)
+    .form-group= f.label :user_ids, "Participants"
+    .form-group= select :project, :user_ids, options_for_select(@users, @project.user_ids), { include_blank: true }, multiple: true, class: "form-control"
     .form-group= f.submit class: "btn btn-primary btn-block"
+
+:coffeescript
+  $("#project_user_ids").select2()

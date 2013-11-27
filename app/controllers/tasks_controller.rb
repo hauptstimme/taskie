@@ -60,7 +60,7 @@ class TasksController < ApplicationController
   end
 
   def set_users
-    @users ||= @project.users.map{ |n| [n.username, n.id] }
+    @users ||= @project.users.pluck(:username, :id)
   end
 
   def task_params
