@@ -12,8 +12,8 @@
       = favicon_link_tag ["apple-touch-icon", size, "precomposed.png"].compact.join("-"), rel: 'apple-touch-icon-precomposed', type: 'image/png', sizes: size
     = favicon_link_tag '//hauptstimme.tk/favicon.ico', rel: 'shortcut icon'
 
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
 
   %body
     .navbar.navbar-inverse
