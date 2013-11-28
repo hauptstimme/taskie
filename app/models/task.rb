@@ -7,15 +7,13 @@ class Task < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
   validates :name, presence: true
+  validates :project, presence: true
   validates :creator, presence: true
   validates :priority, presence: true
 
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
 
-  scope :by_updated_at, -> { order updated_at: :desc }
-  scope :by_priority, -> { order priority: :desc }
-  scope :by_status, -> { order :status }
-  scope :sorted, -> { by_status.by_priority.by_updated_at }
+  scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
   scope :active, -> { where "status = ?", false }
   scope :completed, -> { where "status = ?", true }
   scope :without_project, -> { where "project_id = ?", nil }

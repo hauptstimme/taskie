@@ -30,6 +30,7 @@ end
 
 group :development do
   gem 'letter_opener'
+  gem 'rack-mini-profiler'
 end
 
 group :production do

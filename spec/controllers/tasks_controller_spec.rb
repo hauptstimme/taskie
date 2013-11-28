@@ -13,9 +13,7 @@ describe TasksController do
 
     describe "GET index" do
       before do
-        tasks = Array.new(11) do |n|
-          FactoryGirl.create(:task, project: project, name: "Test Task #{n}")
-        end
+        tasks = FactoryGirl.create_list(:task, 11, project: project)
       end
 
       before(:each) { get :index, project_id: project.id }

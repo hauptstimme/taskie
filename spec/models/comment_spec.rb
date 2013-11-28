@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Comment do
-  let(:comment) { FactoryGirl.create(:comment) }
+  let(:comment) { FactoryGirl.build(:comment) }
 
   subject { comment }
 
@@ -30,23 +30,25 @@ describe Comment do
   end
 
   describe "#update" do
-    subject { comment.update(text: "Updated text") }
-
     describe "comment is more that one day old" do
-      before { comment.update_column :created_at, 25.hours.ago }
+      before do
+        comment.save
+        Timecop.travel 25.hours.from_now
+      end
+
       it "doesn't change the comment" do
-        expect {
-          comment.update(text: "Updated text")
-        }.not_to change{ Comment.find(comment.id).text }
+        expect { comment.update(text: "Updated text") }.not_to change{ comment.reload.text }
       end
     end
 
     describe "comment is less than one day old" do
-      before { comment.update_column :created_at, 23.hours.ago }
+      before do
+        comment.save
+        Timecop.travel 23.hours.from_now
+      end
+
       it "changes the comment" do
-        expect {
-          comment.update(text: "Updated text")
-        }.to change{ Comment.find(comment.id).text }.to("Updated text")
+        expect { comment.update(text: "Updated text") }.to change{ comment.reload.text }.to("Updated text")
       end
     end
   end
@@ -65,76 +67,66 @@ describe Comment do
     end
   end
 
-  describe "#notify" do
-    let(:user) { FactoryGirl.create(:user) }
-    before(:each) { task.save }
+  describe "hooks" do
+    describe "#notify" do
+      let(:user) { FactoryGirl.build(:user) }
+      before { task.save }
 
-    describe "when assignee is not present" do
-      let(:task) { FactoryGirl.create(:task, creator: user, assignee: nil) }
+      describe "when assignee is not present" do
+        let(:task) { FactoryGirl.create(:task, creator: user, assignee: nil) }
 
-      describe "when author of comment is a task creator" do
-        let(:comment) { FactoryGirl.build(:comment, task: task, user: user) }
+        describe "when author of comment is a task creator" do
+          it "should not send an email" do
+            expect { FactoryGirl.create(:comment, task: task, user: user) }.not_to change { ActionMailer::Base.deliveries.count }
+          end
+        end
 
-        it "should not send an email" do
-          expect { comment.save }.not_to change { ActionMailer::Base.deliveries.count }
+        describe "when author of comment is not a task creator" do
+          it "should send one email" do
+            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
         end
       end
 
-      describe "when author of comment is not a task creator" do
-        let(:comment) { FactoryGirl.build(:comment, task: task) }
+      describe "when assignee and creator are the same person" do
+        let(:task) { FactoryGirl.create(:task, creator: user, assignee: user) }
 
-        it "should send one email" do
-          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        describe "when author of comment is a task creator" do
+          it "should not send an email" do
+            expect { FactoryGirl.create(:comment, user: user, task: task) }.not_to change { ActionMailer::Base.deliveries.count }
+          end
         end
-      end
-    end
 
-    describe "when assignee and creator are the same person" do
-      let(:task) { FactoryGirl.create(:task, creator: user, assignee: user) }
-
-      describe "when author of comment is a task creator" do
-        let(:comment) { FactoryGirl.build(:comment, user: user, task: task) }
-
-        it "should not send an email" do
-          expect { comment.save }.not_to change { ActionMailer::Base.deliveries.count }
+        describe "when author of comment is not a task creator" do
+          it "should send one email" do
+            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
         end
       end
 
-      describe "when author of comment is not a task creator" do
-        let(:comment) { FactoryGirl.build(:comment, task: task) }
+      describe "when assignee and creator are different people" do
+        describe "when author of comment is a task creator" do
+          let(:task) { FactoryGirl.create(:task, creator: user) }
 
-        it "should send one emails" do
-          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          it "should send one email" do
+            expect { FactoryGirl.create(:comment, user: user, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
         end
-      end
-    end
 
-    describe "when assignee and creator are the different persons" do
+        describe "when author of comment is a task assignee" do
+          let(:task) { FactoryGirl.create(:task, assignee: user) }
 
-      describe "when author of comment is a task creator" do
-        let(:task) { FactoryGirl.create(:task, creator: user) }
-        let(:comment) { FactoryGirl.build(:comment, user: user, task: task) }
-
-        it "should send one email" do
-          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          it "should send one email" do
+            expect { FactoryGirl.create(:comment, user: user, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
         end
-      end
 
-      describe "when author of comment is a task assignee" do
-        let(:task) { FactoryGirl.create(:task, assignee: user) }
-        let(:comment) { FactoryGirl.build(:comment, user: user, task: task) }
+        describe "when author of comment is not a task creator or task assignee" do
+          let(:task) { FactoryGirl.create(:task) }
 
-        it "should send one email" do
-          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(1)
-        end
-      end
-
-      describe "when author of comment is not a task creator or task assignee" do
-        let(:task) { FactoryGirl.create(:task) }
-        let(:comment) { FactoryGirl.build(:comment, task: task) }
-
-        it "should send two emails" do
-          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(2)
+          it "should send two emails" do
+            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(2)
+          end
         end
       end
     end

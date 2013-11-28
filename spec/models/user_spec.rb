@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.build(:user) }
 
   subject { user }
 
@@ -96,9 +96,7 @@ describe User do
 
   describe "#reset_api_key" do
     it "renews API key" do
-      expect {
-        user.reset_api_key
-      }.to change{ user.api_key }
+      expect { user.reset_api_key }.to change{ user.api_key }
     end
   end
 end

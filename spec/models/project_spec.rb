@@ -48,10 +48,8 @@ describe Project do
     describe "when there are tasks" do
       before { FactoryGirl.create(:task, project: project) }
 
-      it "should raise an exception" do
-        expect {
-          project.destroy
-        }.to raise_exception(ActiveRecord::DeleteRestrictionError)
+      it "raises an exception" do
+        expect { project.destroy }.to raise_exception(ActiveRecord::DeleteRestrictionError)
       end
     end
   end
