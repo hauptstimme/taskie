@@ -14,9 +14,11 @@
           %i.icon-folder-close
           = link_to @project.name, @project
         %div= check_box_with_status_for @task
-      .pull-right
-        Assigned to:
-        = user_with_gravatar @task.assignee
+      .pull-right.text-right
+        %div= priority_badge @task
+        %div
+          assigned to
+          = user_with_gravatar @task.assignee
 
 %blockquote.blockquote-primary.task-details
   %small

@@ -24,7 +24,7 @@
               <p class="list-group-item-text"><%= k.humanize %>:</p>
               <%= render_markdown v[0] %>
             <% when "priority" %>
-              <p class="list-group-item-text"><%= k.humanize %>: <%= Task::PRIORITIES[v[0]] %></p>
+              <p class="list-group-item-text"><%= k.humanize %>: <%= priority_badge v[0] %></p>
             <% else %>
               <p class="list-group-item-text"><%= k.humanize %>: <%= v[0] %></p>
             <% end %>

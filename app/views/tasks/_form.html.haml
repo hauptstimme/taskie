@@ -8,7 +8,7 @@
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
     .form-group
       = f.label :priority, "Priority"
-      = f.select :priority, options_for_select(Task::PRIORITIES.map{ |k,v| [v, k.to_s] }, :selected => Task::PRIORITIES.key("normal")), {include_blank: false}, {class: "form-control"}
+      = f.select :priority, options_for_select(priorities.map{|k,v| [v[0],k]}, @task.priority), {include_blank: false}, {class: "form-control"}
     .form-group
       = f.label :assignee_id, "Assign to"
       = f.select :assignee_id, options_for_select(@users, @task.assignee_id), {include_blank: true}, {class: "form-control"}

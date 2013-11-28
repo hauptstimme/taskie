@@ -17,11 +17,6 @@ module TasksHelper
     end
   end
 
-  def render_markdown text
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
-    @markdown.render(text).html_safe
-  end
-
   def tasks_filter_select
     content_tag :div, class: "btn-group" do
       task_scopes_for_filter.map do |scope|
@@ -32,5 +27,19 @@ module TasksHelper
 
   def task_scopes_for_filter
     ["all", "active", "completed"]
+  end
+
+  def priority_badge task_or_priority
+    priority = task_or_priority.is_a?(Task) ? task_or_priority.priority : task_or_priority
+    content_tag :span, priorities[priority][0], class: "badge #{priorities[priority][1]}"
+  end
+
+  def priorities
+    {
+      1 => ["low", "badge-blue"],
+      2 => ["normal", "badge-green"],
+      3 => ["high", "badge-orange"],
+      4 => ["critical", "badge-red"]
+    }
   end
 end
