@@ -2,14 +2,12 @@ class Task < ActiveRecord::Base
   include PublicActivity::Common
 
   belongs_to :assignee, class_name: "User"
-  belongs_to :project
   belongs_to :creator, class_name: "User"
+  belongs_to :project
+  belongs_to :milestone
   has_many :comments, dependent: :destroy
 
-  validates :name, presence: true
-  validates :project, presence: true
-  validates :creator, presence: true
-  validates :priority, presence: true
+  validates_presence_of :name, :project, :creator, :priority
 
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
 

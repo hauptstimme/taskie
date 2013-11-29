@@ -11,6 +11,7 @@ describe Task do
     it { should respond_to(:creator) }
     it { should respond_to(:assignee) }
     it { should respond_to(:project) }
+    it { should respond_to(:milestone) }
     it { should respond_to(:comments) }
   end
 

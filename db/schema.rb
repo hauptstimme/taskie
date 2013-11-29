@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122153202) do
+ActiveRecord::Schema.define(version: 20131128182409) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20131122153202) do
     t.datetime "updated_at"
   end
 
+  create_table "milestones", force: true do |t|
+    t.integer  "project_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "milestones", ["project_id"], name: "index_milestones_on_project_id"
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "details"
@@ -60,12 +69,13 @@ ActiveRecord::Schema.define(version: 20131122153202) do
     t.integer  "assignee_id"
     t.string   "name"
     t.text     "details"
-    t.boolean  "status",      default: false
+    t.boolean  "status",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
     t.integer  "creator_id"
     t.integer  "priority"
+    t.integer  "milestone_id"
   end
 
   create_table "users", force: true do |t|

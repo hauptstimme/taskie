@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_action :set_project
   before_action :set_task
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
@@ -35,12 +34,9 @@ class CommentsController < ApplicationController
 
   private
 
-  def set_project
-    @project ||= Project.find(params[:project_id])
-  end
-
   def set_task
-    @task ||= @project.tasks.find(params[:task_id])
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.find(params[:task_id])
   end
 
   def set_comment

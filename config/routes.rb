@@ -12,6 +12,7 @@ Taskie::Application.routes.draw do
   devise_for :users
 
   resources :projects, except: [:index] do
+    resources :milestones
     resources :tasks, concerns: :commentable
   end
 

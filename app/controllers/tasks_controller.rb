@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_project
   before_action :set_users, only: [:new, :edit]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  layout "projects_nested", only: :index
 
   def index
     @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page])

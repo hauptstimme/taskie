@@ -15,6 +15,11 @@ FactoryGirl.define do
     details "You better do something immediately or I will get unstable and want to drink again"
   end
 
+  factory :milestone do
+    title "Hard Deadline"
+    association :project
+  end
+
   factory :project do
     name "Project factory"
     association :owner
