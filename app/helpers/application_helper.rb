@@ -16,7 +16,7 @@ module ApplicationHelper
     end
     result = case options[:action]
       when :prepend
-        "#{result} • Taskie"
+        "#{result} | Taskie"
       when :clear
         result
       else
