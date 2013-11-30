@@ -9,6 +9,9 @@
         %th Time zone
         %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
       %tr
+        %th Tasks Per Page
+        %td= f.select :tasks_per_page, options_for_select([10, 25, 50, 100, ["all", "0"]], current_user.tasks_per_page), {include_blank: false}, {class: "form-control"}
+      %tr
         %th API Secret Key
         %td
           %span#api-key-toggle.btn.btn-xs.btn-primary

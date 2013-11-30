@@ -13,6 +13,6 @@ class SettingsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:time_zone)
+    params.require(:user).permit(:time_zone, :tasks_per_page)
   end
 end
