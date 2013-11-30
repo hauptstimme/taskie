@@ -37,7 +37,7 @@
                   Projects
                   %i.icon-caret-down
                 %ul.dropdown-menu
-                  - cache("current_user_projects/#{current_user.projects.pluck(:name).sort.inspect}") do
+                  - cache ["current_user_projects", current_user.projects] do
                     - if current_user.projects.any?
                       - current_user.projects.each do |p|
                         %li
