@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131122153202) do
+ActiveRecord::Schema.define(version: 20131129183301) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20131122153202) do
     t.string   "username"
     t.string   "time_zone"
     t.string   "api_key"
+    t.integer  "tasks_per_page"
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true

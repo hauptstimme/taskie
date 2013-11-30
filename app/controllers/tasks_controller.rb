@@ -4,7 +4,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page])
+    if current_user.tasks_per_page == 0
+      @per_page = @project.tasks.count
+    else
+      @per_page = current_user.tasks_per_page
+    end
+    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page]).per(@per_page)
   end
 
   def show
