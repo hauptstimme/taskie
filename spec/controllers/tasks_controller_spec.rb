@@ -3,22 +3,21 @@ require 'spec_helper'
 describe TasksController do
   let(:task) { FactoryGirl.create(:task) }
   let(:project) { task.project }
+  let(:user) { project.owner }
   let(:valid_attributes) { FactoryGirl.attributes_for(:task) }
 
   context "authorized" do
     before do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      sign_in task.project.owner
+      sign_in user
     end
 
     describe "GET index" do
-      before do
-        tasks = FactoryGirl.create_list(:task, 11, project: project)
-      end
-
-      before(:each) { get :index, project_id: project.id }
+      let!(:tasks) { FactoryGirl.create_list(:task, 11, project: project, creator: user, assignee: nil) }
 
       it "assigns paginated tasks as @tasks" do
+        user.update tasks_per_page: 10
+        get :index, project_id: project.id
         assigns(:tasks).size.should == 10
       end
     end
