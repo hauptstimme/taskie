@@ -1,7 +1,6 @@
 class Api::ProjectsController < Api::BaseController
   before_action :set_projects
   before_action :set_project, only: :show
-  respond_to :json
 
   def index
     render json: @projects
