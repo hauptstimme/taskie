@@ -5,7 +5,9 @@ class TasksController < ApplicationController
   layout "projects_nested", only: :index
 
   def index
-    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page])
+    # TODO: Refactor
+    per_page = current_user.tasks_per_page > 0 ? current_user.tasks_per_page : @project.tasks.count
+    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page]).per(per_page)
   end
 
   def show

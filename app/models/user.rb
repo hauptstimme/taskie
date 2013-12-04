@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     }
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
 
-  before_create :set_api_key
+  before_create :set_defaults
 
   class << self
     def find_first_by_auth_conditions(warden_conditions)
@@ -40,6 +40,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def set_defaults
+    self.tasks_per_page ||= Kaminari.config.default_per_page
+    set_api_key
+  end
 
   def set_api_key
     begin
