@@ -7,7 +7,6 @@
   %div= render_markdown(@project.details)
 %hr
   .btn-group
-    = link_to "New task", new_project_task_path, class: "btn btn-info"
     - if current_user == @project.owner
       = link_to "Edit", edit_project_path(@project), class: "btn btn-primary"
       - unless @project.tasks.any?

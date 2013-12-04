@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131128182409) do
+ActiveRecord::Schema.define(version: 20131204125948) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20131128182409) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "due_date"
   end
 
   add_index "milestones", ["project_id"], name: "index_milestones_on_project_id"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20131128182409) do
     t.string   "username"
     t.string   "time_zone"
     t.string   "api_key"
+    t.integer  "tasks_per_page"
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true

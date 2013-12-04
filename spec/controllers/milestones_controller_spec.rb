@@ -13,8 +13,8 @@ describe MilestonesController do
 
     describe "GET index" do
       it "assigns milestones as @milestones" do
-        get :index
-        assigns(:milestones).should = [milestone]
+        get :index, project_id: project
+        expect(assigns(:milestones)).to eq([milestone])
       end
     end
 

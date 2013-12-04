@@ -1,0 +1,15 @@
+- title "#{@project.name} / #{@milestone.title}", action: :clear
+
+.row
+  .panel.panel-default.task-info
+    .panel-heading.clearfix
+      .pull-right.btn-group
+        = link_to "Edit", edit_project_milestone_path(id: @milestone), class: "btn btn-xs btn-primary"
+        = link_to "Delete", project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") }
+      %div
+        %h4= @milestone.title
+    .panel-body.clearfix
+      .pull-left
+        %div
+          Due date:
+          = @milestone.due_date.try(:to_s, :long)

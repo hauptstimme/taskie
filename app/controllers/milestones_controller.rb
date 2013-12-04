@@ -11,7 +11,6 @@ class MilestonesController < ApplicationController
 
   def new
     @milestone = @milestones.new
-    respond_to { |format| format.js }
   end
 
   def edit
@@ -52,6 +51,6 @@ class MilestonesController < ApplicationController
   end
 
   def milestone_params
-    params.require(:milestone).permit(:title)
+    params.require(:milestone).permit(:title, :due_date)
   end
 end

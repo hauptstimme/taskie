@@ -1,5 +1,7 @@
 - title "#{@project.name}: Tasks", add: { page: params[:page] }, action: :clear
 
+%p= link_to "New task", new_project_task_path, class: "btn btn-info"
+
 - if @tasks.any?
   %ul.list-group= render @tasks
   = paginate @tasks
