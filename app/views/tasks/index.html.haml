@@ -1,24 +1,9 @@
 - title "#{@project.name}: Tasks", add: { page: params[:page] }, action: :clear
 
-.row
-  .col-md-3.project-details
-    %h2= @project.name
-    %p
-      Owner:
-      = user_with_gravatar(@project.owner)
-    - if @project.details.present?
-      %hr
-      %div= render_markdown(@project.details)
-    %hr
-      .btn-group
-        = link_to "New task", new_project_task_path, class: "btn btn-info"
-        - if current_user == @project.owner
-          = link_to "Edit", edit_project_path(@project), class: "btn btn-primary"
-          - unless @project.tasks.any?
-            = link_to "Delete", project_path(@project), data: { method: :delete, confirm: t("confirm.prompt") }, class: "btn btn-danger"
-  .col-md-9
-    - if @tasks.any?
-      %ul.list-group= render @tasks
-      = paginate @tasks
-    - else
-      %h2 No tasks here
+%p= link_to "New task", new_project_task_path, class: "btn btn-info"
+
+- if @tasks.any?
+  %ul.list-group= render @tasks
+  = paginate @tasks
+- else
+  %h2 No tasks here

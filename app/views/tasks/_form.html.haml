@@ -7,7 +7,10 @@
     .form-group= f.text_field :name, class: "form-control", placeholder: "Name"
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
     .form-group
-      = f.label :priority, "Priority"
+      = f.label :milestone_id, "Milestone"
+      = f.select :milestone_id, options_for_select(@milestones, @task.milestone_id), { include_blank: true }, class: "form-control"
+    .form-group
+      = f.label :priority
       = f.select :priority, options_for_select(priorities.map{|k,v| [v[0],k]}, @task.priority), {include_blank: false}, {class: "form-control"}
     .form-group
       = f.label :assignee_id, "Assign to"

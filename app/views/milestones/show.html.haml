@@ -1,0 +1,21 @@
+- title "#{@project.name} / #{@milestone.title}", action: :clear
+
+.row
+  .panel.panel-default.task-info
+    .panel-heading.clearfix
+      .pull-right.btn-group
+        = link_to "Edit", edit_project_milestone_path(id: @milestone), class: "btn btn-xs btn-primary"
+        = link_to "Delete", project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") }
+      %div
+        %h4= @milestone.title
+    - if @milestone.tasks.any?
+      .panel-block.progress= progress_bar @tasks.completed.size.to_f/@tasks.size
+    .panel-body.clearfix
+      .pull-left
+        %div
+          - if @milestone.due_date.present?
+            Due date:
+            = @milestone.due_date.to_s(:long)
+          - else
+            No due date
+  = render @tasks

@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_project
-  before_action :set_users, only: [:new, :edit]
+  before_action :set_associations, only: [:new, :edit, :create, :update]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  layout "projects_nested", only: :index
 
   def index
     # TODO: Refactor
@@ -61,11 +62,12 @@ class TasksController < ApplicationController
     @task = @project.tasks.find(params[:id])
   end
 
-  def set_users
-    @users ||= @project.users.pluck(:username, :id)
+  def set_associations
+    @users = @project.users.pluck(:username, :id)
+    @milestones = @project.milestones.pluck(:title, :id)
   end
 
   def task_params
-    params.require(:task).permit(:assignee_id, :name, :details, :status, :priority)
+    params.require(:task).permit(:assignee_id, :name, :details, :status, :priority, :milestone_id)
   end
 end

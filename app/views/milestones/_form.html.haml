@@ -1,0 +1,5 @@
+.col-sm-5
+  = form_for [@project, @milestone] do |f|
+    .form-group= f.text_field :title, class: "form-control", placeholder: "Title"
+    .form-group= f.date_field :due_date, class: "form-control", placeholder: "Due date"
+    .form-group= f.submit class: "btn btn-primary btn-block"

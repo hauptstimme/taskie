@@ -1,0 +1,8 @@
+= inside_layout "application" do
+  .row
+    .col-md-3.project-details= render @project
+    .col-md-9
+      %ul.nav.nav-tabs
+        = menu_item "Tasks", project_tasks_path
+        = menu_item "Milestones", project_milestones_path
+      = yield

@@ -1,0 +1,13 @@
+%h2= @project.name
+%p
+  Owner:
+  = user_with_gravatar(@project.owner)
+- if @project.details.present?
+  %hr
+  %div= render_markdown(@project.details)
+%hr
+  .btn-group
+    - if current_user == @project.owner
+      = link_to "Edit", edit_project_path(@project), class: "btn btn-primary"
+      - unless @project.tasks.any?
+        = link_to "Delete", project_path(@project), data: { method: :delete, confirm: t("confirm.prompt") }, class: "btn btn-danger"

@@ -6,7 +6,12 @@
       %small
         %i.icon-comments
         = pluralize @comments_size, "comment"
-  .pull-left= check_box_with_status_for task
+  .pull-left
+    - if task.milestone.present?
+      %div
+        %i.icon-calendar
+        = link_to task.milestone.title, project_milestone_path(task.project, task.milestone)
+    %div= check_box_with_status_for task
   .pull-right
     :erb
       created <%= time_distance_with_tooltip task.created_at %> ago by <%= user_with_gravatar task.creator %><% unless hide_assignee ||= false %>, assigned to <%= user_with_gravatar task.assignee %><% end %>

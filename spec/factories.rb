@@ -9,10 +9,16 @@ FactoryGirl.define do
     association :assignee
     association :project
     association :creator
+    association :milestone
     priority "normal"
     status false
     name "Do something"
     details "You better do something immediately or I will get unstable and want to drink again"
+  end
+
+  factory :milestone do
+    title "Hard Deadline"
+    association :project
   end
 
   factory :project do
