@@ -13,6 +13,10 @@
         %div
           %i.icon-folder-close
           = link_to @project.name, @project
+        - if @task.milestone.present?
+          %div
+            %i.icon-calendar
+            = link_to @task.milestone.title, project_milestone_path(@task.project, @task.milestone)
         %div= check_box_with_status_for @task
       .pull-right.text-right
         %div= priority_badge @task

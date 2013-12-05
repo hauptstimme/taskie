@@ -9,6 +9,7 @@ FactoryGirl.define do
     association :assignee
     association :project
     association :creator
+    association :milestone
     priority "normal"
     status false
     name "Do something"

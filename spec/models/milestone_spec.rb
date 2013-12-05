@@ -7,6 +7,10 @@ describe Milestone do
 
   it { should be_valid }
 
+  describe "associations" do
+    it { should respond_to(:tasks) }
+  end
+
   describe "validations" do
     describe "without project" do
       let(:milestone) { FactoryGirl.build(:milestone, project: nil) }
