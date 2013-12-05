@@ -7,6 +7,7 @@ class MilestonesController < ApplicationController
   end
 
   def show
+    @tasks = @milestone.tasks.includes(:comments, :creator, :assignee).sorted
   end
 
   def new
