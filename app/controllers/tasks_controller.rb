@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_project
-  before_action :set_associations, only: [:new, :edit, :create, :update]
+  before_action :set_associations, only: [:new, :edit]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   layout "projects_nested", only: :index
 
@@ -28,6 +28,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to project_task_path(id: @task), notice: 'Task was successfully created.'
     else
+      set_associations
       render action: 'new'
     end
   end
@@ -42,6 +43,7 @@ class TasksController < ApplicationController
         @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject{ |k| k == "updated_at" } }
         redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
       else
+        set_associations
         render action: 'edit'
       end
     end
@@ -55,7 +57,7 @@ class TasksController < ApplicationController
   private
 
   def set_project
-    @project ||= current_user.projects.find(params[:project_id])
+    @project = current_user.projects.find(params[:project_id])
   end
 
   def set_task
