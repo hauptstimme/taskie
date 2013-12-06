@@ -8,8 +8,8 @@
         = link_to "Delete", project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") }
       %div
         %h4= @milestone.title
-    - if @milestone.tasks.any?
-      .panel-block.progress= progress_bar @tasks.completed.size.to_f/@tasks.size
+    - if @tasks.any?
+      = progress_bar @tasks.completed.size, @tasks.size, outer_class: "panel-block"
     .panel-body.clearfix
       .pull-left
         %div
