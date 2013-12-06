@@ -13,9 +13,12 @@
     .panel-body.clearfix
       .pull-left
         %div
+          %i.icon-folder-close
+          = link_to @project.name, @project
+        %div
           - if @milestone.due_date.present?
-            Due date:
-            = @milestone.due_date.to_s(:long)
+            :erb
+              Due date: <%= @milestone.due_date.to_s(:long) %>
           - else
             No due date
-  = render @tasks
+  = render @tasks, hide_milestone: true

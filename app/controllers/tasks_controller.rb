@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   def index
     # TODO: Refactor
     per_page = current_user.tasks_per_page > 0 ? current_user.tasks_per_page : @project.tasks.count
-    @tasks = @project.tasks.includes(:comments, :creator, :assignee).sorted.page(params[:page]).per(per_page)
+    @tasks = @project.tasks.includes(:comments, :creator, :assignee, :milestone).sorted.page(params[:page]).per(per_page)
   end
 
   def show
