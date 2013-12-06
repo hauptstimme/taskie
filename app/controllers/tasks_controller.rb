@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_project
   before_action :set_associations, only: [:new, :edit]
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :follow, :update, :destroy]
   layout "projects_nested", only: :index
 
   def index
@@ -20,6 +20,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+  end
+
+  def follow
+    if @task.followers.include?(current_user)
+      @task.followers.delete(current_user)
+    else
+      @task.followers << current_user
+    end
+    redirect_to project_task_path
   end
 
   def create

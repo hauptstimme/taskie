@@ -19,6 +19,10 @@ describe TasksController do
       get("/projects/1/tasks/1/edit").should route_to("tasks#edit", project_id: "1", id: "1")
     end
 
+    it "routes to #follow" do
+      get("/projects/1/tasks/1/follow").should route_to("tasks#follow", project_id: "1", id: "1")
+    end
+
     it "routes to #create" do
       post("/projects/1/tasks").should route_to("tasks#create", project_id: "1")
     end

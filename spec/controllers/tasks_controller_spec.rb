@@ -43,6 +43,12 @@ describe TasksController do
       end
     end
 
+    describe "GET follow" do
+      it "toggles following" do
+        expect { get :follow, project_id: project.id, id: task.id }.to change{ task.followers.include?(user) }
+      end
+    end
+
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Task" do
@@ -167,6 +173,13 @@ describe TasksController do
     describe "GET edit" do
       it "redirects to sign in" do
         get :edit, project_id: project.id, id: task.id
+        response.should redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "GET follow" do
+      it "redirects to sign in" do
+        get :follow, project_id: project.id, id: task.id
         response.should redirect_to(new_user_session_path)
       end
     end

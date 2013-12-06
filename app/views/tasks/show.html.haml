@@ -4,8 +4,19 @@
   .panel.panel-default.task-info
     .panel-heading.clearfix
       .pull-right.btn-group
-        = link_to "Edit", edit_project_task_path(id: @task), class: "btn btn-xs btn-primary"
-        = link_to "Delete", project_task_path(id: @task), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") }
+        = link_to follow_project_task_path, class: "btn btn-xs btn-info" do
+          - if @task.followers.include?(current_user)
+            %i.icon-star
+            Unfollow
+          - else
+            %i.icon-star-empty
+            Follow
+        = link_to edit_project_task_path(id: @task), class: "btn btn-xs btn-primary" do
+          %i.icon-edit
+          Edit
+        = link_to project_task_path(id: @task), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } do
+          %i.icon-trash
+          Delete
       %div
         %h4= @task.name
     .panel-body.clearfix
