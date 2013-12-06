@@ -68,65 +68,29 @@ describe Comment do
   end
 
   describe "hooks" do
-    describe "#notify" do
-      let(:user) { FactoryGirl.build(:user) }
-      before { task.save }
+    describe "#notify_followers" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:task) { FactoryGirl.create(:task, creator: user, assignee: user) }
+      let(:users) { FactoryGirl.create_list(:user, 3) }
 
-      describe "when assignee is not present" do
-        let(:task) { FactoryGirl.create(:task, creator: user, assignee: nil) }
+      before do
+        task.follower_ids = users.map(&:id)
+        task.save
+      end
 
-        describe "when author of comment is a task creator" do
-          it "should not send an email" do
-            expect { FactoryGirl.create(:comment, task: task, user: user) }.not_to change { ActionMailer::Base.deliveries.count }
-          end
-        end
+      describe "when commenter is one of the followers" do
+        let(:comment) { FactoryGirl.create(:comment, task: task, user: users.first) }
 
-        describe "when author of comment is not a task creator" do
-          it "should send one email" do
-            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-          end
+        it "sends two emails" do
+          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(2)
         end
       end
 
-      describe "when assignee and creator are the same person" do
-        let(:task) { FactoryGirl.create(:task, creator: user, assignee: user) }
+      describe "when commenter is not one of the followers" do
+        let(:comment) { FactoryGirl.create(:comment, task: task) }
 
-        describe "when author of comment is a task creator" do
-          it "should not send an email" do
-            expect { FactoryGirl.create(:comment, user: user, task: task) }.not_to change { ActionMailer::Base.deliveries.count }
-          end
-        end
-
-        describe "when author of comment is not a task creator" do
-          it "should send one email" do
-            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-          end
-        end
-      end
-
-      describe "when assignee and creator are different people" do
-        describe "when author of comment is a task creator" do
-          let(:task) { FactoryGirl.create(:task, creator: user) }
-
-          it "should send one email" do
-            expect { FactoryGirl.create(:comment, user: user, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-          end
-        end
-
-        describe "when author of comment is a task assignee" do
-          let(:task) { FactoryGirl.create(:task, assignee: user) }
-
-          it "should send one email" do
-            expect { FactoryGirl.create(:comment, user: user, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(1)
-          end
-        end
-
-        describe "when author of comment is not a task creator or task assignee" do
-          let(:task) { FactoryGirl.create(:task) }
-
-          it "should send two emails" do
-            expect { FactoryGirl.create(:comment, task: task) }.to change { ActionMailer::Base.deliveries.count }.by(2)
-          end
+        it "sends three emails" do
+          expect { comment.save }.to change { ActionMailer::Base.deliveries.count }.by(3)
         end
       end
     end

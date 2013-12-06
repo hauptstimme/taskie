@@ -6,9 +6,11 @@ class Task < ActiveRecord::Base
   belongs_to :project
   belongs_to :milestone
   has_many :comments, dependent: :destroy
+  has_and_belongs_to_many :followers, class_name: "User"
 
   validates_presence_of :name, :project, :creator, :priority
 
+  after_create :set_followers
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
 
   scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
@@ -22,7 +24,12 @@ class Task < ActiveRecord::Base
 
   private
 
+  def set_followers
+    self.followers << creator
+  end
+
   def notify_assignee
+    self.followers << assignee unless self.follower_ids.include?(assignee.id)
     TaskMailer.task_assigned(self).deliver
   end
 end

@@ -1,5 +1,5 @@
 <p>Hi, <%= @task.assignee.email %>,</p>
 
-<p>This is to notify you that a task <%= link_to @task.name_with_id, project_task_url(project_id: @project, id: @task) %> in the project <%= link_to @project.name, project_url(@project) %> has been assigned to you.
+<p>This is to notify you that a task <%= link_to @task.name, project_task_url(project_id: @project, id: @task) %> in the project <%= link_to @project.name, project_url(@project) %> has been assigned to you.
 
 <%= render "signature" %>

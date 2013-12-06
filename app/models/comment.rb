@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
 
   before_update :modifiable?
   before_destroy :modifiable?
-  after_create :notify
+  after_create :notify_followers
 
   default_scope ->{ order :created_at }
 
@@ -14,8 +14,11 @@ class Comment < ActiveRecord::Base
     created_at > 1.day.ago
   end
 
-  def notify
-    TaskMailer.new_comment(self, task.assignee).deliver if task.assignee.present? && task.assignee != user
-    TaskMailer.new_comment(self, task.creator).deliver if task.creator != task.assignee && task.creator != user
+  private
+
+  def notify_followers
+    task.followers.where.not("id = ?", user.id).each do |follower|
+      TaskMailer.new_comment(self, follower).deliver
+    end
   end
 end

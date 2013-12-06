@@ -13,6 +13,7 @@ describe User do
     it { should respond_to(:owned_projects) }
     it { should respond_to(:created_tasks) }
     it { should respond_to(:assigned_tasks) }
+    it { should respond_to(:followed_tasks) }
   end
 
   describe "scopes" do

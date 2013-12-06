@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204125948) do
+ActiveRecord::Schema.define(version: 20131206094251) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(version: 20131204125948) do
     t.integer  "priority"
     t.integer  "milestone_id"
   end
+
+  create_table "tasks_users", id: false, force: true do |t|
+    t.integer "task_id"
+    t.integer "user_id"
+  end
+
+  add_index "tasks_users", ["task_id", "user_id"], name: "index_tasks_users_on_task_id_and_user_id", unique: true
+  add_index "tasks_users", ["task_id"], name: "index_tasks_users_on_task_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
