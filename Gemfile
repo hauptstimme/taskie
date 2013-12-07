@@ -18,7 +18,6 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 group :test do
-  # gem 'capybara'
   gem 'factory_girl_rails', require: false
   gem 'timecop'
 end
@@ -30,6 +29,7 @@ end
 
 group :development do
   gem 'letter_opener'
+  gem 'better_errors'
   gem 'rack-mini-profiler'
 end
 

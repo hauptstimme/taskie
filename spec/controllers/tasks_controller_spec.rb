@@ -43,6 +43,24 @@ describe TasksController do
       end
     end
 
+    describe "GET follow" do
+      describe "when user already follows" do
+        before { task.followers << user rescue nil }
+        it "unfollows" do
+          get :follow, project_id: project.id, id: task.id
+          expect(task.followers.include?(user)).to be_false
+        end
+      end
+
+      describe "when user doesn't follow" do
+        before { task.followers.delete(user) }
+        it "follows" do
+          get :follow, project_id: project.id, id: task.id
+          expect(task.followers.include?(user)).to be_true
+        end
+      end
+    end
+
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Task" do
@@ -167,6 +185,13 @@ describe TasksController do
     describe "GET edit" do
       it "redirects to sign in" do
         get :edit, project_id: project.id, id: task.id
+        response.should redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "GET follow" do
+      it "redirects to sign in" do
+        get :follow, project_id: project.id, id: task.id
         response.should redirect_to(new_user_session_path)
       end
     end

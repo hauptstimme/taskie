@@ -4,8 +4,12 @@
   .panel.panel-default.task-info
     .panel-heading.clearfix
       .pull-right.btn-group
-        = link_to "Edit", edit_project_milestone_path(id: @milestone), class: "btn btn-xs btn-primary"
-        = link_to "Delete", project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") }
+        = link_to edit_project_milestone_path(id: @milestone), class: "btn btn-xs btn-primary" do
+          %i.icon-edit
+          Edit
+        = link_to project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } do
+          %i.icon-trash
+          Delete
       %div
         %h4= @milestone.title
     - if @tasks.any?

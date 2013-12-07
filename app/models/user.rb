@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :owned_projects, class_name: "Project", foreign_key: :owner_id
   has_many :created_tasks, class_name: "Task", foreign_key: :creator_id
   has_many :assigned_tasks, class_name: "Task", foreign_key: :assignee_id
+  has_and_belongs_to_many :followed_tasks, class_name: "Task"
 
   scope :active, -> { where "last_sign_in_at is not ?", nil }
 

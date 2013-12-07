@@ -13,6 +13,7 @@ describe Task do
     it { should respond_to(:project) }
     it { should respond_to(:milestone) }
     it { should respond_to(:comments) }
+    it { should respond_to(:followers) }
   end
 
   describe "validations" do
