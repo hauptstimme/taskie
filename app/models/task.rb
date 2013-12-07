@@ -22,14 +22,34 @@ class Task < ActiveRecord::Base
     "##{id} #{name}"
   end
 
+  def follower?(user)
+    follower_ids.include? user.id
+  end
+
+  def add_follower(user)
+    self.followers << user unless follower?(user)
+  end
+
+  def remove_follower(user)
+    self.followers.delete user if follower?(user)
+  end
+
+  def toggle_follower(user)
+    if follower?(user)
+      self.followers.delete user
+    else
+      self.followers << user
+    end
+  end
+
   private
 
   def set_followers
-    self.followers << creator
+    add_follower creator
   end
 
   def notify_assignee
-    self.followers << assignee unless self.follower_ids.include?(assignee.id)
+    add_follower assignee
     TaskMailer.task_assigned(self).deliver
   end
 end
