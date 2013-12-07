@@ -44,8 +44,20 @@ describe TasksController do
     end
 
     describe "GET follow" do
-      it "toggles following" do
-        expect { get :follow, project_id: project.id, id: task.id }.to change{ task.followers.include?(user) }
+      describe "when user already follows" do
+        before { task.followers << user rescue nil }
+        it "unfollows" do
+          get :follow, project_id: project.id, id: task.id
+          expect(task.followers.include?(user)).to be_false
+        end
+      end
+
+      describe "when user doesn't follow" do
+        before { task.followers.delete(user) }
+        it "follows" do
+          get :follow, project_id: project.id, id: task.id
+          expect(task.followers.include?(user)).to be_true
+        end
       end
     end
 
