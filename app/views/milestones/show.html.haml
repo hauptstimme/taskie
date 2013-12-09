@@ -5,10 +5,10 @@
     .panel-heading.clearfix
       .pull-right.btn-group
         = link_to edit_project_milestone_path(id: @milestone), class: "btn btn-xs btn-primary" do
-          %i.icon-edit
+          %i.fa.fa-edit
           Edit
         = link_to project_milestone_path(id: @milestone), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } do
-          %i.icon-trash
+          %i.fa.fa-trash-o
           Delete
       %div
         %h4= @milestone.title
@@ -17,7 +17,7 @@
     .panel-body.clearfix
       .pull-left
         %div
-          %i.icon-folder-close
+          %i.fa.fa-folder
           = link_to @project.name, @project
         %div
           - if @milestone.due_date.present?

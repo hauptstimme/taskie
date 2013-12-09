@@ -16,6 +16,7 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2-bootstrap.css", "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css"
     = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js"
+    = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
 
   %body
     .navbar.navbar-inverse
@@ -33,46 +34,46 @@
             - if signed_in?
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
-                  %i.icon-suitcase
+                  %i.fa.fa-suitcase.fa-fw
                   Projects
-                  %i.icon-caret-down
+                  %i.fa.fa-caret-down
                 %ul.dropdown-menu
                   - cache ["current_user_projects", current_user.projects] do
                     - if current_user.projects.any?
                       - current_user.projects.each do |p|
                         %li
                           = link_to p do
-                            %i.icon-folder-close
+                            %i.fa.fa-folder.fa-fw
                             = p.name
                       %li.divider
                   %li
                     = link_to new_project_path do
-                      %i.icon-plus
+                      %i.fa.fa-plus.fa-fw
                       New project
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
-                  %i.icon-user
+                  %i.fa.fa-user.fa-fw
                   Account
-                  %i.icon-caret-down
+                  %i.fa.fa-caret-down
                 %ul.dropdown-menu
                   %li.dropdown-header= user_with_gravatar current_user
                   %li.divider
                   %li
                     = link_to new_user_invitation_path do
-                      %i.icon-plus
+                      %i.fa.fa-plus.fa-fw
                       Invite
                   %li
                     = link_to settings_path do
-                      %i.icon-cog
+                      %i.fa.fa-cog.fa-fw
                       Settings
                   %li
                     = link_to destroy_user_session_path do
-                      %i.icon-signout
+                      %i.fa.fa-sign-out.fa-fw
                       Logout
             - else
               %li
                 = link_to new_user_session_path do
-                  %i.icon-signin
+                  %i.fa.fa-sign-in.fa-fw
                   Login
 
     .container#main-content
@@ -84,6 +85,6 @@
         Taskie
         .pull-right#links
           = link_to "http://github.com/Hauptstimme/taskie", target: "_blank" do
-            %i.icon-github.icon-large
+            %i.fa.fa-github.fa-2x
           = link_to "http://hauptstimme.tk/projects", target: "_blank" do
             %i.hauptstimme-icon-main.hauptstimme-large{aria: { hidden: "true" }}
