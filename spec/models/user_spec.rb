@@ -7,6 +7,14 @@ describe User do
 
   it { should be_valid }
 
+  describe "defaults" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "auto-follows tasks" do
+      expect(user.auto_follow_tasks).to be_true
+    end
+  end
+
   describe "associations" do
     it { should respond_to(:comments) }
     it { should respond_to(:projects) }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206094251) do
+ActiveRecord::Schema.define(version: 20131209053038) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20131206094251) do
   add_index "tasks_users", ["task_id"], name: "index_tasks_users_on_task_id"
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",   null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20131206094251) do
     t.string   "time_zone"
     t.string   "api_key"
     t.integer  "tasks_per_page"
+    t.boolean  "auto_follow_tasks",      default: true
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true

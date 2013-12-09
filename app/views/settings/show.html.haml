@@ -10,7 +10,10 @@
         %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
       %tr
         %th Tasks per page
-        %td= f.select :tasks_per_page, options_for_select([10, 25, 50, 100, ["all", 0]], current_user.tasks_per_page), {include_blank: false}, class: "form-control input-sm"
+        %td= f.select :tasks_per_page, options_for_select([10, 25, 50, 100, ["all", 0]], current_user.tasks_per_page), { include_blank: false }, class: "form-control input-sm"
+      %tr
+        %th Auto-follow tasks
+        %td= f.check_box :auto_follow_tasks
       %tr
         %th API secret key
         %td
