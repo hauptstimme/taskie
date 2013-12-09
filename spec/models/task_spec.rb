@@ -110,6 +110,14 @@ describe Task do
         expect{ task.add_follower(user) }.not_to change{ task.follower?(user) }
       end
     end
+
+    describe "when auto-following is disabled" do
+      before { user.update auto_follow_tasks: false }
+
+      it "doesn't add" do
+        expect{ task.add_follower(user) }.not_to change{ task.follower?(user) }
+      end
+    end
   end
 
   describe "#remove_follower" do

@@ -27,7 +27,7 @@ class Task < ActiveRecord::Base
   end
 
   def add_follower(user)
-    self.followers << user unless follower?(user)
+    self.followers << user if !follower?(user) and user.auto_follow_tasks
   end
 
   def remove_follower(user)
