@@ -13,7 +13,7 @@ class Api::ProjectsController < Api::BaseController
   private
 
   def set_projects
-    @projects = current_user.projects.includes(:owner, :users)
+    @projects = current_user.projects.includes(:owner, :users, :milestones)
   end
 
   def set_project

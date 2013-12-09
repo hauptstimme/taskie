@@ -6,6 +6,7 @@ Taskie::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: :show
     resources :projects, only: [:index, :show] do
+      resources :milestones, only: [:index, :show]
       resources :tasks, only: [:index, :show]
     end
   end

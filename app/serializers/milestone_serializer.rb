@@ -1,4 +1,3 @@
 class MilestoneSerializer < ActiveModel::Serializer
-  attributes :id, :tasks, :title
-  has_one :project
+  attributes :id, :title, :due_date
 end
