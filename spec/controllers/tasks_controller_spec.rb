@@ -13,12 +13,9 @@ describe TasksController do
     end
 
     describe "GET index" do
-      let!(:tasks) { FactoryGirl.create_list(:task, 11, project: project, creator: user, assignee: nil) }
-
-      it "assigns paginated tasks as @tasks" do
-        user.update tasks_per_page: 10
+      it "assigns tasks as @tasks" do
         get :index, project_id: project.id
-        assigns(:tasks).size.should == 10
+        expect(assigns(:tasks)).to eq([task])
       end
     end
 
