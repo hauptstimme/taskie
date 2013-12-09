@@ -15,8 +15,8 @@
         %th API secret key
         %td
           %span#api-key-toggle.btn.btn-xs.btn-primary
-            %i.icon-unlock
-            %i.icon-lock
+            %i.fa.fa-unlock
+            %i.fa.fa-lock
           %code#api-key= current_user.api_key
       %tr
         %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"
@@ -24,5 +24,5 @@
 :coffeescript
   $(document).ready ->
     $("#api-key-toggle").click ->
-      $(this).find(".icon-unlock, .icon-lock").toggle()
+      $(this).find(".fa-unlock, .fa-lock").toggle()
       $("#api-key").toggle()

@@ -5,12 +5,12 @@
       = link_to task.name, project_task_path(task.project_id, task.id)
       - if (@comments_size = task.comments.size) > 0
         %small
-          %i.icon-comments
+          %i.fa.fa-comments
           = pluralize @comments_size, "comment"
     .pull-left
       - if !hide_milestone and task.milestone.present?
         %div
-          %i.icon-calendar
+          %i.fa.fa-calendar
           = link_to task.milestone.title, project_milestone_path(task.project_id, task.milestone)
       %div= check_box_with_status_for task
     .pull-right
