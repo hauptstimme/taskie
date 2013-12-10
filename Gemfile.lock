@@ -195,11 +195,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (~> 0.8.1)
   better_errors
   coffee-rails
   coveralls
-  devise
+  devise (~> 3.2.2)
   devise_invitable
   factory_girl_rails
   figaro
