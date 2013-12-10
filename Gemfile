@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.2'
 
-gem 'devise'
+gem 'devise', '~> 3.2.2'
 gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro'
 gem 'coveralls', require: false
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'
 gem 'public_activity'
 gem 'sass-rails'
