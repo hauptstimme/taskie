@@ -7,6 +7,7 @@ class Task < ActiveRecord::Base
   belongs_to :milestone
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :followers, class_name: "User"
+  has_and_belongs_to_many :tags, -> { distinct }
 
   validates_presence_of :name, :project, :creator, :priority
 

@@ -35,4 +35,8 @@ FactoryGirl.define do
   factory :settings do
     time_zone "Novosibirsk"
   end
+
+  factory :tag do
+    title "urgent"
+  end
 end

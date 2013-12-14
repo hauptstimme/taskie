@@ -14,6 +14,19 @@ describe Task do
     it { should respond_to(:milestone) }
     it { should respond_to(:comments) }
     it { should respond_to(:followers) }
+
+    describe "#tags" do
+      let(:tag) { FactoryGirl.create(:tag) }
+
+      describe "#<< & #delete" do
+        it "adds and removes tags only once" do
+          expect { task.tags << tag }.to change { task.tags.size }.by(1)
+          expect { task.tags << tag }.not_to change { task.tags.size }
+          expect { task.tags.delete tag }.to change { task.tags.size }.by(-1)
+          expect { task.tags.delete tag }.not_to change { task.tags.size }
+        end
+      end
+    end
   end
 
   describe "validations" do

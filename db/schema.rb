@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209053038) do
+ActiveRecord::Schema.define(version: 20131214145425) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -60,6 +60,21 @@ ActiveRecord::Schema.define(version: 20131209053038) do
     t.integer "project_id"
     t.integer "user_id"
   end
+
+  create_table "tags", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags_tasks", id: false, force: true do |t|
+    t.integer "tag_id"
+    t.integer "task_id"
+  end
+
+  add_index "tags_tasks", ["tag_id"], name: "index_tags_tasks_on_tag_id"
+  add_index "tags_tasks", ["task_id", "tag_id"], name: "index_tags_tasks_on_task_id_and_tag_id", unique: true
+  add_index "tags_tasks", ["task_id"], name: "index_tags_tasks_on_task_id"
 
   create_table "task_dependencies", force: true do |t|
     t.integer "dependent_id"
