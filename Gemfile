@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gem 'rails', '4.0.2'
 
+gem 'therubyracer'
 gem 'devise', '~> 3.2.2'
 gem 'devise_invitable'
 gem 'redcarpet'
@@ -11,11 +13,12 @@ gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'
 gem 'public_activity'
 gem 'sass-rails'
+gem 'less-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'rails-assets-strapless', '3.0.3'
 
 group :test do
   gem 'factory_girl_rails', require: false

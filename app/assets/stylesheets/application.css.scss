@@ -1,7 +1,8 @@
 /*
- *= require_self
- *= require bootstrap_and_overrides
+ *= require cosmo
+ *= require bootstrap_overrides
  *= require font-hauptstimme
+ *= require_self
  */
 
 #loader {
@@ -9,9 +10,13 @@
 }
 
 blockquote.comment, blockquote.task-details {
-  small {
+  small, .small {
     margin-bottom: 15px;
   }
+}
+
+blockquote small:before {
+  content: "";
 }
 
 .list-group-item.task-details {

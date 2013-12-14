@@ -5,10 +5,9 @@
     .col-md-3
       %h3 Active tasks
     .col-md-9
-      %ul.list-group
-        - @active_tasks_by_projects.each do |project, tasks|
-          %li.active.list-group-item
-            %h4= link_to project.name, project
-          = render tasks, hide_assignee: true
+      - @active_tasks_by_projects.each do |project, tasks|
+        = link_to project, class: "list-group-item active" do
+          %h4= project.name
+        %ul.list-group= render tasks, hide_assignee: true
   - else
     %h3 Nothing to do. Yay!
