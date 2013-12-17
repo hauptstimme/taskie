@@ -120,7 +120,7 @@ describe ProjectsController do
 
       it "redirects to the projects list" do
         delete :destroy, project_id: project.id, id: project.id
-        response.should redirect_to(projects_path)
+        response.should redirect_to(root_path)
       end
     end
   end
