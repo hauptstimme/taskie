@@ -11,7 +11,7 @@ class Task < ActiveRecord::Base
   validates_presence_of :name, :project, :creator, :priority
 
   after_create :set_followers
-  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? }
+  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? and assignee_id != creator_id }
 
   scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
   scope :active, -> { where "status = ?", false }
@@ -22,34 +22,14 @@ class Task < ActiveRecord::Base
     "##{id} #{name}"
   end
 
-  def follower?(user)
-    follower_ids.include? user.id
-  end
-
-  def add_follower(user)
-    self.followers << user if !follower?(user) and user.auto_follow_tasks
-  end
-
-  def remove_follower(user)
-    self.followers.delete user if follower?(user)
-  end
-
-  def toggle_follower(user)
-    if follower?(user)
-      self.followers.delete user
-    else
-      self.followers << user
-    end
-  end
-
   private
 
   def set_followers
-    add_follower creator
+    self.followers << creator
   end
 
   def notify_assignee
-    add_follower assignee
+    self.followers << assignee
     TaskMailer.task_assigned(self).deliver
   end
 end
