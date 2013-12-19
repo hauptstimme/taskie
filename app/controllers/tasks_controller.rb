@@ -23,7 +23,11 @@ class TasksController < ApplicationController
   end
 
   def follow
-    @task.toggle_follower(current_user)
+    if @task.follower_ids.include? current_user.id
+      @task.followers.delete current_user
+    else
+      @task.followers << current_user
+    end
     redirect_to project_task_path
   end
 
