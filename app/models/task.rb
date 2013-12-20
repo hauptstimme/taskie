@@ -22,14 +22,18 @@ class Task < ActiveRecord::Base
     "##{id} #{name}"
   end
 
+  def add_follower(user)
+    self.followers << user if !self.follower_ids.include? user.id and user.auto_follow_tasks
+  end
+
   private
 
   def set_followers
-    self.followers << creator
+    add_follower creator
   end
 
   def notify_assignee
-    self.followers << assignee
+    add_follower assignee
     TaskMailer.task_assigned(self).deliver
   end
 end
