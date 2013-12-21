@@ -71,6 +71,34 @@ describe Task do
     end
   end
 
+  describe "#add_follower" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    describe "when doesn't follow" do
+      before { task.followers.delete user }
+
+       it "adds" do
+        expect{ task.add_follower(user) }.to change{ task.follower_ids.include? user.id }
+      end
+    end
+
+    describe "when follows" do
+      before { task.add_follower(user) }
+
+       it "doesn't add" do
+        expect{ task.add_follower(user) }.not_to change{ task.follower_ids.include? user.id }
+      end
+     end
+
+    describe "when auto-following is disabled" do
+      before { user.update auto_follow_tasks: false }
+
+      it "doesn't add" do
+       expect{ task.add_follower(user) }.not_to change{ task.follower_ids.include? user.id }
+      end
+    end
+  end
+
   describe "#name_with_id" do
     subject { task.name_with_id }
     let(:task) { FactoryGirl.create(:task, id: 93, name: "Some weird task") }

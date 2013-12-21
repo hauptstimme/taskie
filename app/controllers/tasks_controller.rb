@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     if @task.follower_ids.include? current_user.id
       @task.followers.delete current_user
     else
-      @task.followers << current_user
+      @task.add_follower(current_user)
     end
     redirect_to project_task_path
   end
