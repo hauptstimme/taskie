@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '~> 4.1.0.beta1'
 
 gem 'therubyracer'
 gem 'devise', '~> 3.2.2'
 gem 'devise_invitable'
 gem 'redcarpet'
-gem 'figaro'
+gem 'figaro', github: 'laserlemon/figaro'
 gem 'coveralls', require: false
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'

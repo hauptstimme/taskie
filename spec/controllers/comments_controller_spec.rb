@@ -14,7 +14,7 @@ describe CommentsController do
 
     describe "GET edit" do
       it "renders the template" do
-        get :edit, project_id: project.id, task_id: task.id, id: comment.id, format: :js
+        xhr :get, :edit, project_id: project.id, task_id: task.id, id: comment.id, format: :js
         response.should render_template("edit")
       end
     end

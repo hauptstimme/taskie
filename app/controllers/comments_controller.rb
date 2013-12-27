@@ -16,12 +16,12 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    respond_to { |format| format.js }
+    respond_to :js
   end
 
   def update
     @success = @comment.update(comment_params)
-    respond_to { |format| format.js }
+    respond_to :js
   end
 
   def destroy
