@@ -1,3 +1,2 @@
-$("#loader").css({"display": "none"});
-var form = $('form#edit_task_<%= @task.id %>');
-form.replaceWith('<%= escape_javascript(check_box_with_status_for(@task)) %>')
+$('form#edit_task_<%= @task.id %>').replaceWith('<%= escape_javascript(check_box_with_status_for(@task)) %>');
+$("#spinner").hide("fast");

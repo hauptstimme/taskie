@@ -2,12 +2,9 @@
  *= require cosmo
  *= require bootstrap_overrides
  *= require font-hauptstimme
+ *= require spinner
  *= require_self
  */
-
-#loader {
-  display: none;
-}
 
 blockquote.comment, blockquote.task-details {
   small, .small {
