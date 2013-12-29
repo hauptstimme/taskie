@@ -18,7 +18,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
+
 gem 'rails-assets-strapless', '3.0.3'
+gem 'rails-assets-select2', '3.4.5'
 
 group :test do
   gem 'factory_girl_rails', require: false

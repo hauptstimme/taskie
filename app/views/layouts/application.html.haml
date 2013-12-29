@@ -8,15 +8,13 @@
     = csrf_meta_tags
     /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
-    - ["144x144", "114x114", "72x72", nil].each do |size|
-      = favicon_link_tag ["apple-touch-icon", size, "precomposed.png"].compact.join("-"), rel: 'apple-touch-icon-precomposed', type: 'image/png', sizes: size
+    -# ["144x144", "114x114", "72x72", nil].each do |size|
+      =# favicon_link_tag ["apple-touch-icon", size, "precomposed.png"].compact.join("-"), rel: 'apple-touch-icon-precomposed', type: 'image/png', sizes: size
     = favicon_link_tag '//hauptstimme.tk/favicon.ico', rel: 'shortcut icon'
 
     = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag "application"
-    = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2-bootstrap.css", "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css"
-    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js"
-    = stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+    = cdn_css_tag "font-awesome/4.0.3/css/font-awesome.min"
 
   %body
     .navbar.navbar-inverse

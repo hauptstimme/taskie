@@ -5,4 +5,5 @@
 #= require bootstrap/dropdown
 #= require bootstrap/tooltip
 #= require bootstrap_tweaks
+#= require select2/select2
 #= require taskie.async.checkbox
