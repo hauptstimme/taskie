@@ -1,6 +1,6 @@
 module TasksHelper
   def status_to_label status
-    if status
+    if status == 1
       content_tag :span, "Completed", class: "label label-success"
     else
       content_tag :span, "Active", class: "label label-primary"
@@ -13,7 +13,7 @@ module TasksHelper
 
   def check_box_with_status_for task
     form_for task, url: project_task_path(project_id: task.project_id, id: task), remote: true, html: { class: "form-inline status-toggle" } do |f|
-        f.check_box(:status) + status_label_for(task)
+      f.check_box(:status) + status_label_for(task)
     end
   end
 

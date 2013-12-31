@@ -25,6 +25,8 @@
               <%= render_markdown v[0] %>
             <% when "priority" %>
               <p class="list-group-item-text"><%= k.humanize %>: <%= priority_badge v[0] %></p>
+            <% when "status" %>
+              <p class="list-group-item-text"><%= k.humanize %>: <%= status_to_label v[0] %></p>
             <% else %>
               <p class="list-group-item-text"><%= k.humanize %>: <%= v[0] %></p>
             <% end %>

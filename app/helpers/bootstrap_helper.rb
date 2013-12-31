@@ -1,21 +1,22 @@
-# Stolen from seyhunak/twitter-bootstrap-rails
+# Stolen from seyhunak/twitter-bootstrap-rails and updated
+
 module BootstrapHelper
-  ALERT_TYPES = [:error, :info, :success, :warning]
+  ALERT_TYPES = {
+    alert: :danger,
+    info: :info,
+    notice: :success,
+    warning: :warning
+  }
 
   def bootstrap_flash
-    flash_messages = []
-    flash.each do |type, message|
-      next if message.blank?
-      type = :success if type == :notice
-      type = :error if type == :alert
-      next unless ALERT_TYPES.include?(type)
+    flash.flat_map do |type, message|
+      next unless message.present? && ALERT_TYPES.keys.include?(type)
 
-      Array(message).each do |msg|
-        text = content_tag(:div, content_tag(:button, raw("&times;"), :class => "close", "data-dismiss" => "alert") + msg.html_safe, :class => "alert fade in alert-#{type}")
-        flash_messages << text if msg
+      Array(message).map do |msg|
+        next unless msg.present?
+        content_tag(:div, content_tag(:button, raw("&times;"), class: "close", data: { dismiss: "alert" }) + msg.html_safe, class: "alert fade in alert-#{ALERT_TYPES[type]}")
       end
-    end
-    flash_messages.join("\n").html_safe
+    end.compact.join("\n").html_safe
   end
 
   def menu_item(name=nil, path="#", *args, &block)

@@ -7,7 +7,9 @@
     .col-md-9
       - @active_tasks_by_projects.each do |project, tasks|
         = link_to project, class: "list-group-item active" do
-          %h4= project.name
+          %h4
+            %i.fa.fa-folder
+            = project.name
         %ul.list-group= render tasks, hide_assignee: true
   - else
     %h3 Nothing to do. Yay!

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209053038) do
+ActiveRecord::Schema.define(version: 20131231022558) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -70,13 +70,13 @@ ActiveRecord::Schema.define(version: 20131209053038) do
     t.integer  "assignee_id"
     t.string   "name"
     t.text     "details"
-    t.boolean  "status",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
     t.integer  "creator_id"
     t.integer  "priority"
     t.integer  "milestone_id"
+    t.integer  "status",       default: 0
   end
 
   create_table "tasks_users", id: false, force: true do |t|

@@ -8,14 +8,14 @@ class Task < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :followers, class_name: "User"
 
-  validates_presence_of :name, :project, :creator, :priority
+  validates_presence_of :name, :project, :creator, :priority, :status
 
   after_create :set_followers
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? and assignee_id != creator_id }
 
   scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
-  scope :active, -> { where "status = ?", false }
-  scope :completed, -> { where "status = ?", true }
+  scope :active, -> { where "status = ?", 0 }
+  scope :completed, -> { where "status = ?", 1 }
   scope :without_project, -> { where "project_id = ?", nil }
 
   def name_with_id

@@ -31,6 +31,16 @@ describe Task do
       let(:task) { FactoryGirl.build(:task, project: nil) }
       it { should_not be_valid }
     end
+
+    describe "without priority" do
+      let(:task) { FactoryGirl.build(:task, priority: nil) }
+      it { should_not be_valid }
+    end
+
+    describe "without status" do
+      let(:task) { FactoryGirl.build(:task, priority: nil) }
+      it { should_not be_valid }
+    end
   end
 
   describe "scopes" do
