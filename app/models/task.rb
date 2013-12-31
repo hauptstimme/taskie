@@ -1,6 +1,8 @@
 class Task < ActiveRecord::Base
   include PublicActivity::Common
 
+  enum status: [:active, :completed]
+
   belongs_to :assignee, class_name: "User"
   belongs_to :creator, class_name: "User"
   belongs_to :project
@@ -14,9 +16,6 @@ class Task < ActiveRecord::Base
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? and assignee_id != creator_id }
 
   scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
-  scope :active, -> { where "status = ?", 0 }
-  scope :completed, -> { where "status = ?", 1 }
-  scope :without_project, -> { where "project_id = ?", nil }
 
   def name_with_id
     "##{id} #{name}"

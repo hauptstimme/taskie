@@ -96,13 +96,13 @@ describe TasksController do
 
     describe "PATCH update" do
       it "updates the task" do
-        Task.any_instance.should_receive(:update).with({ "status" => true })
-        patch :update, project_id: project.id, id: task.id, task: { "status" => true }, format: :js
+        Task.any_instance.should_receive(:update).with({ "status" => "completed" })
+        patch :update, project_id: project.id, id: task.id, task: { "status" => "completed" }, format: :js
       end
 
       it "creates task activity" do
         expect {
-          patch :update, project_id: project.id, id: task.id, task: { "status" => true }, format: :js
+          patch :update, project_id: project.id, id: task.id, task: { "status" => "completed" }, format: :js
         }.to change{ task.activities.count }.by(1)
       end
     end
