@@ -1,19 +1,19 @@
 module TasksHelper
   def status_to_label status
-    if status == 1
+    if status.in? ["completed", 1]
       content_tag :span, "Completed", class: "label label-success"
     else
       content_tag :span, "Active", class: "label label-primary"
     end
   end
 
-  def status_label_for task
+  def status_label_for(task)
     status_to_label task.status
   end
 
-  def check_box_with_status_for task
+  def check_box_with_status_for(task)
     form_for task, url: project_task_path(project_id: task.project_id, id: task), remote: true, html: { class: "form-inline status-toggle" } do |f|
-      f.check_box(:status) + status_label_for(task)
+      f.check_box(:status, {}, "completed", "active") + status_label_for(task)
     end
   end
 
@@ -29,17 +29,20 @@ module TasksHelper
     ["all", "active", "completed"]
   end
 
-  def priority_badge task_or_priority
-    priority = task_or_priority.is_a?(Task) ? task_or_priority.priority : task_or_priority
-    content_tag :span, priorities[priority][0], class: "badge #{priorities[priority][1]}"
+  def priority_badge(task_or_priority)
+    priority =
+      case task_or_priority
+      when Integer
+        Task::PRIORITY.invert[task_or_priority]
+      when Task
+        task_or_priority.priority
+      else
+        task_or_priority
+      end
+    content_tag :span, priority, class: "badge #{priority_to_class(priority)}"
   end
 
-  def priorities
-    {
-      1 => ["low", "badge-blue"],
-      2 => ["normal", "badge-green"],
-      3 => ["high", "badge-orange"],
-      4 => ["critical", "badge-red"]
-    }
+  def priority_to_class(n)
+    "badge-" + HashWithIndifferentAccess.new(low: "blue", normal: "green", high: "orange", critical: "red")[n]
   end
 end

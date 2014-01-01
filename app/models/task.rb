@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
   include PublicActivity::Common
 
-  enum status: [:active, :completed]
+  enum status: [:active, :completed], priority: { low: 1, normal: 2, high: 3, critical: 4 }
 
   belongs_to :assignee, class_name: "User"
   belongs_to :creator, class_name: "User"
@@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :followers, class_name: "User"
 
-  validates_presence_of :name, :project, :creator, :priority, :status
+  validates_presence_of :name, :project, :creator
 
   after_create :set_followers
   after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? and assignee_id != creator_id }
@@ -22,7 +22,7 @@ class Task < ActiveRecord::Base
   end
 
   def add_follower(user)
-    self.followers << user if !self.follower_ids.include? user.id and user.auto_follow_tasks
+    self.followers << user if !self.follower_ids.include?(user.id) && user.auto_follow_tasks
   end
 
   private
