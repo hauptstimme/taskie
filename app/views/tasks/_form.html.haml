@@ -1,9 +1,5 @@
 .col-sm-5
   = form_for [@project, @task] do |f|
-    - unless @task.new_record?
-      .form-group.checkbox
-        = f.label :status, "Completed?"
-        = f.check_box :status, {}, "completed", "active"
     .form-group= f.text_field :name, class: "form-control", placeholder: "Name"
     .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
     .form-group

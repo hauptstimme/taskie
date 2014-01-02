@@ -11,7 +11,6 @@ FactoryGirl.define do
     association :creator
     association :milestone
     priority :normal
-    status :active
     name "Do something"
     details "You better do something! Do it!"
   end

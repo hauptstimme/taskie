@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if request.patch? && request.referrer != edit_project_task_url
+    if params[:task][:status].present?
       if @task.update(task_params)
         @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
       end
@@ -79,6 +79,13 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:assignee_id, :name, :details, :status, :priority, :milestone_id)
+    permitted =
+      if params[:task][:status].present?
+        [:status]
+      else
+        [:assignee_id, :name, :details, :priority, :milestone_id]
+      end
+
+    params.require(:task).permit(permitted)
   end
 end
