@@ -25,8 +25,14 @@ describe User do
   end
 
   describe "scopes" do
-    subject { User }
-    it { should respond_to(:active) }
+    let!(:using) { FactoryGirl.create(:user, last_sign_in_at: 1.minute.ago) }
+    let!(:never_used) { FactoryGirl.create(:user, last_sign_in_at: nil) }
+
+    describe ".active" do
+      subject { User.active }
+
+      it { should == [using] }
+    end
   end
 
   describe "validations" do

@@ -34,9 +34,19 @@ describe Task do
   end
 
   describe "scopes" do
-    subject { Task }
+    let!(:completed_critical_recent) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: Time.now) }
+    let!(:completed_critical_old) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: 1.week.ago) }
+    let!(:active_critical_recent) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: Time.now) }
+    let!(:active_critical_old) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: 1.week.ago) }
+    let!(:completed_normal_recent) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: Time.now) }
+    let!(:completed_normal_old) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: 1.week.ago) }
+    let!(:active_normal_recent) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: Time.now) }
+    let!(:active_normal_old) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: 1.week.ago) }
 
-    it { should respond_to(:sorted) }
+    describe ".sorted" do
+      subject { Task.sorted }
+      it { should == [active_critical_recent, active_critical_old, active_normal_recent, active_normal_old, completed_critical_recent, completed_critical_old, completed_normal_recent, completed_normal_old] }
+    end
   end
 
   describe "hooks" do
