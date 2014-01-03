@@ -33,7 +33,7 @@ describe Task do
     end
   end
 
-  describe "scopes" do
+  describe "scopes", slow: true do
     let!(:completed_critical_recent) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: Time.now) }
     let!(:completed_critical_old) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: 1.week.ago) }
     let!(:active_critical_recent) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: Time.now) }
