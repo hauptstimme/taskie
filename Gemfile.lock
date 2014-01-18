@@ -79,6 +79,7 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
+    fivemat (1.2.1)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -219,6 +220,7 @@ DEPENDENCIES
   devise_invitable
   factory_girl_rails
   figaro!
+  fivemat
   haml-rails
   jquery-rails
   kaminari

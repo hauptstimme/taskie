@@ -25,6 +25,7 @@ gem 'rails-assets-select2', '3.4.5'
 group :test do
   gem 'factory_girl_rails', require: false
   gem 'timecop'
+  gem 'fivemat'
 end
 
 group :test, :development do
