@@ -33,7 +33,7 @@
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
                   %i.fa.fa-suitcase.fa-fw
-                  Projects
+                  = t("navigation.projects")
                   %i.fa.fa-caret-down
                 %ul.dropdown-menu
                   - cache ["current_user_projects", current_user.projects] do
@@ -47,11 +47,11 @@
                   %li
                     = link_to new_project_path do
                       %i.fa.fa-plus.fa-fw
-                      New project
+                      = t("navigation.new_project")
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
                   %i.fa.fa-user.fa-fw
-                  Account
+                  = t("navigation.account")
                   %i.fa.fa-caret-down
                 %ul.dropdown-menu
                   %li.dropdown-header= user_with_gravatar current_user
@@ -59,20 +59,20 @@
                   %li
                     = link_to new_user_invitation_path do
                       %i.fa.fa-plus.fa-fw
-                      Invite
+                      = t("navigation.invite")
                   %li
                     = link_to settings_path do
                       %i.fa.fa-cog.fa-fw
-                      Settings
+                      = t("navigation.settings")
                   %li
                     = link_to destroy_user_session_path do
                       %i.fa.fa-sign-out.fa-fw
-                      Logout
+                      = t("navigation.logout")
             - else
               %li
                 = link_to new_user_session_path do
                   %i.fa.fa-sign-in.fa-fw
-                  Login
+                  = t("navigation.login")
 
     .container#main-content
       = bootstrap_flash

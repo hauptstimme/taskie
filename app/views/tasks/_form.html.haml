@@ -1,14 +1,14 @@
 .col-sm-5
   = form_for [@project, @task] do |f|
-    .form-group= f.text_field :name, class: "form-control", placeholder: "Name"
-    .form-group= f.text_area :details, class: "form-control", placeholder: "Details", rows: 5
+    .form-group= f.text_field :name, class: "form-control", placeholder: t("tasks.form.name")
+    .form-group= f.text_area :details, class: "form-control", placeholder: t("tasks.form.details"), rows: 5
     .form-group
-      = f.label :milestone_id, "Milestone"
+      = f.label :milestone_id, t("tasks.form.milestone")
       = f.select :milestone_id, options_for_select(@milestones, @task.milestone_id), { include_blank: true }, class: "form-control"
     .form-group
-      = f.label :priority
+      = f.label :priority, t("tasks.form.priority")
       = f.select :priority, options_for_select(Task::PRIORITY.keys, @task.priority), { include_blank: false }, class: "form-control"
     .form-group
-      = f.label :assignee_id, "Assign to"
+      = f.label :assignee_id, t("tasks.form.assign_to")
       = f.select :assignee_id, options_for_select(@users, @task.assignee_id), { include_blank: true }, class: "form-control"
     .form-group= f.submit class: "btn btn-primary btn-block"

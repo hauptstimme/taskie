@@ -6,7 +6,7 @@
       - if (@comments_size = task.comments.size) > 0
         %small
           %i.fa.fa-comments
-          = pluralize @comments_size, "comment"
+          = pluralize @comments_size, t("comments.comment")
     .pull-left
       - if !hide_milestone and task.milestone.present?
         %div
@@ -15,4 +15,7 @@
       %div= check_box_with_status_for task
     .pull-right
       :erb
-        created <%= time_distance_with_tooltip task.created_at %> ago by <%= user_with_gravatar task.creator %><% unless hide_assignee %>, assigned to <%= user_with_gravatar task.assignee %><% end %>
+        <%= t("tasks.created_by_html", time: time_distance_with_tooltip(task.created_at), user: user_with_gravatar(task.creator)) %>
+        <% unless hide_assignee %>
+          <%= t("tasks.assigned_to_html", user: user_with_gravatar(task.assignee)) %>
+        <% end %>

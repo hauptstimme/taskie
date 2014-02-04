@@ -1,5 +1,9 @@
 = content_tag :blockquote, class: "comment", id: "comment#{comment.id}" do
   %small
     :erb
-      <%= user_with_gravatar comment.user %> wrote <%= time_distance_with_tooltip comment.created_at %> ago <% if comment.updated_at > comment.created_at %><em>(last edited <%= time_distance_with_tooltip(comment.updated_at) %> ago)</em><% end %><span class="links"> [ <%= link_to "#", "#comment#{comment.id}", name: "comment#{comment.id}" %><% if comment.user == current_user and comment.modifiable? %> | <%= link_to "edit", edit_project_task_comment_path(@project, @task, comment), remote: true %> | <%= link_to "delete", project_task_comment_path(@project, @task, comment), data: { method: :delete, confirm: t("confirm.prompt") } %><% end %> ]</span>
+      <%= t("comments.comment_html", user: user_with_gravatar(comment.user), time: time_distance_with_tooltip(comment.created_at)) %>
+      <% if comment.updated_at > comment.created_at %>
+        <%= t("comments.last_edited_html", time: time_distance_with_tooltip(comment.updated_at)) %>
+      <% end %>
+      <span class="links"> [ <%= link_to "#", "#comment#{comment.id}", name: "comment#{comment.id}" %><% if comment.user == current_user and comment.modifiable? %> | <%= link_to t("comments.edit"), edit_project_task_comment_path(@project, @task, comment), remote: true %> | <%= link_to t("comments.delete"), project_task_comment_path(@project, @task, comment), data: { method: :delete, confirm: t("confirm.prompt") } %><% end %> ]</span>
   %div= render_markdown(comment.text)
