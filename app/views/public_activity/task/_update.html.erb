@@ -3,19 +3,19 @@
     <%= user_with_gravatar activity.owner, alt: "someone" %>
     <% case activity.parameters[:type] %>
     <% when "full" %>
-      updated this task
+      <%= t("tasks.activity.updated") %>
     <% when "status" %>
-      changed status to <%= status_label_for activity.parameters[:changes] %>
+      <%= t("tasks.activity.changed_status_html", status: status_label_for(activity.parameters[:changes])) %>
     <% else %>
-      somehow updated this task
+      <%= t("tasks.activity.somehow_updated") %>
     <% end %>
-    <%= time_distance_with_tooltip activity.created_at %> ago <% if activity.parameters[:type] == "full" %><span id="diff-explain-toggle">&darr;</span><% end %>
+    <%= t("tasks.activity.time_ago_html", time: time_distance_with_tooltip(activity.created_at)) %><% if activity.parameters[:type] == "full" %><span id="diff-explain-toggle">&darr;</span><% end %>
   </small>
   <% if activity.parameters[:type] == "full" %>
     <div class="diff-explain list-group clearfix">
       <div class="list-group-item">
         <% if activity.parameters[:changes].present? %>
-          <h4 class="list-group-item-heading text-muted">Before</h4>
+          <h4 class="list-group-item-heading text-muted"><%= t("tasks.activity.before") %></h4>
           <% activity.parameters[:changes].each do |k,v| %>
             <% case k %>
             <% when "assignee_id" %>

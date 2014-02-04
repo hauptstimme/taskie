@@ -1,9 +1,9 @@
-- title "Dashboard"
+- title t("title.dashboard")
 
 .row
   - if @active_tasks_by_projects.any?
     .col-md-3
-      %h3 Active tasks
+      %h3= t("dashboard.active_tasks")
     .col-md-9
       - @active_tasks_by_projects.each do |project, tasks|
         = link_to project, class: "list-group-item active" do
@@ -12,4 +12,4 @@
             = project.name
         %ul.list-group= render tasks, hide_assignee: true
   - else
-    %h3 Nothing to do. Yay!
+    %h3=t("dashboard.nothing")

@@ -1,8 +1,121 @@
+---
 en:
-  confirm:
-    prompt: Have you been taking your medication lately?
   access:
     denied: "I'm sorry, Dave. I'm afraid I can't do that."
+  comments:
+    buttons:
+      cancel: cancel
+      post: Post
+    comment_html: "%{user} wrote %{time} ago"
+    delete: delete
+    edit: edit
+    edit_comment_html: " is editing his comment (%{cancel})"
+    form:
+      comment: Comment
+    last_edited_html: "<em>(last edited %{time} ago)</em>"
+  confirm:
+    prompt: Have you been taking your medication lately?
+  dashboard:
+    active_tasks: Active tasks
+    nothing: Nothing to do. Yay!
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: "%{count} days"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_months:
+        one: 1 month
+        other: "%{count} months"
+      x_seconds:
+        one: 1 second
+        other: "%{count} seconds"
+  devise:
+    invitations:
+      edit:
+        header: Header
+        submit_button: Submit button
+      new:
+        header: Header
+        submit_button: Submit button
+  milestones:
+    due_date: Due date
+    new_milestone: New milestone
+    no_milestones: No milestones
+    title: Title
+  navigation:
+    account: Account
+    invite: Invite
+    login: Login
+    logout: Logout
+    new_project: New project
+    projects: Projects
+    settings: Settings
+  project:
+    details: Details
+    name: Name
+    owner: Owner
+    participants: Participants
+  settings:
+    all: all
+    api_secret_key: API secret key
+    auto_follow_tasks: Auto-follow tasks
+    tasks_per_page: Tasks per page
+    time_zone: Time zone
+  tasks:
+    assigned_to: ", assigned to %{user}"
+    buttons:
+      delete: Delete
+      edit: Edit
+      follow: Follow
+      new_task: New task
+      unfollow: Unfollow
+    created_html: created %{time} ago
+    form:
+      assign_to: Assign to
+      details: Details
+      edit: Edit
+      milestone: Milestone
+      name: Name
+      priority: Priority
+    new_task: New task
+    no_details: No details
+    no_tasks: No tasks
+  title:
+    dashboard: Dashboard
+    edit_milestone: Edit milestone
+    edit_project: Edit project
+    edit_task: Edit task
+    milestones: Milestones
+    new_milestone: New milestone
+    new_project: New project
+    new_task: New task
+    settings: Settings
+    tasks: Tasks
   views:
     pagination:
       previous: "&lt;"

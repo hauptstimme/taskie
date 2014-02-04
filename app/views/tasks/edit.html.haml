@@ -1,7 +1,7 @@
-- title "Edit task"
+- title t("title.edit_task")
 
 %h2
-  Edit task
+  = t("tasks.form.edit")
   %small= link_to @task.project.name, @task.project
 
 = render "form"

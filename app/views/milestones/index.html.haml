@@ -1,13 +1,13 @@
-- title "#{@project.name}: Milestones", action: :clear
+- title "#{@project.name}: #{t("title.milestones")}", action: :clear
 
-%p= link_to "New milestone", new_project_milestone_path, class: "btn btn-info"
+%p= link_to t("milestones.new_milestone"), new_project_milestone_path, class: "btn btn-info"
 
 - if @milestones.any?
   %table.table
     %thead
       %tr
-        %th Title
-        %th Due date
+        %th= t("milestones.title")
+        %th= t("milestones.due_date")
     = render @milestones
 - else
-  %h2 No milestones
+  %h2= t("milestones.no_milestones")

@@ -1,7 +1,7 @@
-- title "Edit milestone"
+- title t("title.edit_milestone")
 
 %h2
-  Edit milestone
+  = t("title.edit_milestone")
   %small= link_to @milestone.project.name, @milestone.project
 
 = render "form"
