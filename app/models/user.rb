@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  # available: :confirmable, :lockable, :timeoutable, :omniauthable, :registerable
-  devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
+  # available: :confirmable, :lockable, :timeoutable, :omniauthable
+  devise :invitable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
 
   attr_accessor :login
 

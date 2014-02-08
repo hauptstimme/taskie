@@ -24,6 +24,8 @@
       %tr
         %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"
 
+= link_to "Change your password", edit_user_registration_path
+
 :coffeescript
   $(document).ready ->
     $("#api-key-toggle").click ->
