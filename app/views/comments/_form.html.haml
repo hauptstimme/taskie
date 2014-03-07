@@ -2,6 +2,6 @@
   = form_for [@project, @task, @comment], remote: !@comment.new_record? do |f|
     %small
       :erb
-        <%= user_with_gravatar current_user %><% unless @comment.new_record? %><%= t("comments.edit_comment_html", cancel: link_to( t("comments.buttons.cancel"), project_task_comment_path(@project, @task, @comment), remote: true )) %><% end %>
-    .form-group= f.text_area :text, placeholder: t("comments.form.comment"), rows: 5, class: "form-control"
-    .form-group= f.submit t("comments.buttons.post"), class: "btn btn-primary"
+        <%= user_with_gravatar current_user %><% unless @comment.new_record? %> is editing his comment (<%= link_to "cancel", project_task_comment_path(@project, @task, @comment), remote: true %>)<% end %>
+    .form-group= f.text_area :text, placeholder: "Comment", rows: 5, class: "form-control"
+    .form-group= f.submit "Post", class: "btn btn-primary"

@@ -1,9 +1,9 @@
 module TasksHelper
   def status_label_for(task_or_status)
     if task_or_status.try(:completed?) || task_or_status.in?(["completed", 1])
-      content_tag :span, t("tasks.completed"), class: "label label-success"
+      content_tag :span, "Completed", class: "label label-success"
     else
-      content_tag :span, t("tasks.active"), class: "label label-primary"
+      content_tag :span, "Active", class: "label label-primary"
     end
   end
 

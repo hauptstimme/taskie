@@ -8,6 +8,6 @@
 %hr
   .btn-group
     - if current_user == @project.owner
-      = link_to t("project.edit"), edit_project_path(@project), class: "btn btn-primary"
+      = link_to "Edit", edit_project_path(@project), class: "btn btn-primary"
       - unless @project.tasks.any?
-        = link_to t("project.delete"), project_path(@project), data: { method: :delete, confirm: t("confirm.prompt") }, class: "btn btn-danger"
+        = link_to "Delete", project_path(@project), data: { method: :delete, confirm: t("confirm.prompt") }, class: "btn btn-danger"

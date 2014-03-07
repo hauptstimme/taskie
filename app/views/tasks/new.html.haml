@@ -1,7 +1,7 @@
-- title t("title.new_task")
+- title "New task"
 
 %h2
-  = t("tasks.new_task")
+  New task
   %small= link_to @task.project.name, @task.project
 
 = render "form"

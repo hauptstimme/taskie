@@ -7,16 +7,16 @@
         = link_to follow_project_task_path, class: "btn btn-xs btn-info" do
           - if @task.followers.include?(current_user)
             %i.fa.fa-star
-            = t("tasks.buttons.unfollow")
+            Unfollow
           - else
             %i.fa.fa-star-o
-            = t("tasks.buttons.follow")
+            Follow
         = link_to edit_project_task_path(id: @task), class: "btn btn-xs btn-primary" do
           %i.fa.fa-edit
-          =t("tasks.buttons.edit")
+          Edit
         = link_to project_task_path(id: @task), class: "btn btn-xs btn-danger", data: { method: :delete, confirm: t("confirm.prompt") } do
           %i.fa.fa-trash-o
-          = t("tasks.buttons.delete")
+          Delete
       %div
         %h4= @task.name
     .panel-body.clearfix
@@ -32,18 +32,20 @@
       .pull-right.text-right
         %div= priority_badge @task
         %div
-          = t("tasks.assigned_to")
+          assigned to
           = user_with_gravatar @task.assignee
 
 %blockquote.blockquote-primary.task-details
   %small
     = user_with_gravatar @task.creator
-    = t("tasks.created_html", time: time_distance_with_tooltip(@task.created_at))
+    created
+    = time_distance_with_tooltip @task.created_at
+    ago
   %div
     - if @task.details.present?
       = render_markdown @task.details
     - else
-      %p.text-muted= t("tasks.no_details")
+      %p.text-muted No details
 
 - (@comments + @task.activities.includes(:owner)).sort{ |x,y| x[:created_at] <=> y[:created_at] }.each do |activity|
   - if activity.is_a?(PublicActivity::Activity)
