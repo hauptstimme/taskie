@@ -1,5 +1,5 @@
 = cache [task, task.milestone, hide_assignee ||= false, hide_milestone ||= false] do
-  = content_tag :li, class: "list-group-item clearfix task-details" do
+  = content_tag :li, class: "list-group-item clearfix task-details #{task.status}-task" do
     = priority_badge task
     %h4.list-group-item-heading
       = link_to task.name, project_task_path(task.project_id, task.id)

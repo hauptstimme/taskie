@@ -7,7 +7,7 @@
       = f.select :milestone_id, options_for_select(@milestones, @task.milestone_id), { include_blank: true }, class: "form-control"
     .form-group
       = f.label :priority
-      = f.select :priority, options_for_select(Task::PRIORITY.keys, @task.priority), { include_blank: false }, class: "form-control"
+      = f.select :priority, options_for_select(Task.priorities.keys, @task.priority), { include_blank: false }, class: "form-control"
     .form-group
       = f.label :assignee_id, "Assign to"
       = f.select :assignee_id, options_for_select(@users, @task.assignee_id), { include_blank: true }, class: "form-control"
