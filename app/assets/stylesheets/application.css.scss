@@ -78,3 +78,8 @@ footer {
 .list-group-item.active a {
   color: white;
 }
+
+.completed-task a {
+  color: gray;
+  text-decoration: line-through;
+}
