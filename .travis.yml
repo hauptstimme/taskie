@@ -3,5 +3,9 @@ rvm:
   - 2.0.0
   - 2.1.0
   - 2.1.1
+before_script:
+  - 'bundle exec rake db:migrate RAILS_ENV=test'
+script: 
+  - 'bundle exec rspec'
 notifications:
   webhooks: https://haupt.slack.com/services/hooks/travis?token=QOk6UYcy3X0TN3dUlN3frYlB

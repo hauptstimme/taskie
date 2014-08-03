@@ -28,6 +28,12 @@
             %span.icon-bar
             %span.icon-bar
         .navbar-collapse.collapse#navbar-main
+          - if current_project_id = Rails.application.routes.recognize_path(request.path)[:project_id]
+            %ul.nav.navbar-nav.navbar-left
+              %li
+                = link_to project_path(current_project_id) do
+                  %i.fa.fa-folder
+                  = Project.find(current_project_id).name
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               %li.dropdown
