@@ -18,6 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
 
 gem 'rails-assets-strapless', '3.0.3'
 gem 'rails-assets-select2', '3.4.5'
