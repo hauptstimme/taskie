@@ -8,11 +8,10 @@ GIT
 
 GIT
   remote: git://github.com/libgit2/rugged.git
-  revision: 12b8de15ec588d84f89e2527ef1e935e36879ddf
-  branch: development
+  revision: 273e247d72dc347510b2ea5f015d6e27f28b3faa
   submodules: true
   specs:
-    rugged (0.19.0)
+    rugged (0.21.1b2)
 
 GEM
   remote: https://rubygems.org/
