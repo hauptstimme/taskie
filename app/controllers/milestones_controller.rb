@@ -44,7 +44,7 @@ class MilestonesController < ApplicationController
 
   def set_project
     @project = current_user.projects.find(params[:project_id])
-    @milestones = @project.milestones
+    @milestones = @project.milestones.order title: :asc
   end
 
   def set_milestone
