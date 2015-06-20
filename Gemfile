@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
 
-gem 'rails', '~> 4.1.0.beta1'
+gem 'rails', '~> 4.1.0'
 
 gem 'therubyracer'
 gem 'devise', '~> 3.2.2'
@@ -20,8 +19,6 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'rugged', github: 'libgit2/rugged', submodules: true
 
-gem 'rails-assets-strapless', '3.0.3'
-gem 'rails-assets-select2', '3.4.5'
 
 group :test do
   gem 'factory_girl_rails', require: false
@@ -46,4 +43,9 @@ end
 
 group :doc do
   gem 'sdoc', require: false
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-strapless', '3.0.3'
+  gem 'rails-assets-select2', '3.4.5'
 end
