@@ -12,8 +12,8 @@ gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'
 gem 'public_activity'
 gem 'sass-rails'
-gem 'less-rails', '2.3.3'
-gem 'uglifier', '>= 1.3.0'
+gem 'less-rails'
+gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
@@ -27,7 +27,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 3.0.2'
+  gem 'rspec-rails'
   gem 'sqlite3'
 end
 
@@ -39,10 +39,6 @@ end
 
 group :production do
   gem 'pg'
-end
-
-group :doc do
-  gem 'sdoc', require: false
 end
 
 source 'https://rails-assets.org' do
