@@ -12,11 +12,11 @@ describe Api::TasksController do
       before(:each) { get :index, project_id: task.project.to_param }
 
       it "renders successfully" do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "assigns all tasks as @tasks" do
-        assigns(:tasks).should eq([task])
+        expect(assigns(:tasks)).to eq([task])
       end
     end
 
@@ -24,11 +24,11 @@ describe Api::TasksController do
       before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
 
       it "renders successfully" do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "assigns the requested task as @task" do
-        assigns(:task).should eq(task)
+        expect(assigns(:task)).to eq(task)
       end
     end
   end
@@ -38,7 +38,7 @@ describe Api::TasksController do
       before(:each) { get :index, project_id: task.project.to_param }
 
       it "doesn't render" do
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
 
@@ -46,7 +46,7 @@ describe Api::TasksController do
       before(:each) { get :show, project_id: task.project.to_param, id: task.to_param }
 
       it "doesn't render" do
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
   end

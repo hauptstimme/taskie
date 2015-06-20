@@ -5,31 +5,31 @@ describe Task do
 
   subject { task }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "associations" do
-    it { should respond_to(:creator) }
-    it { should respond_to(:assignee) }
-    it { should respond_to(:project) }
-    it { should respond_to(:milestone) }
-    it { should respond_to(:comments) }
-    it { should respond_to(:followers) }
+    it { is_expected.to respond_to(:creator) }
+    it { is_expected.to respond_to(:assignee) }
+    it { is_expected.to respond_to(:project) }
+    it { is_expected.to respond_to(:milestone) }
+    it { is_expected.to respond_to(:comments) }
+    it { is_expected.to respond_to(:followers) }
   end
 
   describe "validations" do
     describe "without name" do
       let(:task) { FactoryGirl.build(:task, name: "") }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without creator" do
       let(:task) { FactoryGirl.build(:task, creator: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without project" do
       let(:task) { FactoryGirl.build(:task, project: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
@@ -45,7 +45,7 @@ describe Task do
 
     describe ".sorted" do
       subject { Task.sorted }
-      it { should == [active_critical_recent, active_critical_old, active_normal_recent, active_normal_old, completed_critical_recent, completed_critical_old, completed_normal_recent, completed_normal_old] }
+      it { is_expected.to eq([active_critical_recent, active_critical_old, active_normal_recent, active_normal_old, completed_critical_recent, completed_critical_old, completed_normal_recent, completed_normal_old]) }
     end
   end
 
@@ -109,6 +109,6 @@ describe Task do
   describe "#name_with_id" do
     subject { task.name_with_id }
     let(:task) { FactoryGirl.create(:task, id: 93, name: "Some weird task") }
-    it { should == "#93 Some weird task" }
+    it { is_expected.to eq("#93 Some weird task") }
   end
 end

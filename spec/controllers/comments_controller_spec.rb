@@ -15,7 +15,7 @@ describe CommentsController do
     describe "GET edit" do
       it "renders the template" do
         xhr :get, :edit, project_id: project.id, task_id: task.id, id: comment.id, format: :js
-        response.should render_template("edit")
+        expect(response).to render_template("edit")
       end
     end
 
@@ -29,27 +29,27 @@ describe CommentsController do
 
         it "assigns a newly created comment as @comment" do
           post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
-          assigns(:comment).should be_a(Comment)
-          assigns(:comment).should be_persisted
+          expect(assigns(:comment)).to be_a(Comment)
+          expect(assigns(:comment)).to be_persisted
         end
 
         it "redirects to the task" do
           post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
-          response.should redirect_to(project_task_path(project, task))
+          expect(response).to redirect_to(project_task_path(project, task))
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved comment as @comment" do
-          Comment.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Comment).to receive(:save).and_return(false)
           post :create, comment: { text: "" }, project_id: project.id, task_id: task.id
-          assigns(:comment).should be_a_new(Comment)
+          expect(assigns(:comment)).to be_a_new(Comment)
         end
 
         it "redirects to the task" do
-          Comment.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Comment).to receive(:save).and_return(false)
           post :create, comment: { text: "" }, project_id: project.id, task_id: task.id
-          response.should redirect_to(project_task_path(project, task))
+          expect(response).to redirect_to(project_task_path(project, task))
         end
       end
     end
@@ -57,33 +57,33 @@ describe CommentsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested comment" do
-          Comment.any_instance.should_receive(:update).with({ "text" => "updated text" })
+          expect_any_instance_of(Comment).to receive(:update).with({ "text" => "updated text" })
           put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
         end
 
         before(:each) { put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js }
 
         it "assigns the requested comment as @comment" do
-          assigns(:comment).should eq(comment)
+          expect(assigns(:comment)).to eq(comment)
         end
 
         it "is successful" do
-          response.should be_success
+          expect(response).to be_success
         end
       end
 
       describe "with invalid params" do
         before :each do
-          Comment.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Comment).to receive(:save).and_return(false)
           put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "" }, format: :js
         end
 
         it "assigns the comment as @comment" do
-          assigns(:comment).should eq(comment)
+          expect(assigns(:comment)).to eq(comment)
         end
 
         it "redirects to the task" do
-          response.should be_success
+          expect(response).to be_success
         end
       end
     end
@@ -100,7 +100,7 @@ describe CommentsController do
 
         it "redirects to the task" do
           delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-          response.should redirect_to(project_task_path(project, task))
+          expect(response).to redirect_to(project_task_path(project, task))
         end
       end
 
@@ -115,7 +115,7 @@ describe CommentsController do
 
         it "redirects to the task" do
           delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-          response.should redirect_to(project_task_path(project, task))
+          expect(response).to redirect_to(project_task_path(project, task))
         end
       end
     end
@@ -125,28 +125,28 @@ describe CommentsController do
     describe "GET edit" do
       it "doesn't render" do
         get :edit, project_id: project.id, task_id: task.id, id: comment.id, format: :js
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
 
     describe "POST create" do
       it "redirects to sign in" do
         post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
-        response.should redirect_to(new_user_session_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     describe "PUT update" do
       it "doesn't render" do
         put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
 
     describe "DELETE destroy" do
       it "doesn't render" do
         delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
   end

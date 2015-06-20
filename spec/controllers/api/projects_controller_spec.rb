@@ -12,11 +12,11 @@ describe Api::ProjectsController do
       before(:each) { get :index }
 
       it "renders successfully" do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "assigns all projects as @projects" do
-        assigns(:projects).should eq([project])
+        expect(assigns(:projects)).to eq([project])
       end
     end
 
@@ -24,11 +24,11 @@ describe Api::ProjectsController do
       before(:each) { get :show, id: project.to_param }
 
       it "renders successfully" do
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "assigns the requested project as @project" do
-        assigns(:project).should eq(project)
+        expect(assigns(:project)).to eq(project)
       end
     end
   end
@@ -38,7 +38,7 @@ describe Api::ProjectsController do
       before(:each) { get :index }
 
       it "doesn't render" do
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
 
@@ -46,7 +46,7 @@ describe Api::ProjectsController do
       before(:each) { get :show, id: project.to_param }
 
       it "doesn't render" do
-        response.should_not be_success
+        expect(response).not_to be_success
       end
     end
   end

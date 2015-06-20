@@ -5,24 +5,24 @@ describe Project do
 
   subject { project }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "assocations" do
-    it { should respond_to(:tasks) }
-    it { should respond_to(:owner) }
-    it { should respond_to(:users) }
-    it { should respond_to(:milestones) }
+    it { is_expected.to respond_to(:tasks) }
+    it { is_expected.to respond_to(:owner) }
+    it { is_expected.to respond_to(:users) }
+    it { is_expected.to respond_to(:milestones) }
   end
 
   describe "validations" do
     describe "without name" do
       let(:project) { FactoryGirl.build(:project, name: "") }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without owner" do
       let(:project) { FactoryGirl.build(:project, owner: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
@@ -31,7 +31,7 @@ describe Project do
       let(:project) { FactoryGirl.create(:project) }
 
       it "adds owner to participants" do
-        project.user_ids.include?(project.owner_id).should be_true
+        expect(project.user_ids.include?(project.owner_id)).to be_truthy
       end
     end
   end

@@ -16,12 +16,12 @@ describe PagesController do
 
       it "returns http success" do
         get :dashboard
-        response.should be_success
+        expect(response).to be_success
       end
 
       it "assigns user's active tasks as @active_tasks_by_projects" do
         get :dashboard
-        assigns(:active_tasks_by_projects).should eq(project => [active_task])
+        expect(assigns(:active_tasks_by_projects)).to eq(project => [active_task])
       end
     end
   end
@@ -30,7 +30,7 @@ describe PagesController do
     describe "GET dashboard" do
       it "redirects to sign in" do
         get :dashboard
-        response.should redirect_to(new_user_session_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end

@@ -9,9 +9,9 @@ describe TaskMailer do
     before { mail.deliver }
 
     it "renders the headers" do
-      mail.subject.should eq("Assigned task: Testing mailer")
-      mail.to.should eq(["testing-mailer-assignee@maldoror.tk"])
-      mail.from.should eq(["taskie@hauptstimme.tk"])
+      expect(mail.subject).to eq("Assigned task: Testing mailer")
+      expect(mail.to).to eq(["testing-mailer-assignee@maldoror.tk"])
+      expect(mail.from).to eq(["taskie@hauptstimme.tk"])
     end
   end
 
@@ -24,9 +24,9 @@ describe TaskMailer do
     before { mail.deliver }
 
     it "renders the headers" do
-      mail.subject.should eq("New comment in task Testing mailer")
-      mail.to.should eq(["testing-mailer-creator@maldoror.tk"])
-      mail.from.should eq(["taskie@hauptstimme.tk"])
+      expect(mail.subject).to eq("New comment in task Testing mailer")
+      expect(mail.to).to eq(["testing-mailer-creator@maldoror.tk"])
+      expect(mail.from).to eq(["taskie@hauptstimme.tk"])
     end
   end
 end

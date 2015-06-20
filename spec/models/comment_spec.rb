@@ -5,27 +5,27 @@ describe Comment do
 
   subject { comment }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "associations" do
-    it { should respond_to(:task) }
-    it { should respond_to(:user) }
+    it { is_expected.to respond_to(:task) }
+    it { is_expected.to respond_to(:user) }
   end
 
   describe "validations" do
     describe "without task" do
       let(:comment) { FactoryGirl.build(:comment, task: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without user" do
       let(:comment) { FactoryGirl.build(:comment, user: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without text" do
       let(:comment) { FactoryGirl.build(:comment, text: "") }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
@@ -58,12 +58,12 @@ describe Comment do
 
     describe "more than one day ago" do
       let(:comment) { FactoryGirl.build(:comment, created_at: 25.hours.ago) }
-      it { should be_false }
+      it { is_expected.to be_falsey }
     end
 
     describe "less than one day ago" do
       let(:comment) { FactoryGirl.build(:comment, created_at: 23.hours.ago) }
-      it { should be_true }
+      it { is_expected.to be_truthy }
     end
   end
 

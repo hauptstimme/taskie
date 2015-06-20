@@ -5,21 +5,21 @@ describe Milestone do
 
   subject { milestone }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "associations" do
-    it { should respond_to(:tasks) }
+    it { is_expected.to respond_to(:tasks) }
   end
 
   describe "validations" do
     describe "without project" do
       let(:milestone) { FactoryGirl.build(:milestone, project: nil) }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     describe "without title" do
       let(:milestone) { FactoryGirl.build(:milestone, title: "") }
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
@@ -31,7 +31,7 @@ describe Milestone do
 
       it "nullifies task's milestone" do
         milestone.destroy
-        task.reload.milestone.should_not be_present
+        expect(task.reload.milestone).not_to be_present
       end
     end
   end
