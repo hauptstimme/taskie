@@ -13,8 +13,10 @@ Taskie::Application.routes.draw do
 
   devise_for :users, skip: [:registrations]
     as :user do
-      get 'users/edit', to: 'devise/registrations#edit', as: 'edit_user_registration'
-      patch 'users', to: 'devise/registrations#update', as: 'user_registration'
+      controller "devise/registrations" do
+        get 'users/edit', action: :edit, as: 'edit_user_registration'
+        patch 'users', action: :update, as: 'user_registration'
+      end
     end
 
   resources :projects, except: :index do
@@ -27,6 +29,6 @@ Taskie::Application.routes.draw do
   resource :settings, only: [:show, :update]
 
   controller :pages do
-    root to: :dashboard
+    root action: :dashboard
   end
 end

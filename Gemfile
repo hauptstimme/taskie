@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails'
 
 gem 'therubyracer'
-gem 'devise', '~> 3.2.2'
+gem 'devise'
 gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro', github: 'laserlemon/figaro'

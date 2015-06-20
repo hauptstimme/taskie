@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
 
   def notify_followers
     task.followers.where.not("id = ?", user.id).each do |follower|
-      TaskMailer.new_comment(self, follower).deliver
+      TaskMailer.new_comment(self, follower).deliver_now
     end
   end
 end

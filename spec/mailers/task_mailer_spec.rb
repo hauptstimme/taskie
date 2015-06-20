@@ -6,7 +6,7 @@ describe TaskMailer do
     let(:task) { FactoryGirl.create(:task, name: "Testing mailer", assignee: assignee) }
     let(:mail) { TaskMailer.task_assigned(task) }
 
-    before { mail.deliver }
+    before { mail.deliver_now }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Assigned task: Testing mailer")
@@ -21,7 +21,7 @@ describe TaskMailer do
     let(:comment) { FactoryGirl.create(:comment, task: task) }
     let(:mail) { TaskMailer.new_comment(comment, creator) }
 
-    before { mail.deliver }
+    before { mail.deliver_now }
 
     it "renders the headers" do
       expect(mail.subject).to eq("New comment in task Testing mailer")

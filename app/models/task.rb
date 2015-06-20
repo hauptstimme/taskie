@@ -33,6 +33,6 @@ class Task < ActiveRecord::Base
 
   def notify_assignee
     add_follower assignee
-    TaskMailer.task_assigned(self).deliver
+    TaskMailer.task_assigned(self).deliver_now
   end
 end
