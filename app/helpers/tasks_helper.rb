@@ -29,7 +29,7 @@ module TasksHelper
     priority =
       case task_or_priority
       when Integer
-        Task::PRIORITY.invert[task_or_priority]
+        Task.priorities.invert[task_or_priority]
       when Task
         task_or_priority.priority
       else
