@@ -8,4 +8,4 @@ before_script:
 script:
   - 'bundle exec rspec'
 notifications:
-  webhooks: https://haupt.slack.com/services/hooks/travis?token=QOk6UYcy3X0TN3dUlN3frYlB
+  slack: haupt:ZRLGfTxkNwFFW925IGSoqvFE
