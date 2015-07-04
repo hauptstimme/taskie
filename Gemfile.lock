@@ -172,7 +172,7 @@ GEM
     rails-assets-jquery (2.1.4)
     rails-assets-select2 (3.4.5)
       rails-assets-jquery (>= 1.7.1)
-    rails-assets-strapless (3.0.3)
+    rails-assets-strapless (3.3.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -278,7 +278,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails
   rails-assets-select2 (= 3.4.5)!
-  rails-assets-strapless (= 3.0.3)!
+  rails-assets-strapless (= 3.3.1)!
   redcarpet
   rspec-rails
   rugged!

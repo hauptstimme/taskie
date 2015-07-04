@@ -1,30 +1,30 @@
 - title "Settings"
 
-%h2 Settings
+.col-sm-offset-3.col-sm-6
+  %h1 Settings
+  = form_for current_user, url: settings_path do |f|
+    %table.table.table-vmiddle
+      %tbody
+        %tr
+          %th Time zone
+          %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
+        %tr
+          %th Tasks per page
+          %td= f.select :tasks_per_page, options_for_select([10, 25, 50, 100, ["all", 0]], current_user.tasks_per_page), { include_blank: false }, class: "form-control input-sm"
+        %tr
+          %th Auto-follow tasks
+          %td= f.check_box :auto_follow_tasks
+        %tr
+          %th API secret key
+          %td
+            %span#api-key-toggle.btn.btn-xs.btn-primary
+              %i.fa.fa-unlock
+              %i.fa.fa-lock
+            %code#api-key= current_user.api_key
+        %tr
+          %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"
 
-= form_for current_user, url: settings_path do |f|
-  %table.table.table-autowidth.table-vmiddle
-    %tbody
-      %tr
-        %th Time zone
-        %td= time_zone_select :user, :time_zone, ActiveSupport::TimeZone.all, { default: current_user.time_zone, prompt: true }, class: "form-control input-sm"
-      %tr
-        %th Tasks per page
-        %td= f.select :tasks_per_page, options_for_select([10, 25, 50, 100, ["all", 0]], current_user.tasks_per_page), { include_blank: false }, class: "form-control input-sm"
-      %tr
-        %th Auto-follow tasks
-        %td= f.check_box :auto_follow_tasks
-      %tr
-        %th API secret key
-        %td
-          %span#api-key-toggle.btn.btn-xs.btn-primary
-            %i.fa.fa-unlock
-            %i.fa.fa-lock
-          %code#api-key= current_user.api_key
-      %tr
-        %td{colspan: 2}= f.submit "Save", class: "btn btn-primary btn-block"
-
-= link_to "Change your password", edit_user_registration_path
+  = link_to "Change your password", edit_user_registration_path
 
 :coffeescript
   $(document).ready ->

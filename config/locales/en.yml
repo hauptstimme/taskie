@@ -1,4 +1,8 @@
 en:
+  activerecord:
+    attributes:
+      user:
+        login: Username or email
   confirm:
     prompt: Have you been taking your medication lately?
   access:

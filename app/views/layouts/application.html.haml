@@ -7,14 +7,13 @@
     %title= content_for?(:title) ? yield(:title) : "Taskie"
     = csrf_meta_tags
     /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+      = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     -# ["144x144", "114x114", "72x72", nil].each do |size|
       =# favicon_link_tag ["apple-touch-icon", size, "precomposed.png"].compact.join("-"), rel: 'apple-touch-icon-precomposed', type: 'image/png', sizes: size
-    = favicon_link_tag '//hauptstimme.tk/favicon.ico', rel: 'shortcut icon'
+    = favicon_link_tag 'https://hauptstimme.github.io/favicon.ico', rel: 'shortcut icon'
 
     = stylesheet_link_tag "application", media: "all"
-    = javascript_include_tag "application"
-    = cdn_css_tag "font-awesome/4.0.3/css/font-awesome.min"
+    = cdn_css_tag "font-awesome/4.3.0/css/font-awesome.min"
 
   %body
     .navbar.navbar-inverse
@@ -22,38 +21,61 @@
         .navbar-header
           = link_to root_path, class: "navbar-brand" do
             Taskie
-            %div#spinner
+            #spinner
           %button.navbar-toggle{type: "button", data: {toggle: "collapse", target: "#navbar-main"}}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
         .navbar-collapse.collapse#navbar-main
-          - if current_project_id = Rails.application.routes.recognize_path(request.path)[:project_id]
-            %ul.nav.navbar-nav.navbar-left
-              %li
-                = link_to project_path(current_project_id) do
-                  %i.fa.fa-folder
-                  = Project.find(current_project_id).name
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
-              %li.dropdown
-                = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
-                  %i.fa.fa-suitcase.fa-fw
-                  Projects
-                  %i.fa.fa-caret-down
-                %ul.dropdown-menu
-                  - cache ["current_user_projects", current_user.projects] do
-                    - if current_user.projects.any?
-                      - current_user.projects.each do |p|
+              - if current_user.projects.any?
+                - cache ["current_user_projects", current_project_id = Rails.application.routes.recognize_path(request.path)[:project_id], current_user.projects] do
+                  - if current_project_id
+                    %ul.nav.navbar-nav.navbar-left
+                      %li
+                        = link_to project_path(current_project_id) do
+                          %i.fa.fa-folder.fa-fw
+                          = current_user.projects.find(current_project_id).name
+                    %li.dropdown
+                      = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
+                        %i.fa.fa-suitcase.fa-fw
+                        Other projects
+                        %i.fa.fa-caret-down
+                      %ul.dropdown-menu
+                        - current_user.projects.where.not(id: current_project_id).each do |p|
+                          %li
+                            = link_to p do
+                              %i.fa.fa-folder.fa-fw
+                              = p.name
+                        %li.divider
                         %li
-                          = link_to p do
-                            %i.fa.fa-folder.fa-fw
-                            = p.name
-                      %li.divider
-                  %li
-                    = link_to new_project_path do
-                      %i.fa.fa-plus.fa-fw
-                      New project
+                          = link_to new_project_path do
+                            %i.fa.fa-plus.fa-fw
+                            New project
+                  - else
+                    %li.dropdown
+                      = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
+                        %i.fa.fa-suitcase.fa-fw
+                        Projects
+                        %i.fa.fa-caret-down
+                      %ul.dropdown-menu
+                        - current_user.projects.each do |p|
+                          %li
+                            = link_to p do
+                              %i.fa.fa-folder.fa-fw
+                              = p.name
+                        %li.divider
+                        %li
+                          = link_to new_project_path do
+                            %i.fa.fa-plus.fa-fw
+                            New project
+              - else
+                %li
+                  = link_to new_project_path do
+                    %i.fa.fa-plus.fa-fw
+                    New project
+
               %li.dropdown
                 = link_to nil, data: { toggle: "dropdown", target: "#" }, class: "dropdown-toggle" do
                   %i.fa.fa-user.fa-fw
@@ -84,12 +106,7 @@
       = bootstrap_flash
       = yield
 
-    %footer
-      .container
-        Taskie revision
-        = link_to REVISION[0,9], "https://github.com/hauptstimme/taskie/commit/#{REVISION}"
-        .pull-right#links
-          = link_to "http://github.com/Hauptstimme/taskie", target: "_blank" do
-            %i.fa.fa-github.fa-2x
-          = link_to "http://hauptstimme.tk/projects", target: "_blank" do
-            %i.hauptstimme-icon-main.hauptstimme-large{aria: { hidden: "true" }}
+    %footer= render "layouts/footer"
+  = javascript_include_tag "application"
+  - if Rails.env.development?
+    = javascript_include_tag "https://raw.githubusercontent.com/Khan/tota11y/52d130e5bb9494fdc00ba5d6cdfbb6909e27fc87/build/tota11y.min.js"

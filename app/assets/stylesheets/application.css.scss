@@ -36,7 +36,7 @@ blockquote small:before {
 }
 
 footer {
-  color: gray;
+  color: #767676;
   border-top: 1px solid #ccc;
   margin-top: 35px;
   .container {
@@ -44,16 +44,12 @@ footer {
   }
   #links {
     a {
-      color: gray;
+      color: #767676;
       text-decoration: none;
       margin-left: 7px;
       &:hover { color: black; }
     }
   }
-}
-
-.navbar-header {
-  width: 130px;
 }
 
 .link-danger {

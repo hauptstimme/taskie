@@ -42,6 +42,6 @@ group :production do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-strapless', '3.0.3'
+  gem 'rails-assets-strapless', '3.3.1'
   gem 'rails-assets-select2', '3.4.5'
 end

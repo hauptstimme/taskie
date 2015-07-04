@@ -29,7 +29,7 @@ module ApplicationHelper
 
   def gravatar_for(user, options={})
     size = options[:size] || 20
-    image = image_tag("https://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{size}", style: "width: #{size}px", alt: "G")
+    image = image_tag("https://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{size}", style: "width: #{size}px", alt: "Gravatar")
     unless user_signed_in? and current_user.id == user.id
       image
     else

@@ -11,17 +11,17 @@
 
 /*[data-icon]:before {
   font-family: 'Hauptstimme';
-  content: attr(data-icon);
-  speak: none;
   font-weight: normal;
   font-variant: normal;
+  content: attr(data-icon);
+  speak: none;
   text-transform: none;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }*/
 
-.hauptstimme-icon-main {
+.hauptstimme-icon {
   font-family: 'Hauptstimme';
   speak: none;
   font-style: normal;
