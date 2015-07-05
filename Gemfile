@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 4.2.2'
 
 gem 'therubyracer'
 gem 'devise'
@@ -18,7 +18,6 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'rugged', github: 'libgit2/rugged', submodules: true
-
 
 group :test do
   gem 'factory_girl_rails', require: false
