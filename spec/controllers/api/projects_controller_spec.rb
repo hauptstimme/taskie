@@ -161,5 +161,4 @@ describe Api::ProjectsController do
   #     response.should redirect_to(api_projects_url)
   #   end
   # end
-
 end

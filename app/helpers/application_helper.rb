@@ -3,14 +3,14 @@ module ApplicationHelper
     content_for :title, text
   end
 
-  def title(text, options={})
+  def title(text, options = {})
     options.reverse_merge!(action: :prepend)
 
     result = text
     if options[:add].present?
-      add = options[:add].to_a.reject{ |k, v| v.nil? }
+      add = options[:add].to_a.reject { |_k, v| v.nil? }
       if add.present?
-        add = add.map{ |k, v| "#{k} #{v}" }.join(", ")
+        add = add.map { |k, v| "#{k} #{v}" }.join(", ")
         result = "#{result} (#{add})"
       end
     end
@@ -21,23 +21,23 @@ module ApplicationHelper
       when :clear
         result
       else
-        raise ArgumentError, ":action doesn't accept #{options[:action].inspect}"
+        fail ArgumentError, ":action doesn't accept #{options[:action].inspect}"
       end
 
     content_for_title result
   end
 
-  def gravatar_for(user, options={})
+  def gravatar_for(user, options = {})
     size = options[:size] || 20
     image = image_tag("https://gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=#{size}", style: "width: #{size}px", alt: "G")
-    unless user_signed_in? and current_user.id == user.id
-      image
+    if user_signed_in? && current_user.id == user.id
+      link_to image, 'http://gravatar.com', target: '_blank'
     else
-      link_to image, "http://gravatar.com", target: "_blank"
+      image
     end
   end
 
-  def user_with_gravatar(user_or_id, options={})
+  def user_with_gravatar(user_or_id, options = {})
     user = user_or_id.is_a?(Integer) ? User.find(user_or_id) : user_or_id
     if user.present?
       content_tag :span, class: "gravatar" do
@@ -49,11 +49,19 @@ module ApplicationHelper
     end
   end
 
+  def markdown_renderer
+    @_markdown_renderer ||=
+      Redcarpet::Markdown.new(
+        Redcarpet::Render::HTML,
+        autolink: true,
+        space_after_headers: true
+      )
+  end
+
   def render_markdown(text)
-    if text.present?
-      @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
-      @markdown.render(text).html_safe
-    end
+    return unless text.present?
+
+    markdown_renderer.render(text).html_safe
   end
 
   # http://andre.arko.net/2013/02/02/nested-layouts-on-rails--31/

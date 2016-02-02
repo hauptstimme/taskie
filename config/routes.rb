@@ -12,12 +12,12 @@ Taskie::Application.routes.draw do
   end
 
   devise_for :users, skip: [:registrations]
-    as :user do
-      controller "devise/registrations" do
-        get 'users/edit', action: :edit, as: 'edit_user_registration'
-        patch 'users', action: :update, as: 'user_registration'
-      end
+  as :user do
+    controller "devise/registrations" do
+      get 'users/edit', action: :edit, as: 'edit_user_registration'
+      patch 'users', action: :update, as: 'user_registration'
     end
+  end
 
   resources :projects, except: :index do
     resources :milestones

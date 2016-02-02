@@ -6,7 +6,7 @@ module BootstrapHelper
     info: :info,
     notice: :success,
     warning: :warning
-  }
+  }.freeze
 
   def bootstrap_flash
     flash.flat_map do |type, message|
@@ -19,41 +19,40 @@ module BootstrapHelper
     end.compact.join("\n").html_safe
   end
 
-  def menu_item(name=nil, path="#", *args, &block)
+  def menu_item(name = nil, path = "#", *args, &block)
     path = name || path if block_given?
     options = args.extract_options!
-    content_tag :li, class: is_active?(path, options) do
+    content_tag :li, class: state_class_for(path, options) do
       name, path = path, options if block_given?
       link_to name, path, options, &block
     end
   end
 
-  def uri_state(uri, options={})
+  def uri_state(uri, options = {})
     root_url = request.host_with_port + '/'
     root = uri == '/' || uri == root_url
 
-    request_uri = if uri.start_with?(root_url)
-      request.url
-    else
-      request.path
-    end
+    request_uri =
+      if uri.start_with?(root_url)
+        request.url
+      else
+        request.path
+      end
 
     if !options[:method].nil? || !options["data-method"].nil?
       :inactive
     elsif uri == request_uri || (options[:root] && (request_uri == '/') || (request_uri == root_url))
       :active
+    elsif request_uri.start_with?(uri) && !root
+      :chosen
     else
-      if request_uri.start_with?(uri) and not(root)
-        :chosen
-      else
-        :inactive
-      end
+      :inactive
     end
   end
 
   private
 
-  def is_active?(path, options={})
-    "active" if uri_state(path, options).in?([:active, :chosen])
+  def state_class_for(path, options = {})
+    'active' if uri_state(path, options).in?([:active, :chosen])
   end
 end

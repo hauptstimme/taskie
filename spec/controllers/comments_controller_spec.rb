@@ -22,9 +22,9 @@ describe CommentsController do
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Comment" do
-          expect {
+          expect do
             post :create, comment: valid_attributes, project_id: project.id, task_id: task.id
-          }.to change(Comment, :count).by(1)
+          end.to change(Comment, :count).by(1)
         end
 
         it "assigns a newly created comment as @comment" do
@@ -57,7 +57,7 @@ describe CommentsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested comment" do
-          expect_any_instance_of(Comment).to receive(:update).with({ "text" => "updated text" })
+          expect_any_instance_of(Comment).to receive(:update).with("text" => "updated text")
           put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
         end
 
@@ -93,9 +93,9 @@ describe CommentsController do
 
       describe "valid time" do
         it "destroys the comment" do
-          expect {
+          expect do
             delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-          }.to change{ Comment.count }.by(-1)
+          end.to change { Comment.count }.by(-1)
         end
 
         it "redirects to the task" do
@@ -108,9 +108,9 @@ describe CommentsController do
         before { Timecop.travel(25.hours.from_now) }
 
         it "doesn't destroy the comment" do
-          expect {
+          expect do
             delete :destroy, project_id: project.id, task_id: task.id, id: comment.id
-          }.not_to change{ Comment.count }
+          end.not_to change { Comment.count }
         end
 
         it "redirects to the task" do

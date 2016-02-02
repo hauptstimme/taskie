@@ -28,9 +28,9 @@ describe ProjectsController do
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Project" do
-          expect {
+          expect do
             post :create, project: valid_attributes
-          }.to change(Project, :count).by(1)
+          end.to change(Project, :count).by(1)
         end
 
         before(:each) { post :create, project: valid_attributes }
@@ -78,7 +78,7 @@ describe ProjectsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested project" do
-          expect_any_instance_of(Project).to receive(:update).with({ "name" => "Test Project" })
+          expect_any_instance_of(Project).to receive(:update).with("name" => "Test Project")
           put :update, project_id: project.id, id: project.id, project: { "name" => "Test Project" }
         end
 
@@ -113,9 +113,9 @@ describe ProjectsController do
       before { project.save }
 
       it "destroys the requested project" do
-        expect {
+        expect do
           delete :destroy, project_id: project.id, id: project.id
-        }.to change(Project, :count).by(-1)
+        end.to change(Project, :count).by(-1)
       end
 
       it "redirects to the projects list" do

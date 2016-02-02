@@ -47,14 +47,12 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
       end
+    elsif @task.update(task_params)
+      @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject { |k| k == "updated_at" } }
+      redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
     else
-      if @task.update(task_params)
-        @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject{ |k| k == "updated_at" } }
-        redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
-      else
-        set_associations
-        render action: 'edit'
-      end
+      set_associations
+      render action: 'edit'
     end
   end
 

@@ -34,13 +34,13 @@ describe Task do
   end
 
   describe "scopes", slow: true do
-    let!(:completed_critical_recent) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: Time.now) }
+    let!(:completed_critical_recent) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: Time.current) }
     let!(:completed_critical_old) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: 1.week.ago) }
-    let!(:active_critical_recent) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: Time.now) }
+    let!(:active_critical_recent) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: Time.current) }
     let!(:active_critical_old) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: 1.week.ago) }
-    let!(:completed_normal_recent) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: Time.now) }
+    let!(:completed_normal_recent) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: Time.current) }
     let!(:completed_normal_old) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: 1.week.ago) }
-    let!(:active_normal_recent) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: Time.now) }
+    let!(:active_normal_recent) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: Time.current) }
     let!(:active_normal_old) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: 1.week.ago) }
 
     describe ".sorted" do
@@ -53,26 +53,26 @@ describe Task do
     describe "#notify_assignee" do
       describe "when assignee was changed and is currently present" do
         it "sends an email" do
-          expect {
+          expect do
             FactoryGirl.create(:task)
-          }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+          end.to change { ActionMailer::Base.deliveries.count }.by(1)
         end
       end
 
       describe "when assignee was changed to nil" do
         it "doesn't send an email" do
-          expect {
+          expect do
             FactoryGirl.create(:task, assignee: nil)
-          }.not_to change{ ActionMailer::Base.deliveries.count }
+          end.not_to change { ActionMailer::Base.deliveries.count }
         end
       end
 
       describe "when assignee was not changed and is currently present" do
         it "doesn't send an email" do
           task = FactoryGirl.create(:task)
-          expect {
+          expect do
             task.update(name: "changing name")
-          }.not_to change{ ActionMailer::Base.deliveries.count }
+          end.not_to change { ActionMailer::Base.deliveries.count }
         end
       end
     end
@@ -84,24 +84,24 @@ describe Task do
     describe "when doesn't follow" do
       before { task.followers.delete user }
 
-       it "adds" do
-        expect{ task.add_follower(user) }.to change{ task.follower_ids.include? user.id }
+      it "adds" do
+        expect { task.add_follower(user) }.to change { task.follower_ids.include? user.id }
       end
     end
 
     describe "when follows" do
       before { task.add_follower(user) }
 
-       it "doesn't add" do
-        expect{ task.add_follower(user) }.not_to change{ task.follower_ids.include? user.id }
+      it "doesn't add" do
+        expect { task.add_follower(user) }.not_to change { task.follower_ids.include? user.id }
       end
-     end
+    end
 
     describe "when auto-following is disabled" do
       before { user.update auto_follow_tasks: false }
 
       it "doesn't add" do
-       expect{ task.add_follower(user) }.not_to change{ task.follower_ids.include? user.id }
+        expect { task.add_follower(user) }.not_to change { task.follower_ids.include? user.id }
       end
     end
   end

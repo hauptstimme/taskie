@@ -1,13 +1,15 @@
-class Api::UsersController < Api::BaseController
-  before_action :set_user, only: :show
+module Api
+  class UsersController < Api::BaseController
+    before_action :set_user, only: :show
 
-  def show
-    render json: @user
-  end
+    def show
+      render json: @user
+    end
 
-  private
+    private
 
-  def set_user
-    @user = User.find_by_username(params[:id])
+    def set_user
+      @user = User.find_by_username(params[:id])
+    end
   end
 end

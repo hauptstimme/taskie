@@ -37,7 +37,7 @@ describe Comment do
       end
 
       it "doesn't change the comment" do
-        expect { comment.update(text: "Updated text") }.not_to change{ comment.reload.text }
+        expect { comment.update(text: "Updated text") }.not_to change { comment.reload.text }
       end
     end
 
@@ -48,7 +48,7 @@ describe Comment do
       end
 
       it "changes the comment" do
-        expect { comment.update(text: "Updated text") }.to change{ comment.reload.text }.to("Updated text")
+        expect { comment.update(text: "Updated text") }.to change { comment.reload.text }.to("Updated text")
       end
     end
   end

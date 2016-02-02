@@ -2,7 +2,6 @@ require "spec_helper"
 
 describe TasksController do
   describe "routing" do
-
     it "routes to #index" do
       expect(get("/projects/1/tasks")).to route_to("tasks#index", project_id: "1")
     end
@@ -34,6 +33,5 @@ describe TasksController do
     it "routes to #destroy" do
       expect(delete("/projects/1/tasks/1")).to route_to("tasks#destroy", project_id: "1", id: "1")
     end
-
   end
 end

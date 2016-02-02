@@ -10,10 +10,10 @@ class Task < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :followers, class_name: "User"
 
-  validates_presence_of :name, :project, :creator
+  validates :name, :project, :creator, presence: true
 
   after_create :set_followers
-  after_save :notify_assignee, if: ->{ assignee_id_changed? and assignee_id.present? and assignee_id != creator_id }
+  after_save :notify_assignee, if: -> { assignee_id_changed? && assignee_id.present? && assignee_id != creator_id }
 
   scope :sorted, -> { order :status, priority: :desc, updated_at: :desc }
 
@@ -22,7 +22,7 @@ class Task < ActiveRecord::Base
   end
 
   def add_follower(user)
-    self.followers << user if !self.follower_ids.include?(user.id) && user.auto_follow_tasks
+    followers << user if !follower_ids.include?(user.id) && user.auto_follow_tasks
   end
 
   private

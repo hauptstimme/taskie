@@ -111,7 +111,7 @@ describe User do
 
   describe "#reset_api_key" do
     it "renews API key" do
-      expect { user.reset_api_key }.to change{ user.api_key }
+      expect { user.reset_api_key }.to change { user.api_key }
     end
   end
 end

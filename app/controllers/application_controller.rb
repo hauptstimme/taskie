@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!, unless: :api_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
-  around_action :user_timezone, if: ->{ signed_in? && current_user.time_zone.present? }
+  around_action :user_timezone, if: -> { signed_in? && current_user.time_zone.present? }
 
   private
 

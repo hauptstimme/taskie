@@ -45,7 +45,7 @@ describe TasksController do
         before { task.add_follower(user) }
         it "unfollows" do
           get :follow, project_id: project.id, id: task.id
-          expect(task.follower_ids.include? user.id).to be_falsey
+          expect(task.follower_ids).not_to include user.id
         end
       end
 
@@ -53,7 +53,7 @@ describe TasksController do
         before { task.followers.delete user }
         it "follows" do
           get :follow, project_id: project.id, id: task.id
-          expect(task.follower_ids.include? user.id).to be_truthy
+          expect(task.follower_ids).to include user.id
         end
       end
     end
@@ -61,9 +61,9 @@ describe TasksController do
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Task" do
-          expect {
+          expect do
             post :create, task: valid_attributes, project_id: project.id
-          }.to change(Task, :count).by(1)
+          end.to change(Task, :count).by(1)
         end
 
         before(:each) { post :create, task: valid_attributes, project_id: project.id }
@@ -96,21 +96,21 @@ describe TasksController do
 
     describe "PATCH update" do
       it "updates the task" do
-        expect_any_instance_of(Task).to receive(:update).with({ "status" => "completed" })
+        expect_any_instance_of(Task).to receive(:update).with("status" => "completed")
         patch :update, project_id: project.id, id: task.id, task: { "status" => "completed" }, format: :js
       end
 
       it "creates task activity" do
-        expect {
+        expect do
           patch :update, project_id: project.id, id: task.id, task: { "status" => "completed" }, format: :js
-        }.to change{ task.activities.count }.by(1)
+        end.to change { task.activities.count }.by(1)
       end
     end
 
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested task" do
-          expect_any_instance_of(Task).to receive(:update).with({ "name" => "Test Task" })
+          expect_any_instance_of(Task).to receive(:update).with("name" => "Test Task")
           put :update, project_id: project.id, id: task.id, task: { "name" => "Test Task" }
         end
 
@@ -145,9 +145,9 @@ describe TasksController do
       before { task.save }
 
       it "destroys the requested task" do
-        expect {
+        expect do
           delete :destroy, project_id: project.id, id: task.id
-        }.to change(Task, :count).by(-1)
+        end.to change(Task, :count).by(-1)
       end
 
       it "redirects to the tasks list" do

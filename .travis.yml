@@ -6,7 +6,9 @@ rvm:
   - 2.3.0
 before_script:
   - 'bundle exec rake db:setup RAILS_ENV=test'
+  - 'gem install rubocop'
 script:
   - 'bundle exec rspec'
+  - 'rubocop'
 notifications:
   slack: haupt:ZRLGfTxkNwFFW925IGSoqvFE

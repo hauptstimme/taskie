@@ -42,9 +42,9 @@ describe MilestonesController do
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Milestone" do
-          expect {
+          expect do
             post :create, milestone: valid_attributes, project_id: project.id
-          }.to change(Milestone, :count).by(1)
+          end.to change(Milestone, :count).by(1)
         end
 
         before(:each) { post :create, milestone: valid_attributes, project_id: project.id }
@@ -77,7 +77,7 @@ describe MilestonesController do
 
     describe "PATCH update" do
       it "updates the milestone" do
-        expect_any_instance_of(Milestone).to receive(:update).with({ "title" => "new" })
+        expect_any_instance_of(Milestone).to receive(:update).with("title" => "new")
         patch :update, project_id: project.id, id: milestone.id, milestone: { "title" => "new" }, format: :js
       end
     end
@@ -85,7 +85,7 @@ describe MilestonesController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested milestone" do
-          expect_any_instance_of(Milestone).to receive(:update).with({ "title" => "Test Milestone" })
+          expect_any_instance_of(Milestone).to receive(:update).with("title" => "Test Milestone")
           put :update, project_id: project.id, id: milestone.id, milestone: { "title" => "Test Milestone" }
         end
 
@@ -120,9 +120,9 @@ describe MilestonesController do
       before { milestone.save }
 
       it "destroys the requested milestone" do
-        expect {
+        expect do
           delete :destroy, project_id: project.id, id: milestone.id
-        }.to change(Milestone, :count).by(-1)
+        end.to change(Milestone, :count).by(-1)
       end
 
       it "redirects to the milestones list" do

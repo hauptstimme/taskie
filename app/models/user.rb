@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # available: :confirmable, :lockable, :timeoutable, :omniauthable
-  devise :invitable, :database_authenticatable, :recoverable, :registerable, :rememberable, :trackable, :validatable, authentication_keys: [:login]
+  devise :invitable, :database_authenticatable, :recoverable, :registerable,
+         :rememberable, :trackable, :validatable, authentication_keys: [:login]
 
   attr_accessor :login
 
@@ -11,16 +12,18 @@ class User < ActiveRecord::Base
   has_many :assigned_tasks, class_name: "Task", foreign_key: :assignee_id
   has_and_belongs_to_many :followed_tasks, class_name: "Task"
 
-  scope :active, -> { where "last_sign_in_at is not ?", nil }
+  scope :active, -> { where.not(last_sign_in_at: nil) }
 
   validates :username,
-    presence: true,
-    length: 3..24,
-    format: /\A[[:alpha:]][[:alnum:]]*\z/,
-    uniqueness: {
-      case_sensitive: false
-    }
-  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) }, allow_blank: true
+            presence: true,
+            length: 3..24,
+            format: /\A[[:alpha:]][[:alnum:]]*\z/,
+            uniqueness: {
+              case_sensitive: false
+            }
+  validates :time_zone,
+            inclusion: { in: ActiveSupport::TimeZone.all.map(&:name) },
+            allow_blank: true
 
   before_create :set_defaults
 
@@ -28,9 +31,9 @@ class User < ActiveRecord::Base
     def find_first_by_auth_conditions(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)
-        where(conditions).where("lower(username) = :value OR lower(email) = :value", value: login.downcase).first
+        where(conditions).find_by('lower(username) = :value OR lower(email) = :value', value: login.downcase)
       else
-        where(conditions).first
+        find_by(conditions)
       end
     end
   end
@@ -48,8 +51,9 @@ class User < ActiveRecord::Base
   end
 
   def set_api_key
-    begin
+    loop do
       self.api_key = SecureRandom.hex(16)
-    end while User.exists?(api_key: self.api_key)
+      break unless User.exists?(api_key: api_key)
+    end
   end
 end

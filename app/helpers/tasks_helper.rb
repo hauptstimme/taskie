@@ -22,7 +22,7 @@ module TasksHelper
   end
 
   def task_scopes_for_filter
-    ["all", "active", "completed"]
+    %w(all active completed)
   end
 
   def priority_badge(task_or_priority)

@@ -19,7 +19,7 @@ describe SettingsController do
     describe "PATCH update" do
       describe "with valid params" do
         it "updates the requested comment" do
-          expect_any_instance_of(User).to receive(:update).with({ "time_zone" => "Central Time (US & Canada)" })
+          expect_any_instance_of(User).to receive(:update).with("time_zone" => "Central Time (US & Canada)")
           patch :update, user: { "time_zone" => "Central Time (US & Canada)" }
         end
 

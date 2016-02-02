@@ -1,22 +1,24 @@
-class Api::ProjectsController < Api::BaseController
-  before_action :set_projects
-  before_action :set_project, only: :show
+module Api
+  class ProjectsController < Api::BaseController
+    before_action :set_projects
+    before_action :set_project, only: :show
 
-  def index
-    render json: @projects
-  end
+    def index
+      render json: @projects
+    end
 
-  def show
-    render json: @project
-  end
+    def show
+      render json: @project
+    end
 
-  private
+    private
 
-  def set_projects
-    @projects = current_user.projects.includes(:owner, :users, :milestones)
-  end
+    def set_projects
+      @projects = current_user.projects.includes(:owner, :users, :milestones)
+    end
 
-  def set_project
-    @project = @projects.find_by_id(params[:id])
+    def set_project
+      @project = @projects.find_by_id(params[:id])
+    end
   end
 end
