@@ -34,18 +34,31 @@ describe Task do
   end
 
   describe "scopes", slow: true do
-    let!(:completed_critical_recent) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: Time.current) }
-    let!(:completed_critical_old) { FactoryGirl.create(:task, status: :completed, priority: :critical, updated_at: 1.week.ago) }
-    let!(:active_critical_recent) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: Time.current) }
-    let!(:active_critical_old) { FactoryGirl.create(:task, status: :active, priority: :critical, updated_at: 1.week.ago) }
-    let!(:completed_normal_recent) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: Time.current) }
-    let!(:completed_normal_old) { FactoryGirl.create(:task, status: :completed, priority: :normal, updated_at: 1.week.ago) }
-    let!(:active_normal_recent) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: Time.current) }
-    let!(:active_normal_old) { FactoryGirl.create(:task, status: :active, priority: :normal, updated_at: 1.week.ago) }
+    %i(critical normal).each do |priority|
+      %i(completed active).each do |status|
+        { recent: Time.current, old: 1.week.ago }.each do |name, time|
+          let!(:"#{status}_#{priority}_#{name}") do
+            FactoryGirl.create(:task, status: status, priority: priority, updated_at: time)
+          end
+        end
+      end
+    end
 
     describe ".sorted" do
       subject { Task.sorted }
-      it { is_expected.to eq([active_critical_recent, active_critical_old, active_normal_recent, active_normal_old, completed_critical_recent, completed_critical_old, completed_normal_recent, completed_normal_old]) }
+
+      it do
+        is_expected.to eq [
+          active_critical_recent,
+          active_critical_old,
+          active_normal_recent,
+          active_normal_old,
+          completed_critical_recent,
+          completed_critical_old,
+          completed_normal_recent,
+          completed_normal_old
+        ]
+      end
     end
   end
 

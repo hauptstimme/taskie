@@ -15,11 +15,11 @@ module Api
 
     def set_tasks
       @project = current_user.projects.find_by_id(params[:project_id])
-      @tasks = @project.tasks rescue nil
+      @tasks = @project&.tasks
     end
 
     def set_task
-      @task = @tasks.find_by_id(params[:id]) rescue nil
+      @task = @tasks&.find_by(id: params[:id])
     end
   end
 end

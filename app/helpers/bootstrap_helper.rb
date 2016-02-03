@@ -14,7 +14,11 @@ module BootstrapHelper
 
       Array(message).map do |msg|
         next unless msg.present?
-        content_tag(:div, content_tag(:button, raw("&times;"), class: "close", data: { dismiss: "alert" }) + msg.html_safe, class: "alert fade in alert-#{ALERT_TYPES[type]}")
+        content_tag(
+          :div,
+          content_tag(:button, raw("&times;"), class: "close", data: { dismiss: "alert" }) + msg.html_safe,
+          class: ['alert', 'fade', 'in', "alert-#{ALERT_TYPES[type]}"]
+        )
       end
     end.compact.join("\n").html_safe
   end
@@ -30,7 +34,6 @@ module BootstrapHelper
 
   def uri_state(uri, options = {})
     root_url = request.host_with_port + '/'
-    root = uri == '/' || uri == root_url
 
     request_uri =
       if uri.start_with?(root_url)
@@ -39,11 +42,11 @@ module BootstrapHelper
         request.path
       end
 
-    if !options[:method].nil? || !options["data-method"].nil?
+    if !options[:method].nil? || !options['data-method'].nil?
       :inactive
-    elsif uri == request_uri || (options[:root] && (request_uri == '/') || (request_uri == root_url))
+    elsif request_uri == uri || options[:root] && (request_uri == '/') || request_uri == root_url
       :active
-    elsif request_uri.start_with?(uri) && !root
+    elsif request_uri.start_with?(uri) && !['/', root_url].include?(uri)
       :chosen
     else
       :inactive

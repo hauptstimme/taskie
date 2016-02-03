@@ -56,20 +56,25 @@ describe CommentsController do
 
     describe "PUT update" do
       describe "with valid params" do
-        it "updates the requested comment" do
-          expect_any_instance_of(Comment).to receive(:update).with("text" => "updated text")
-          put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
+        subject do
+          put(
+            :update,
+            project_id: project.id,
+            task_id: task.id,
+            id: comment.id,
+            comment: { 'text' => 'updated text' },
+            format: :js
+          )
         end
 
-        before(:each) { put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js }
+        it { expect { subject }.to change { comment.reload.text }.to 'updated text' }
 
         it "assigns the requested comment as @comment" do
+          subject
           expect(assigns(:comment)).to eq(comment)
         end
 
-        it "is successful" do
-          expect(response).to be_success
-        end
+        it { is_expected.to be_successful }
       end
 
       describe "with invalid params" do
@@ -137,10 +142,18 @@ describe CommentsController do
     end
 
     describe "PUT update" do
-      it "doesn't render" do
-        put :update, project_id: project.id, task_id: task.id, id: comment.id, comment: { "text" => "updated text" }, format: :js
-        expect(response).not_to be_success
+      subject do
+        put(
+          :update,
+          project_id: project.id,
+          task_id: task.id,
+          id: comment.id,
+          comment: { 'text' => 'updated text' },
+          format: :js
+        )
       end
+
+      it { is_expected.not_to be_successful }
     end
 
     describe "DELETE destroy" do

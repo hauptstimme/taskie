@@ -91,9 +91,6 @@ Devise.setup do |config|
   # a value less than 10 in other environments.
   config.stretches = Rails.env.test? ? 1 : 10
 
-  # Setup a pepper to generate the encrypted password.
-  # config.pepper = "f0a5afc8a6c23616a7a87895fb12c26ce8d2ed07f0d4b0c54264d19ae3d11812d3efbb50516bcab198e9b70999b5ed28431c109a78c79a30d3e7246a6a65d5b4"
-
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
   # this period, the invited resource won't be able to accept the invitation.
@@ -275,5 +272,5 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  config.secret_key = 'a5691b0909760413414e29c0c4c69c1937669d46c887fd4eeee27630539a2c60c3041294a32e27c5da8738ed05a2fbdcaaefafd55e4b6c45c12c3cd5501ff449'
+  config.secret_key = Rails.application.secrets.devise_secret_key
 end

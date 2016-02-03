@@ -5,7 +5,8 @@ describe Api::ProjectsController do
 
   context "authorized" do
     before do
-      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(project.owner.api_key)
+      request.headers['Authorization'] =
+        ActionController::HttpAuthentication::Token.encode_credentials(project.owner.api_key)
     end
 
     describe "GET index" do

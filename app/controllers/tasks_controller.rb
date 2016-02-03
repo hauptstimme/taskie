@@ -5,9 +5,19 @@ class TasksController < ApplicationController
   layout "projects_nested", only: :index
 
   def index
-    # TODO: Refactor
-    per_page = current_user.tasks_per_page > 0 ? current_user.tasks_per_page : @project.tasks.count
-    @tasks = @project.tasks.includes(:comments, :creator, :assignee, :milestone).sorted.page(params[:page]).per(per_page)
+    tasks =
+      @project
+      .tasks
+      .includes(:comments, :creator, :assignee, :milestone)
+      .sorted
+      .page(params[:page])
+
+    @tasks =
+      if current_user.tasks_per_page > 0
+        tasks.per(current_user.tasks_per_page)
+      else
+        tasks
+      end
   end
 
   def show
@@ -48,7 +58,14 @@ class TasksController < ApplicationController
         @task.create_activity :update, owner: current_user, parameters: { type: "status", changes: @task.status }
       end
     elsif @task.update(task_params)
-      @task.create_activity :update, owner: current_user, parameters: { type: "full", changes: @task.previous_changes.reject { |k| k == "updated_at" } }
+      @task.create_activity(
+        :update,
+        owner: current_user,
+        parameters: {
+          type: 'full',
+          changes: @task.previous_changes.reject { |k| k == 'updated_at' }
+        }
+      )
       redirect_to project_task_path(id: @task), notice: 'Task was successfully updated.'
     else
       set_associations

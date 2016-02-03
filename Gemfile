@@ -34,6 +34,7 @@ group :development do
   gem 'letter_opener'
   gem 'better_errors'
   gem 'rack-mini-profiler'
+  gem 'pry-rails'
 end
 
 group :production do

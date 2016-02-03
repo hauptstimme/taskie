@@ -14,12 +14,12 @@ module Api
     private
 
     def set_milestones
-      @project = current_user.projects.find_by_id(params[:project_id])
-      @milestones = @project.milestones rescue nil
+      @project = current_user.projects.find_by(id: params[:project_id])
+      @milestones = @project&.milestones
     end
 
     def set_milestone
-      @milestone = @milestones.find_by_id(params[:id]) rescue nil
+      @milestone = @milestones&.find_by_id(params[:id])
     end
   end
 end

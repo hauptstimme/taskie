@@ -139,14 +139,16 @@ describe ProjectsController do
     end
 
     describe "PUT update" do
-      it "raises an exception" do
-        expect { put :update, project_id: project.id, id: project.id, project: { "name" => "Test Project" } }.to raise_exception ActiveRecord::RecordNotFound
-      end
+      subject { put :update, project_id: project.id, id: project.id, project: { 'name' => 'Test Project' } }
+
+      it { expect { subject }.to raise_exception ActiveRecord::RecordNotFound }
     end
 
     describe "DELETE destroy" do
+      subject { delete :destroy, project_id: project.id, id: project.id }
+
       it "raises an exception" do
-        expect { delete :destroy, project_id: project.id, id: project.id }.to raise_exception ActiveRecord::RecordNotFound
+        expect { subject }.to raise_exception ActiveRecord::RecordNotFound
       end
     end
   end

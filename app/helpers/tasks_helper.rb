@@ -8,15 +8,20 @@ module TasksHelper
   end
 
   def check_box_with_status_for(task)
-    form_for task, url: project_task_path(project_id: task.project_id, id: task), remote: true, html: { class: "form-inline status-toggle" } do |f|
-      f.check_box(:status, {}, "completed", "active") + status_label_for(task)
+    form_for(
+      task,
+      url: project_task_path(project_id: task.project_id, id: task),
+      remote: true,
+      html: { class: 'form-inline status-toggle' }
+    ) do |f|
+      f.check_box(:status, {}, 'completed', 'active') + status_label_for(task)
     end
   end
 
   def tasks_filter_select
     content_tag :div, class: "btn-group" do
       task_scopes_for_filter.map do |scope|
-        link_to scope.titleize, project_tasks_path(filter: scope, page: params[:page]), class: "btn btn-sm btn-default"
+        link_to scope.titleize, project_tasks_path(filter: scope, page: params[:page]), class: 'btn btn-sm btn-default'
       end.join.html_safe
     end
   end
