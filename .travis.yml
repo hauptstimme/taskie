@@ -1,7 +1,6 @@
 language: ruby
-cache:
-  directories:
-    - vendor/bundle
+sudo: false
+cache: bundler
 rvm:
   - 2.3.0
 before_script:
