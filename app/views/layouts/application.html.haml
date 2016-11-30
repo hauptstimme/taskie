@@ -13,6 +13,7 @@
     = favicon_link_tag '//hauptstimme.tk/favicon.ico', rel: 'shortcut icon'
 
     = stylesheet_link_tag "application", media: "all"
+    = stylesheet_link_tag 'application', "https://fonts.googleapis.com/css?family=Roboto:300", media: 'all'
     = javascript_include_tag "application"
     = cdn_css_tag "font-awesome/4.0.3/css/font-awesome.min"
 
@@ -91,5 +92,5 @@
         .pull-right#links
           = link_to "http://github.com/Hauptstimme/taskie", target: "_blank" do
             %i.fa.fa-github.fa-2x
-          = link_to "http://hauptstimme.tk/projects", target: "_blank" do
+          = link_to "http://hauptstimme.github.io/projects.html", target: "_blank" do
             %i.hauptstimme-icon-main.hauptstimme-large{aria: { hidden: "true" }}
