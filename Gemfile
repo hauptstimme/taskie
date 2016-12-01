@@ -7,7 +7,6 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro', github: 'laserlemon/figaro'
-gem 'coveralls', require: false
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'
 gem 'public_activity'
