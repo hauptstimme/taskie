@@ -6,7 +6,7 @@ gem 'therubyracer'
 gem 'devise'
 gem 'devise_invitable'
 gem 'redcarpet'
-gem 'figaro', github: 'laserlemon/figaro'
+gem 'figaro', git: 'https://github.com/laserlemon/figaro'
 gem 'active_model_serializers', '~> 0.8.1'
 gem 'kaminari'
 gem 'public_activity'
@@ -16,7 +16,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'rugged', github: 'libgit2/rugged', submodules: true
+gem 'rugged', git: 'https://github.com/libgit2/rugged', submodules: true
 
 group :test do
   gem 'factory_girl_rails', require: false
@@ -41,6 +41,6 @@ group :production do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-strapless', '3.0.3'
   gem 'rails-assets-select2', '3.4.5'
+  gem 'rails-assets-strapless', '3.0.3'
 end

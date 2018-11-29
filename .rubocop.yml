@@ -17,3 +17,6 @@ Metrics/LineLength:
 
 Style/ParallelAssignment:
   Enabled: false
+
+Style/FrozenStringLiteral:
+  Enabled: false
