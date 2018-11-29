@@ -32,7 +32,7 @@ end
 group :development do
   gem 'letter_opener'
   gem 'better_errors'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', '~> 0.10.1'
   gem 'pry-rails'
 end
 
