@@ -10,13 +10,8 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:accept_invitation) do |u|
-      u.permit(:username, :password, :password_confirmation, :invitation_token)
-    end
-
-    devise_parameter_sanitizer.for(:sign_in) do |u|
-      u.permit(:login, :password, :remember_me)
-    end
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:username, :password, :password_confirmation, :invitation_token])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :password, :remember_me])
   end
 
   def user_timezone(&block)

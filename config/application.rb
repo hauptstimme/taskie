@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
 require "active_model/railtie"
 require "active_record/railtie"
@@ -27,5 +27,7 @@ module Taskie
     # config.i18n.default_locale = :de
 
     config.i18n.enforce_available_locales = true
+
+    config.assets.precompile += %w[taskie.diff-explain.toggle.js]
   end
 end
