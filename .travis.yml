@@ -8,5 +8,3 @@ before_script:
 script:
   - 'bundle exec rspec'
   - 'rubocop'
-notifications:
-  slack: haupt:ZRLGfTxkNwFFW925IGSoqvFE
