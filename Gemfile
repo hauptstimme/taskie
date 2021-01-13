@@ -18,7 +18,6 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'rugged', git: 'https://github.com/libgit2/rugged', submodules: true
 
 group :test do
   gem 'factory_girl_rails', require: false

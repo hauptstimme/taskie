@@ -87,10 +87,10 @@
 
     %footer
       .container
-        Taskie revision
-        = link_to REVISION[0,9], "https://github.com/hauptstimme/taskie/commit/#{REVISION}"
+        Taskie
+        - if REVISION.present?
+          revision
+          = link_to REVISION[0,9], "https://github.com/hauptstimme/taskie/commit/#{REVISION}"
         .pull-right#links
-          = link_to "http://github.com/Hauptstimme/taskie", target: "_blank" do
+          = link_to "http://github.com/hauptstimme/taskie", target: "_blank" do
             %i.fa.fa-github.fa-2x
-          = link_to "http://hauptstimme.github.io/projects.html", target: "_blank" do
-            %i.hauptstimme-icon-main.hauptstimme-large{aria: { hidden: "true" }}
