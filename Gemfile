@@ -5,7 +5,7 @@ ruby File.read(File.expand_path("../.ruby-version", __FILE__)).chomp
 gem "rails", "4.2.11.3"
 
 gem "therubyracer", "0.12.3"
-gem "devise", "4.4.0"
+gem "devise", "4.7.1"
 gem "devise_invitable"
 gem "redcarpet"
 gem "figaro", git: "https://github.com/laserlemon/figaro"
