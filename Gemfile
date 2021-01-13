@@ -45,5 +45,3 @@ source "https://rails-assets.org" do
   gem "rails-assets-select2", "3.4.5"
   gem "rails-assets-strapless", "3.0.3"
 end
-
-gem "sprockets", "< 4.0.0"

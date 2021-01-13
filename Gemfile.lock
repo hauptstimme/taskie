@@ -267,7 +267,6 @@ DEPENDENCIES
   redcarpet
   rspec-rails
   sass-rails
-  sprockets (< 4.0.0)
   sqlite3
   therubyracer (= 0.12.3)
   timecop
