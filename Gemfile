@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read(File.expand_path("../.ruby-version", __FILE__)).chomp
 
-gem 'rails', '~> 4.2.5'
+gem 'rails', '4.2.11.3'
 
 gem 'therubyracer', '0.12.3'
 gem 'devise', '~> 3.5.6'
