@@ -4,7 +4,7 @@ cache: bundler
 rvm:
   - 2.3.8
 before_script:
-  - 'gem install rubocop -v 0.45.0'
+  - 'gem install rubocop -v 0.36.0'
 script:
   - 'bundle exec rspec'
   - 'rubocop'

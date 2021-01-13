@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CdnHelper
   CDN_BASE = '//cdnjs.cloudflare.com/ajax/libs/'.freeze
 
