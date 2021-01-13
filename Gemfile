@@ -4,8 +4,8 @@ ruby File.read(File.expand_path("../.ruby-version", __FILE__)).chomp
 
 gem 'rails', '~> 4.2.5'
 
-gem 'therubyracer'
-gem 'devise'
+gem 'therubyracer', '0.12.3'
+gem 'devise', '~> 3.5.6'
 gem 'devise_invitable'
 gem 'redcarpet'
 gem 'figaro', git: 'https://github.com/laserlemon/figaro'
