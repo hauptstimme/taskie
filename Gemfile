@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby File.read(File.expand_path("../.ruby-version", __FILE__)).chomp
+ruby File.read(".ruby-version").chomp
 
 gem "rails", "4.2.11.3"
 
